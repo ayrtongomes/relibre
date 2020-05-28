@@ -1,2 +1,3 @@
 # relibre
-Simple C# project to switch books between users
+
+Maybe it becomes something interesting
