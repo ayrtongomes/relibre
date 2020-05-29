@@ -13,6 +13,9 @@ import {
 } from 'assets/jss/material-kit-react.jsx';
 
 const headerStyle = {
+  logo: {
+    height: '4rem'
+  },
   appBar: {
     display: 'flex',
     border: '0',
@@ -106,12 +109,11 @@ const headerStyle = {
   transparent: {
     backgroundColor: 'transparent !important',
     boxShadow: 'none',
-    paddingTop: '25px',
-    color: '#FFFFFF'
+    color: '#414141'
   },
   dark: {
     color: '#FFFFFF',
-    backgroundColor: '#212121 !important',
+    backgroundColor: '#5271ff !important',
     boxShadow:
       '0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(33, 33, 33, 0.46)'
   },

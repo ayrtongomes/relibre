@@ -17,6 +17,8 @@ import Menu from '@material-ui/icons/Menu';
 // core components
 import headerStyle from 'assets/jss/material-kit-react/components/headerStyle.jsx';
 
+import logoDark from 'assets/img/logo-dark.png';
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -76,9 +78,7 @@ class Header extends React.Component {
     });
     const brandComponent = (
       <NavLink to="/">
-        <Button className={classes.title} style={{ color: 'white' }}>
-          {brand}
-        </Button>
+        <img className={classes.logo} src={logoDark} alt="Logo Relibre" />
       </NavLink>
     );
     return (

@@ -16,7 +16,13 @@
 
 // Core Components
 @import 'core/misc';
-
+h2,
+h1 {
+  color: #414141;
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Fira Sans', 'Roboto', sans-serif;
+}
 // Core Plugins
 
 // @import "plugins/plugin-datetime-picker";

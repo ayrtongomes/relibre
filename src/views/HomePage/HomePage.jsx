@@ -24,7 +24,7 @@ class HomePage extends React.Component {
           brand="relibre"
           rightLinks={<HeaderLinks />}
           fixed
-          color="dark"
+          color="transparent"
           changeColorOnScroll={{
             height: 400,
             color: 'white'
@@ -34,7 +34,8 @@ class HomePage extends React.Component {
         <Parallax image={require('assets/img/banner-home.png')}>
           <div className={classes.container}>
             <GridContainer>
-              <GridItem>
+              <GridItem style={{ maxWidth: '60rem', margin: 'auto' }}>
+                <h1>Descubra pessoas para trocar livros próximas à você:</h1>
                 <div className={classes.brand}>
                   <SearchBox />
                 </div>
