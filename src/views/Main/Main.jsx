@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 // nodejs library that concatenates classes
-import classNames from "classnames";
+import classNames from 'classnames';
 // react components for routing our app without refresh
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 // @material-ui/icons
 // core components
 
-import Header from "components/Header/Header.jsx";
-import HeaderLinks from "components/Header/HeaderLinks.jsx";
-import Footer from "components/Footer/Footer.jsx";
+import Header from 'components/Header/Header.js';
+import HeaderLinks from 'components/Header/HeaderLinks';
+import Footer from 'components/Footer/Footer.js';
 
-import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
+import componentsStyle from 'assets/jss/material-kit-react/views/components.js';
 
 class Main extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class Main extends React.Component {
           color="dark"
           changeColorOnScroll={{
             height: 400,
-            color: "white",
+            color: 'white'
           }}
           {...rest}
         />

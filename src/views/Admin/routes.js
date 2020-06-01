@@ -9,13 +9,13 @@ export const dashRoutes = [
     name: 'Procurar',
     component: Result,
     layout: '/client'
-  },
-  {
-    path: '/instituicao/page',
-    name: 'Inst',
-    component: Institute,
-    layout: '/client'
   }
+  // {
+  //   path: '/instituicao/page',
+  //   name: 'Inst',
+  //   component: Institute,
+  //   layout: '/client'
+  // }
   // {
   //     path: "/login",
   //     name: 'Login',

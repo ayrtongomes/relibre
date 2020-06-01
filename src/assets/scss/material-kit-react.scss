@@ -1,21 +1,20 @@
-/*! =========================================================
- *
- * Material Kit React v1.4.0 based on Material Kit Free - v2.0.2 (Bootstrap 4.0.0 Final Edition)
- *
- * =========================================================
- *
- * Product Page: https://www.creative-tim.com/product/material-kit-pro
- * Available with purchase of license from https://www.creative-tim.com/product/material-kit-pro
- * Copyright 2018 Creative Tim (https://www.creative-tim.com)
- * License Creative Tim (https://www.creative-tim.com/license)
- *
- * ========================================================= */
+/*!
 
-@import 'core/variables';
-@import 'core/mixins';
+ =========================================================
+ * Material Kit React v1.9.0 based on Material Kit Free - v2.0.2 (Bootstrap 4.0.0 Final Edition)
+ =========================================================
 
-// Core Components
-@import 'core/misc';
+ * Product Page: https://www.creative-tim.com/product/material-kit-react
+ * Copyright 2020 Creative Tim (https://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/material-kit-react/blob/master/LICENSE.md)
+
+ * Coded by Creative Tim
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
 h2,
 h1 {
   color: #414141;
@@ -23,6 +22,13 @@ h1 {
   text-align: center;
   font-family: 'Fira Sans', 'Roboto', sans-serif;
 }
+
+@import 'core/variables';
+@import 'core/mixins';
+
+// Core Components
+@import 'core/misc';
+
 // Core Plugins
 
 // @import "plugins/plugin-datetime-picker";

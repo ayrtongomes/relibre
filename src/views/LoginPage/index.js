@@ -1,3 +1,3 @@
-import Login from './LoginPage'
+import Login from './LoginPage.js';
 
 export default Login;

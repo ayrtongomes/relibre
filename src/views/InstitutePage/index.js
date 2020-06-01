@@ -1,3 +1,3 @@
-import ProfilePage from './InstitutePage';
+import ProfilePage from './InstitutePage.js';
 
 export default ProfilePage;

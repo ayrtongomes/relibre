@@ -15,6 +15,7 @@
     "moment": "2.24.0",
     "node-sass": "^4.14.1",
     "nouislider": "13.1.0",
+    "nprogress": "^0.2.0",
     "prop-types": "15.7.1",
     "react": "16.8.1",
     "react-datetime": "2.16.3",
@@ -27,7 +28,8 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-multi": "^0.1.12",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "universal-cookie": "^4.0.3"
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",

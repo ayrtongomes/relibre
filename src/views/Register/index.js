@@ -1,3 +1,3 @@
-import Register from './Checkout'
+import Register from './Checkout.js';
 
 export default Register;

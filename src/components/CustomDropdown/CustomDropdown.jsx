@@ -16,9 +16,9 @@ import Icon from '@material-ui/core/Icon';
 import Popper from '@material-ui/core/Popper';
 
 // core components
-import Button from 'components/CustomButtons/Button.jsx';
+import Button from 'components/CustomButtons/Button.js';
 
-import customDropdownStyle from 'assets/jss/material-kit-react/components/customDropdownStyle.jsx';
+import customDropdownStyle from 'assets/jss/material-kit-react/components/customDropdownStyle.js';
 
 class CustomDropdown extends React.Component {
   constructor(props) {
@@ -73,6 +73,11 @@ class CustomDropdown extends React.Component {
     switch (typeof buttonIcon) {
       case 'function':
         icon = <this.props.buttonIcon className={classes.buttonIcon} />;
+        break;
+      case 'object':
+        if (buttonIcon.type.muiName === 'Icon') {
+          icon = this.props.buttonIcon;
+        }
         break;
       case 'string':
         icon = (
@@ -189,7 +194,11 @@ CustomDropdown.propTypes = {
     'rose'
   ]),
   buttonText: PropTypes.node,
-  buttonIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  buttonIcon: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+    PropTypes.string
+  ]),
   dropdownList: PropTypes.array,
   buttonProps: PropTypes.object,
   dropup: PropTypes.bool,

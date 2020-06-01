@@ -7,10 +7,10 @@ import 'assets/scss/material-kit-react.scss?v=1.4.0';
 import AdminLayout from 'views/Admin';
 import Login from 'views/LoginPage';
 import HomePage from 'views/HomePage';
-import InstitutePage from 'views/InstitutePage/';
-import ResultPage from 'views/ResultPage/';
-import RegisterPage from 'views/RegisterPage/';
-import { PrivateRoute } from 'components/PrivateRoute.jsx';
+// import InstitutePage from 'views/InstitutePage/InstitutePage';
+import ResultPage from 'views/ResultPage/ResultPage';
+import RegisterPage from 'views/RegisterPage/RegisterPage';
+import { PrivateRoute } from 'components/PrivateRoute';
 //import AuthLayout from 'views/LoginPage';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
@@ -28,12 +28,12 @@ const App = () => (
     <Suspense fallback={<div />}>
       <ConnectedRouter history={hist}>
         <Switch>
-          <Route path="/" component={HomePage} />
+          {/* <Route path="/" component={HomePage} /> */}
           <Route path="/home" component={HomePage} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={RegisterPage} />
           <PrivateRoute path="/client/" component={AdminLayout} />
-          {/* <Redirect from="/" to="/client/search" /> */}
+          <Redirect from="/" to="/home" />
         </Switch>
       </ConnectedRouter>
     </Suspense>
