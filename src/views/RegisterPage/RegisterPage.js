@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -9,9 +9,6 @@ import Email from '@material-ui/icons/Email';
 import People from '@material-ui/icons/People';
 import AccountBox from '@material-ui/icons/AccountBox';
 // core components
-import Header from 'components/Header/Header.js';
-import HeaderLinks from 'components/Header/HeaderLinks';
-import Footer from 'components/Footer/Footer.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Button from 'components/CustomButtons/Button.js';
@@ -105,7 +102,7 @@ class RegisterPage extends React.Component {
     }
   }
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes } = this.props;
     const { passwordConfirm } = this.state;
     return (
       <div>

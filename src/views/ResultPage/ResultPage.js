@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { withRouter, Route, NavLink } from 'react-router-dom';
+import React from 'react';
+import { withRouter, NavLink } from 'react-router-dom';
 
 // nodejs library that concatenates classes
 import classNames from 'classnames';
@@ -10,15 +10,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 // core components
 import Header from 'components/Header/Header.js';
-import Footer from 'components/Footer/Footer.js';
 import HeaderLinks from 'components/Header/HeaderLinks';
 import Parallax from 'components/Parallax/Parallax.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import landingPageStyle from 'assets/jss/material-kit-react/views/landingPage.js';
 import Star from '@material-ui/icons/Star';
-import VerifiedUser from '@material-ui/icons/VerifiedUser';
-import Fingerprint from '@material-ui/icons/Fingerprint';
 // core components
 import InfoArea from 'components/InfoArea/InfoArea.js';
 // @material core

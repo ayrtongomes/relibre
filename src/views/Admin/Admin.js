@@ -1,15 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
-import cx from 'classnames';
+// import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
 import Footer from 'components/Footer/Footer.js';
-
-import Header from 'components/Header/Header.js';
-import HeaderLinks from 'components/Header/HeaderLinks';
 
 import { dashRoutes } from './routes.js';
 
@@ -17,8 +14,6 @@ import { dashRoutes } from './routes.js';
 import compose from 'utils/compose';
 
 import appStyle from 'assets/jss/material-kit-react/layouts/adminStyle.js';
-
-var ps;
 
 class Main extends React.Component {
   constructor(props) {
@@ -123,7 +118,7 @@ class Main extends React.Component {
   }
 
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes } = this.props;
     const mainPanel = classes.mainPanel;
 
     // var dropList =

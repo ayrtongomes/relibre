@@ -8,11 +8,11 @@ const initialState = {
   userUpdate: false
 };
 
-const fetchUserData = (state, action) => {
-  return updateObject(state, {
-    userDataPost: action.userData
-  });
-};
+// const fetchUserData = (state, action) => {
+//   return updateObject(state, {
+//     userDataPost: action.userData
+//   });
+// };
 
 const PutUserData = (state, action) => {
   return updateObject(state, {

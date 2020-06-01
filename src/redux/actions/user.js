@@ -28,12 +28,12 @@ export const login = obj => {
     );
   };
 
-  function request(user) {
-    return {
-      type: actionTypes.LOGIN_REQUEST,
-      user
-    };
-  }
+  // function request(user) {
+  //   return {
+  //     type: actionTypes.LOGIN_REQUEST,
+  //     user
+  //   };
+  // }
 
   function success(user) {
     return {

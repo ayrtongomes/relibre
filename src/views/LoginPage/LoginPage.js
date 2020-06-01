@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -7,11 +7,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 // @material-ui/icons
 import Email from '@material-ui/icons/Email';
-import People from '@material-ui/icons/People';
 // core components
-import Header from 'components/Header/Header.js';
-import HeaderLinks from 'components/Header/HeaderLinks';
-import Footer from 'components/Footer/Footer.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Button from 'components/CustomButtons/Button.js';
@@ -31,7 +27,6 @@ import { bindActionCreators } from 'redux';
 import compose from 'utils/compose';
 
 import image from 'assets/img/banner-register.png';
-import logo from 'assets/img/logo-branco.png';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -82,7 +77,7 @@ class LoginPage extends React.Component {
   };
 
   render() {
-    const { classes, loggingIn, loggedIn, logginFailed, ...rest } = this.props;
+    const { classes, loggingIn, loggedIn, logginFailed } = this.props;
 
     return (
       <div>

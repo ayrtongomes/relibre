@@ -14,7 +14,7 @@ import {
 
 const headerStyle = {
   logo: {
-    height: '4rem'
+    height: '3rem'
   },
   appBar: {
     display: 'flex',

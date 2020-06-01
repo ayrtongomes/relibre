@@ -6,19 +6,15 @@ import withStyles from '@material-ui/core/styles/withStyles';
 // @material-ui/icons
 import Star from '@material-ui/icons/Star';
 import Book from '@material-ui/icons/Book';
-import Palette from '@material-ui/icons/Palette';
 import Comment from '@material-ui/icons/Comment';
 // core components
 import Header from 'components/Header/Header.js';
 import Footer from 'components/Footer/Footer.js';
-import Button from 'components/CustomButtons/Button.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import HeaderLinks from 'components/Header/HeaderLinks';
 import NavPills from 'components/NavPills/NavPills.js';
 import Parallax from 'components/Parallax/Parallax.js';
-
-import profile from 'assets/img/faces/christian.jpg';
 
 import studio1 from 'assets/img/examples/studio-1.jpg';
 import studio2 from 'assets/img/examples/studio-2.jpg';
@@ -36,11 +32,11 @@ import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js
 class InstitutePage extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
-    const imageClasses = classNames(
-      classes.imgRaised,
-      classes.imgRoundedCircle,
-      classes.imgFluid
-    );
+    // const imageClasses = classNames(
+    //   classes.imgRaised,
+    //   classes.imgRoundedCircle,
+    //   classes.imgFluid
+    // );
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
     return (
       <div>

@@ -1,11 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
 
 // @material-ui/icons
 import Star from '@material-ui/icons/Star';
-import VerifiedUser from '@material-ui/icons/VerifiedUser';
-import Fingerprint from '@material-ui/icons/Fingerprint';
 // core components
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
