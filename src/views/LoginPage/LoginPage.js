@@ -32,7 +32,7 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
-    this.props.logout();
+    //this.props.logout();
 
     this.state = {
       cardAnimaton: 'cardHidden',
@@ -72,7 +72,7 @@ class LoginPage extends React.Component {
         login: login,
         senha: password
       };
-      this.props.login(obj);
+      //this.props.login(obj);
     }
   };
 
@@ -188,7 +188,7 @@ class LoginPage extends React.Component {
                         color="primary"
                         size="lg"
                         type="submit"
-                        disabled={loggedIn || loggingIn}
+                        //disabled={loggedIn || loggingIn}
                       >
                         ENTRAR
                       </Button>
@@ -205,20 +205,20 @@ class LoginPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { loggingIn, loggedIn, logginFailed } = state.authentication;
+// const mapStateToProps = state => {
+//   const { loggingIn, loggedIn, logginFailed } = state.authentication;
 
-  return {
-    loggingIn,
-    loggedIn,
-    logginFailed
-  };
-};
+//   return {
+//     loggingIn,
+//     loggedIn,
+//     logginFailed
+//   };
+// };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ login, logout }, dispatch);
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators({ login, logout }, dispatch);
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  //connect(mapStateToProps, mapDispatchToProps),
   withStyles(loginPageStyle)
 )(LoginPage);

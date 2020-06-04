@@ -6,7 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 // @material-ui/icons
 import Email from '@material-ui/icons/Email';
-import People from '@material-ui/icons/People';
+import Phone from '@material-ui/icons/Phone';
 import AccountBox from '@material-ui/icons/AccountBox';
 // core components
 import GridContainer from 'components/Grid/GridContainer.js';
@@ -170,29 +170,29 @@ class RegisterPage extends React.Component {
                           onChange: event => this.change(event, 'nome'),
                           endAdornment: (
                             <InputAdornment position="end">
-                              <People className={classes.inputIconsColor} />
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                      <CustomInput
-                        labelText="Login..."
-                        id="login"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: 'text',
-                          onChange: event => this.change(event, 'login'),
-                          endAdornment: (
-                            <InputAdornment position="end">
                               <AccountBox className={classes.inputIconsColor} />
                             </InputAdornment>
                           )
                         }}
                       />
                       <CustomInput
-                        labelText="Email..."
+                        labelText="Telefone"
+                        id="phone"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          type: 'text',
+                          onChange: event => this.change(event, 'phone'),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <Phone className={classes.inputIconsColor} />
+                            </InputAdornment>
+                          )
+                        }}
+                      />
+                      <CustomInput
+                        labelText="Email"
                         id="email"
                         formControlProps={{
                           fullWidth: true
