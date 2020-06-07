@@ -78,7 +78,7 @@ class RegisterPage extends React.Component {
 
   submit = e => {
     e.preventDefault();
-    this.props.history.push('/');
+    this.props.history.push('/login');
     // this.setState({ submitted: true });
     // const { login, password, nome, email, passwordConfirm } = this.state;
     // //const { dispatch } = this.props;

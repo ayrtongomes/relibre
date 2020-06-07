@@ -9,6 +9,7 @@ import HeaderLinks from 'components/Header/HeaderLinks';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
+import { MatchIcon } from 'assets/img/icons/icons';
 
 import componentsStyle from 'assets/jss/material-kit-react/views/components.js';
 import SearchBox from 'components/SearchBox/SearchBox';

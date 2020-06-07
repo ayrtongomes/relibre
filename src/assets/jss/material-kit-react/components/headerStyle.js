@@ -19,7 +19,7 @@ const headerStyle = {
   appBar: {
     display: 'flex',
     border: '0',
-    padding: '0.625rem 0',
+    padding: '0.325rem 0',
     marginBottom: '20px',
     color: '#555',
     width: '100%',
@@ -118,13 +118,15 @@ const headerStyle = {
       '0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(33, 33, 33, 0.46)'
   },
   white: {
-    border: '0',
-    padding: '0.625rem 0',
+    //border: '0',
+    borderBottom: '1px solid #cecece',
+    padding: '0.325rem 0',
     marginBottom: '20px',
     color: '#555',
     backgroundColor: '#fff !important',
-    boxShadow:
-      '0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)'
+    boxShadow: 'none'
+    // boxShadow:
+    //   '0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)'
   },
   drawerPaper: {
     border: 'none',

@@ -64,7 +64,7 @@ const card = {
 };
 
 const defaultFont = {
-  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  fontFamily: "'Fira Sans', 'Roboto', sans-serif",
   fontWeight: '300',
   lineHeight: '1.5em'
 };

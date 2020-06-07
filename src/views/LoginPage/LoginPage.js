@@ -74,6 +74,7 @@ class LoginPage extends React.Component {
       };
       //this.props.login(obj);
     }
+    this.props.history.push('/troca');
   };
 
   render() {
