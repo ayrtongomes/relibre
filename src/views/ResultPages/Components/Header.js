@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
+import { container } from 'assets/jss/material-kit-react.js';
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: '60px',
@@ -23,15 +23,20 @@ const useStyles = makeStyles(theme => ({
     boxShadow:
       '0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)',
     transition: 'all 150ms ease 0s'
+  },
+  container: {
+    ...container,
+    minHeight: '50px',
+    flex: '1',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    display: 'flex',
+    flexWrap: 'nowrap'
   }
 }));
 
 export default function NavTabs({ index, ...props }) {
   const classes = useStyles();
-
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
 
   return (
     <div className={classes.root}>
@@ -51,6 +56,8 @@ export default function NavTabs({ index, ...props }) {
           value={index}
           //onChange={handleChange}
           aria-label="nav tabs example"
+          className={classes.container}
+          centered
         >
           <Tab
             classes={{ root: classes.labelRoot }}
