@@ -15,6 +15,7 @@ import Emprestimo from 'views/ResultPages/Emprestimo';
 import Troca from 'views/ResultPages/Troca';
 import Doacao from 'views/ResultPages/Doacao';
 import Venda from 'views/ResultPages/Venda';
+import Teste from 'views/InstitutePage/index';
 import { PrivateRoute } from 'components/PrivateRoute.js';
 //import AuthLayout from 'views/LoginPage';
 import { Provider } from 'react-redux';
@@ -67,6 +68,7 @@ const App = () => {
             <Route path="/emprestimo" component={Emprestimo} />
             <Route path="/doacao" component={Doacao} />
             <Route path="/venda" component={Venda} />
+            <Route path="/teste" component={Teste} />
             <PrivateRoute path="/client/" component={AdminLayout} />
             <Redirect from="/" to="/home" />
           </Switch>

@@ -9,7 +9,6 @@ import HeaderLinks from 'components/Header/HeaderLinks';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
-import { MatchIcon } from 'assets/img/icons/icons';
 
 import componentsStyle from 'assets/jss/material-kit-react/views/components.js';
 import SearchBox from 'components/SearchBox/SearchBox';
@@ -32,7 +31,7 @@ const HomePage = ({ classes, ...rest }) => {
         <div className={classes.container}>
           <GridContainer>
             <GridItem style={{ maxWidth: '60rem', margin: 'auto' }}>
-              <h1>Descubra pessoas para trocar livros próximas à você:</h1>
+              <h1>Descubra pessoas para trocar livros próximas à você</h1>
               <div className={classes.brand}>
                 <SearchBox />
               </div>

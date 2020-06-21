@@ -18,14 +18,13 @@ const headerStyle = {
   },
   appBar: {
     display: 'flex',
-    border: '0',
+    borderBottom: '1px solid #dedede',
     padding: '0.325rem 0',
     marginBottom: '20px',
     color: '#555',
     width: '100%',
     backgroundColor: '#fff',
-    boxShadow:
-      '0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)',
+    boxShadow: 'none',
     transition: 'all 150ms ease 0s',
     alignItems: 'center',
     flexFlow: 'row nowrap',

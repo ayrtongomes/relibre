@@ -9,9 +9,11 @@ import Tab from '@material-ui/core/Tab';
 import { container } from 'assets/jss/material-kit-react.js';
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: '60px',
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    position: 'fixed',
+    width: '100%',
+    zIndex: 1200
   },
   labelRoot: {
     fontFamily: "'Fira Sans', 'Roboto', sans-serif !important",
@@ -20,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     backgroundColor: '#fff',
     color: '#5271ff',
+    zIndex: 1200,
     boxShadow:
       '0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)',
     transition: 'all 150ms ease 0s'
@@ -32,6 +35,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     display: 'flex',
     flexWrap: 'nowrap'
+  },
+  toolbar: {
+    height: '61px',
+    width: '100%'
   }
 }));
 
@@ -50,6 +57,7 @@ export default function NavTabs({ index, ...props }) {
           color: 'white'
         }}
       />
+      <div className={classes.toolbar}></div>
       <AppBar position="static" classes={{ root: classes.appBar }}>
         <Tabs
           variant="fullWidth"
@@ -82,6 +90,12 @@ export default function NavTabs({ index, ...props }) {
             label="Vendas"
             component={Link}
             to="/venda"
+          />
+          <Tab
+            classes={{ root: classes.labelRoot }}
+            label="Sebos"
+            component={Link}
+            to="/"
           />
         </Tabs>
       </AppBar>
