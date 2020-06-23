@@ -17,13 +17,30 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ContactRequest from 'components/Dialogs/ContactRequest';
+import matchSrcIcon from 'assets/img/friendship.svg';
 
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 325,
     alignSelf: 'baseline',
     justifySelf: 'center',
-    fontFamily: "'Fira Sans', 'Roboto', sans-serif"
+    backgroundSize: '200%',
+    overflow: 'visible',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    transition: '0.6s',
+    backgroundImage: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    '&:hover': {
+      backgroundPosition: 'right'
+    }
+  },
+  icon: {
+    padding: '0.5rem 1rem',
+    backgroundColor: '#dedede',
+    borderRadius: '5px',
+    margin: '0 1rem',
+    '& img': {
+      height: '45px'
+    }
   },
   media: {
     height: '470px',
@@ -76,8 +93,7 @@ export default props => {
       <CardContent>
         <h4 style={{ textAlign: 'left' }}>Harry Potter e a Pedra Filosofal</h4>
         <Typography variant="body2" color="textSecondary" component="p">
-          Tenho esse livro a dois anos, mas está bem conservado. Li duas vezes e
-          guardei na estante. Sem marcas de rasura
+          Nunca li, ganhei de presente. Troco por algum do Tolkien.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -88,12 +104,9 @@ export default props => {
         >
           tenho interesse
         </Button>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
+        <div className={classes.icon}>
+          <img src={matchSrcIcon} />
+        </div>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
@@ -107,6 +120,15 @@ export default props => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          <Typography paragraph>
+            <b>
+              Parabéns, você encontrou uma combinação! O que isso significa?
+            </b>
+          </Typography>
+          <Typography paragraph>
+            Significa que esse usuário tem o livro que você deseja e você possui
+            um livro que ele está interesado.
+          </Typography>
           <Typography paragraph>
             <b>Este livro está disponível para:</b>
           </Typography>

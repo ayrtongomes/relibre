@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Components/Header.js';
 import Card from 'components/Card/BookCard';
+import BookMatchCard from 'components/Card/BookMatchCard.js';
+import BookAd from 'components/Card/BookAd.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,10 +37,20 @@ export default function NavTabs({ index, ...props }) {
       <div className={classes.container}>
         <div>
           <div className={classes.gridList}>
+            <BookMatchCard name="Lelis Dota" />
             <Card name="Robertinho Carlos" />
+            <Card name="Uzumaki Kabuto" />
+            <Card name="Hermione Potter" />
+            <Card name="Neymar Gaúcho" />
             <Card name="Robertinho Carlos" />
+            <Card name="Uzumaki Kabuto" />
+            <Card name="Hermione Potter" />
+            <Card name="Neymar Gaúcho" />
             <Card name="Robertinho Carlos" />
-            <Card name="Robertinho Carlos" />
+            <BookAd name="Sebo Nascanela" />
+            <Card name="Uzumaki Kabuto" />
+            <Card name="Hermione Potter" />
+            <Card name="Neymar Gaúcho" />
           </div>
         </div>
       </div>

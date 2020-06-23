@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 // react components for routing our app without refresh
@@ -19,14 +19,25 @@ import CustomDropdown from 'components/CustomDropdown/CustomDropdown.js';
 import Button from 'components/CustomButtons/Button.js';
 
 import styles from 'assets/jss/material-kit-react/components/headerLinksStyle.js';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
   const classes = useStyles();
+  const [logged, setLogged] = useState(cookies.get('logged') || false);
+
+  useEffect(() => {
+    setLogged(cookies.get('logged'));
+  }, [cookies.get('logged')]);
+
+  console.log(logged);
+
   return (
     <List className={classes.list}>
-      {props.loggedIn ? (
+      {logged ? (
         <ListItem className={classes.listItem}>
           {/* {user && user.login && ( */}
           <CustomDropdown
@@ -40,6 +51,18 @@ export default function HeaderLinks(props) {
             buttonIcon={Person}
             //dropdownList={[dropList]}
             dropdownList={[
+              <NavLink to="/troca" className={classes.dropdownLink}>
+                Trocas
+              </NavLink>,
+              <NavLink to="/emprestimo" className={classes.dropdownLink}>
+                Empréstimos
+              </NavLink>,
+              <NavLink to="/doacao" className={classes.dropdownLink}>
+                Doações
+              </NavLink>,
+              <NavLink to="/venda" className={classes.dropdownLink}>
+                Vendas
+              </NavLink>,
               <NavLink to="/register" className={classes.dropdownLink}>
                 Meu perfil
               </NavLink>,

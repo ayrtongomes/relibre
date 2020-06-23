@@ -28,6 +28,10 @@ import compose from 'utils/compose';
 
 import image from 'assets/img/banner-register.png';
 
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -41,6 +45,7 @@ class LoginPage extends React.Component {
     };
   }
   componentDidMount() {
+    cookies.set('logged', false);
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
       function() {
@@ -74,6 +79,7 @@ class LoginPage extends React.Component {
       };
       //this.props.login(obj);
     }
+    cookies.set('logged', true);
     this.props.history.push('/troca');
   };
 
@@ -206,20 +212,20 @@ class LoginPage extends React.Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   const { loggingIn, loggedIn, logginFailed } = state.authentication;
+const mapStateToProps = state => {
+  const { loggingIn, loggedIn, logginFailed } = state.authentication;
 
-//   return {
-//     loggingIn,
-//     loggedIn,
-//     logginFailed
-//   };
-// };
+  return {
+    loggingIn,
+    loggedIn,
+    logginFailed
+  };
+};
 
 // const mapDispatchToProps = dispatch =>
 //   bindActionCreators({ login, logout }, dispatch);
 
 export default compose(
-  //connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, null),
   withStyles(loginPageStyle)
 )(LoginPage);

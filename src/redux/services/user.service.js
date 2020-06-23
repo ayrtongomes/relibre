@@ -48,10 +48,6 @@
 //   // remove user from local storage to log user out
 //   //localStorage.removeItem('token');
 //   localStorage.removeItem('user');
-//   // localStorage.removeItem('i18next_pt-BR-common');
-//   // localStorage.removeItem('i18next_es-common');
-//   // localStorage.removeItem('i18next_en-common');
-//   // localStorage.removeItem('currencyGeneralRulesData');
 // }
 
 // // function getAll() {
