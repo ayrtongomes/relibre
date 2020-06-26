@@ -35,10 +35,10 @@ export default function NavTabs({ index, ...props }) {
       <div className={classes.container}>
         <div>
           <div className={classes.gridList}>
-            <BookAd name="Sebo Nascanela" />
-            <BookAd name="Sebo Ensaboado" />
-            <BookAd name="Sebo Sabão" />
-            <BookAd name="Sebo Ensebolado" />
+            <BookAd name="Sebo Rei do Livro" />
+            <BookAd name="Sebo Leitura Divina" />
+            <BookAd name="Sebo do Carlito" />
+            <BookAd name="Amazon Livros" />
           </div>
         </div>
       </div>

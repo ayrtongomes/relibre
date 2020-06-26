@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import Modal from 'components/Dialogs/LocationNotAllowed';
 
 import 'assets/scss/material-kit-react.scss?v=1.4.0';
 
@@ -15,7 +16,7 @@ import Emprestimo from 'views/ResultPages/Emprestimo';
 import Troca from 'views/ResultPages/Troca';
 import Doacao from 'views/ResultPages/Doacao';
 import Venda from 'views/ResultPages/Venda';
-import Teste from 'views/InstitutePage/index';
+import Combinacao from 'views/CombinationsPage';
 import { PrivateRoute } from 'components/PrivateRoute.js';
 //import AuthLayout from 'views/LoginPage';
 import { Provider } from 'react-redux';
@@ -32,6 +33,8 @@ const cookies = new Cookies();
 // axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const App = () => {
+  const [showModal, setShowModal] = React.useState(false);
+
   useEffect(() => {
     getGeoLocation();
   }, []);
@@ -48,9 +51,7 @@ const App = () => {
       },
       error => {
         if (error.code === 1) {
-          alert(
-            'Não temos permissão de acesso a sua localização isso afetará sua experiência.'
-          );
+          setShowModal(true);
         }
       }
     );
@@ -68,12 +69,13 @@ const App = () => {
             <Route path="/emprestimo" component={Emprestimo} />
             <Route path="/doacao" component={Doacao} />
             <Route path="/venda" component={Venda} />
-            <Route path="/teste" component={Teste} />
+            <Route path="/combinacoes" component={Combinacao} />
             <PrivateRoute path="/client/" component={AdminLayout} />
             <Redirect from="/" to="/home" />
           </Switch>
         </ConnectedRouter>
       </Suspense>
+      <Modal openModal={showModal} closeModal={() => setShowModal(false)} />
     </Provider>
   );
 };

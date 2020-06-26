@@ -36,10 +36,10 @@ export default function NavTabs({ index, ...props }) {
       <div className={classes.container}>
         <div>
           <div className={classes.gridList}>
-            <Card name="Neymar Gaúcho" />
-            <Card name="Uzumaki Kabuto" />
-            <Card name="Robertinho Carlos" />
-            <Card name="Hermione Potter" />
+            <Card distance={2.2} name="Carlos Santana" />
+            <Card distance={2.7} name="Joui Ryoko" />
+            <Card distance={3.2} name="André Camargo" />
+            <Card distance={4.8} name="Lucas" />
           </div>
         </div>
       </div>

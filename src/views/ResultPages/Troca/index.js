@@ -37,20 +37,20 @@ export default function NavTabs({ index, ...props }) {
       <div className={classes.container}>
         <div>
           <div className={classes.gridList}>
-            <BookMatchCard name="Lelis Dota" />
-            <Card name="Robertinho Carlos" />
-            <Card name="Uzumaki Kabuto" />
-            <Card name="Hermione Potter" />
-            <Card name="Neymar Gaúcho" />
-            <Card name="Robertinho Carlos" />
-            <Card name="Uzumaki Kabuto" />
-            <Card name="Hermione Potter" />
-            <Card name="Neymar Gaúcho" />
-            <Card name="Robertinho Carlos" />
-            <BookAd name="Sebo Nascanela" />
-            <Card name="Uzumaki Kabuto" />
-            <Card name="Hermione Potter" />
-            <Card name="Neymar Gaúcho" />
+            <BookMatchCard distance={6.2} name="Lelis Dota" />
+            <Card distance={1.2} name="Roberto Carlos" />
+            <Card distance={1.3} name="Kamado Tanjiro" />
+            <Card distance={3.2} name="Luna Lovegood" />
+            <Card distance={4.4} name="Helena Ravenclaw" />
+            <Card distance={4.8} name="Tom Riddle" />
+            <Card distance={4.8} name="Severo Snape" />
+            <Card distance={5.1} name="Jonas Kahnwald" />
+            <Card distance={5.5} name="Mikkel Nielsen" />
+            <Card distance={5.6} name="Ulrich Tiedmann" />
+            <BookAd name="Sebo Rei do Livro" />
+            <Card distance={7.3} name="Regina Woller" />
+            <Card distance={8.1} name="Noah Phillip" />
+            <Card distance={9} name="Charlotte Taghnahaus" />
           </div>
         </div>
       </div>

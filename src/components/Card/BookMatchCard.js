@@ -15,7 +15,7 @@ import { blue } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Explore from '@material-ui/icons/Explore';
 import ContactRequest from 'components/Dialogs/ContactRequest';
 import matchSrcIcon from 'assets/img/friendship.svg';
 
@@ -78,9 +78,27 @@ export default props => {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <div
+            style={{
+              color: '#fff',
+              height: 'auto',
+              display: 'flex',
+              alignItems: 'center',
+              marginTop: '22%',
+              marginRight: '3px'
+            }}
+          >
+            <Explore />
+            <span
+              style={{
+                fontWeight: '300',
+                marginLeft: '5px',
+                textTransform: 'itallic'
+              }}
+            >
+              {props.distance} km
+            </span>
+          </div>
         }
         title={props.name}
         subheader="30 de junho de 2020"
