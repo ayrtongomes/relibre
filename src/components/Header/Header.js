@@ -55,13 +55,19 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, fixed, absolute } = props;
+  const { color, rightLinks, leftLinks, fixed, absolute, noMaxWidth } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
+
+  const toolbarClasses = classNames({
+    [classes.container]: true,
+    [classes.noMaxWidth]: noMaxWidth
+  });
+
   const brandComponent = (
     <NavLink to="/">
       <img className={classes.logo} src={logoDark} alt="Logo Relibre" />
@@ -69,7 +75,7 @@ export default function Header(props) {
   );
   return (
     <AppBar className={appBarClasses}>
-      <Toolbar className={classes.container}>
+      <Toolbar className={toolbarClasses}>
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>
           {leftLinks !== undefined ? (

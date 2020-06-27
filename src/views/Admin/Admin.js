@@ -136,6 +136,7 @@ class Main extends React.Component {
           brand="relibre"
           rightLinks={<HeaderLinks />}
           fixed
+          noMaxWidth
           color="dark"
           changeColorOnScroll={{
             height: 400,

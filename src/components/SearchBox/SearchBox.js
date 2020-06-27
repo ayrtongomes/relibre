@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 // @material core
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -15,6 +15,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 const SearchBox = ({ ...props }) => {
+  const history = useHistory();
   return (
     <Paper className={styles.searchBox}>
       <InputBase
@@ -24,7 +25,14 @@ const SearchBox = ({ ...props }) => {
         inputProps={{ 'aria-label': 'Pesquise o título do livro' }}
         //value={city}
       />
-      <Button color="primary" className={styles.iconButton} aria-label="Search">
+      <Button
+        color="primary"
+        className={styles.iconButton}
+        aria-label="Search"
+        onClick={() => {
+          history.push('/troca');
+        }}
+      >
         <SearchIcon />
       </Button>
     </Paper>

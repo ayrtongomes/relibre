@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Components/Header.js';
 import BookAd from 'components/Card/BookAd';
+import Footer from 'components/Footer/Footer';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,6 +43,7 @@ export default function NavTabs({ index, ...props }) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -12,7 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Tooltip from '@material-ui/core/Tooltip';
 
 // @material-ui/icons
-import { Apps, CloudDownload, Person } from '@material-ui/icons';
+import { NotificationsActive, CloudDownload, Person } from '@material-ui/icons';
 
 // core components
 import CustomDropdown from 'components/CustomDropdown/CustomDropdown.js';
@@ -38,50 +38,64 @@ export default function HeaderLinks(props) {
   return (
     <List className={classes.list}>
       {logged ? (
-        <ListItem className={classes.listItem}>
-          {/* {user && user.login && ( */}
-          <CustomDropdown
-            noLiPadding
-            buttonText={'Ayrton'}
-            // buttonText={user.username}
-            buttonProps={{
-              className: classes.navLink,
-              color: 'transparent'
-            }}
-            buttonIcon={Person}
-            //dropdownList={[dropList]}
-            dropdownList={[
-              <NavLink
-                to="/minha-conta/combinacoes"
-                className={classes.dropdownLink}
-              >
-                Combinações
-              </NavLink>,
-              <NavLink to="/troca" className={classes.dropdownLink}>
-                Trocas
-              </NavLink>,
-              <NavLink to="/emprestimo" className={classes.dropdownLink}>
-                Empréstimos
-              </NavLink>,
-              <NavLink to="/doacao" className={classes.dropdownLink}>
-                Doações
-              </NavLink>,
-              <NavLink to="/venda" className={classes.dropdownLink}>
-                Vendas
-              </NavLink>,
-              <NavLink
-                to="/minha-conta/meu-perfil"
-                className={classes.dropdownLink}
-              >
-                Meu perfil
-              </NavLink>,
-              <NavLink to="/login" className={classes.dropdownLink}>
-                Sair
-              </NavLink>
-            ]}
-          />
-          {/* )} */}
-        </ListItem>
+        <>
+          <ListItem className={classes.listItem} style={{ marginRight: '5px' }}>
+            <Button
+              justIcon
+              //round
+              href="#pablo"
+              className={classes.notificationNavLink}
+              onClick={e => e.preventDefault()}
+              color="transparent"
+            >
+              <NotificationsActive className={classes.icons} />
+            </Button>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            {/* {user && user.login && ( */}
+            <CustomDropdown
+              noLiPadding
+              buttonText={'Ayrton'}
+              // buttonText={user.username}
+              buttonProps={{
+                className: classes.navLink,
+                color: 'transparent'
+              }}
+              buttonIcon={Person}
+              //dropdownList={[dropList]}
+              dropdownList={[
+                <NavLink
+                  to="/minha-conta/combinacoes"
+                  className={classes.dropdownLink}
+                >
+                  Combinações
+                </NavLink>,
+                <NavLink to="/troca" className={classes.dropdownLink}>
+                  Trocas
+                </NavLink>,
+                <NavLink to="/emprestimo" className={classes.dropdownLink}>
+                  Empréstimos
+                </NavLink>,
+                <NavLink to="/doacao" className={classes.dropdownLink}>
+                  Doações
+                </NavLink>,
+                <NavLink to="/venda" className={classes.dropdownLink}>
+                  Vendas
+                </NavLink>,
+                <NavLink
+                  to="/minha-conta/meu-perfil"
+                  className={classes.dropdownLink}
+                >
+                  Meu perfil
+                </NavLink>,
+                <NavLink to="/login" className={classes.dropdownLink}>
+                  Sair
+                </NavLink>
+              ]}
+            />
+            {/* )} */}
+          </ListItem>
+        </>
       ) : (
         <>
           <ListItem className={classes.listItem}>

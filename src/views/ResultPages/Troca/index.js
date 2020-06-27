@@ -4,6 +4,7 @@ import Header from '../Components/Header.js';
 import Card from 'components/Card/BookCard';
 import BookMatchCard from 'components/Card/BookMatchCard.js';
 import BookAd from 'components/Card/BookAd.js';
+import Footer from 'components/Footer/Footer';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,6 +55,7 @@ export default function NavTabs({ index, ...props }) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

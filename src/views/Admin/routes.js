@@ -1,15 +1,11 @@
 import Institute from 'views/InstitutePage';
+import Profile from 'views/Profile';
+import Contacts from 'views/Contacts';
+import MyBooks from 'views/MyBooks';
+import BooksWishlist from 'views/BooksWishlist';
 import Combinacoes from 'views/CombinationsPage';
 
 export const dashRoutes = [
-  {
-    path: '/meu-perfil',
-    name: 'Meu perfil',
-    icon: 'account_circle',
-    component: Institute,
-    layout: '/minha-conta',
-    sidebar: true
-  },
   {
     path: '/combinacoes',
     name: 'Combinações',
@@ -22,7 +18,7 @@ export const dashRoutes = [
     path: '/meus-livros',
     name: 'Meus livros',
     icon: 'library_books',
-    component: Institute,
+    component: MyBooks,
     layout: '/minha-conta',
     sidebar: true
   },
@@ -30,7 +26,7 @@ export const dashRoutes = [
     path: '/livros-desejados',
     name: 'Livros que eu quero',
     icon: 'collections_bookmark',
-    component: Institute,
+    component: BooksWishlist,
     layout: '/minha-conta',
     sidebar: true
   },
@@ -38,14 +34,16 @@ export const dashRoutes = [
     path: '/contatos',
     name: 'Contatos',
     icon: 'contacts',
-    component: Institute,
+    component: Contacts,
+    layout: '/minha-conta',
+    sidebar: true
+  },
+  {
+    path: '/meu-perfil',
+    name: 'Meu perfil',
+    icon: 'account_circle',
+    component: Profile,
     layout: '/minha-conta',
     sidebar: true
   }
-  // {
-  //     path: "/login",
-  //     name: 'Login',
-  //     component: Login,
-  //     layout: "/client"
-  // },
 ];

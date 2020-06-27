@@ -3,21 +3,20 @@ import { NavLink } from 'react-router-dom';
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Icon from '@material-ui/core/Icon';
 // @material-ui/icons
 import Email from '@material-ui/icons/Email';
 // core components
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
-import Button from 'components/CustomButtons/Button.js';
 import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
-import CustomInput from 'components/CustomInput/CustomInput.js';
 import Typography from '@material-ui/core/Typography';
-
+import CustomInput from 'components/CustomInput/CustomInput.js';
+import Button from 'components/CustomButtons/Button.js';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Icon from '@material-ui/core/Icon';
 import loginPageStyle from 'assets/jss/material-kit-react/views/loginPage.js';
 
 import { login, logout } from '../../redux/actions';
@@ -80,7 +79,7 @@ class LoginPage extends React.Component {
       //this.props.login(obj);
     }
     cookies.set('logged', true);
-    this.props.history.push('/troca');
+    this.props.history.push('/minha-conta/meu-perfil');
   };
 
   render() {

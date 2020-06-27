@@ -41,9 +41,9 @@ const useStyles = makeStyles(theme => ({
     gap: '1rem'
   },
   container: {
-    maxWidth: '1140px',
+    maxWidth: 'auto',
     margin: '2rem auto',
-    paddingBottom: '5rem'
+    padding: '0 3rem 2rem'
   },
   toolbar: {
     height: '111px',
@@ -61,16 +61,6 @@ export default props => {
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   return (
     <div>
-      <Header
-        brand="relibre"
-        rightLinks={<HeaderLinks />}
-        fixed
-        color="dark"
-        changeColorOnScroll={{
-          height: 400,
-          color: 'white'
-        }}
-      />
       <Parallax small filter image={require('assets/img/banner-home.png')} />
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
@@ -91,8 +81,8 @@ export default props => {
                         o livro que você tem e possuem o livro que você quer.
                         <br />
                         Agora é por sua conta! Basta entrar em contato com o
-                        outro usuário e combinarem a melhor maneira de efetuarem
-                        a troca.
+                        outro usuário e combinarem a melhor maneira de
+                        realizarem a troca, empréstimo ou doação.
                       </Typography>
                     </div>
                   </div>
@@ -110,7 +100,6 @@ export default props => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

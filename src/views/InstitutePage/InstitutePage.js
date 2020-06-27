@@ -47,7 +47,7 @@ class InstitutePage extends React.Component {
                 <GridItem xs={12} sm={12} md={6}>
                   <div className={classes.profile}>
                     <div className={classes.name} style={{ marginTop: '20px' }}>
-                      <h3 className={classes.title}>FizzaNow</h3>
+                      <h3 className={classes.title}>TESTE</h3>
                       <h6>CURITIBA-PR</h6>
                       <div>
                         {' '}
@@ -59,7 +59,7 @@ class InstitutePage extends React.Component {
               </GridContainer>
               <div className={classes.description}>
                 <p>
-                  O Sebo FizzaNow localizada no bairro ecoville na região de
+                  O Sebo TESTE localizada no bairro ecoville na região de
                   Curitiba, além da sede no ecoville possui outros polos em
                   diversas regiões da cidade e do estado.
                 </p>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Components/Header.js';
+import Footer from 'components/Footer/Footer';
 import Card from 'components/Card/BookCard';
 
 const useStyles = makeStyles(theme => ({
@@ -40,6 +41,7 @@ export default function NavTabs({ index, ...props }) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

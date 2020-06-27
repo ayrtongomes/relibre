@@ -202,7 +202,6 @@ const sidebarStyle = theme => ({
     paddingRight: '10px',
     transition: 'all 300ms linear',
     margin: '10px 15px 0',
-    borderRadius: '3px',
     position: 'relative',
     display: 'block',
     padding: '10px 15px',
