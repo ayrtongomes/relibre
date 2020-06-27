@@ -93,7 +93,7 @@ export default props => {
             <div className={classes.container}>
               <div>
                 <div className={classes.gridList}>
-                  <BookMatchCard distance={6.2} name="Lelis Dota" />
+                  <BookMatchCard distance={6.2} name="Luna Lovegood Nox" />
                 </div>
               </div>
             </div>

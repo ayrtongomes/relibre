@@ -16,7 +16,7 @@ import Parallax from 'components/Parallax/Parallax.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
 import Button from 'components/CustomButtons/Button.js';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { Email, Person, Phone } from '@material-ui/icons';
+import { Email, Person, Phone, LocationSearching } from '@material-ui/icons';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import Icon from '@material-ui/core/Icon';
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
@@ -211,6 +211,7 @@ export default props => {
                           color="primary"
                           size="md"
                           type="submit"
+                          startIcon={<LocationSearching />}
                           className={classes.geolocButton}
                           //disabled={loggedIn || loggingIn}
                         >

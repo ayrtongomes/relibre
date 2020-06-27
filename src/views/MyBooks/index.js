@@ -10,7 +10,8 @@ import Divider from '@material-ui/core/Divider';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
-import BookMatchCard from 'components/Card/BookMatchCard.js';
+import Table from 'components/Table';
+import Button from 'components/CustomButtons/Button';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 
@@ -33,6 +34,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+function createData(title, author, type, date) {
+  return { title, author, type, date };
+}
+
+const rows = [
+  createData(
+    'Harry Potter e a Pedra Filosofal',
+    'J.K. Rowling',
+    'Troca, Empréstimo',
+    '30/06/2020'
+  ),
+  createData('Watchmen', 'Alan Moore', 'Troca, Empréstimo', '30/06/2020'),
+  createData('O Hobbit', 'Tolkien', 'Troca, Venda', '30/06/2020'),
+  createData(
+    'Harry Potter e o Enigma do Príncipe',
+    'J.K. Rowling',
+    'Troca, Venda',
+    '30/06/2020'
+  )
+];
+
 export default props => {
   const classes = useStyles();
 
@@ -44,18 +66,42 @@ export default props => {
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={12}>
-                <div style={{ textAlign: 'left' }} className={classes.profile}>
-                  <div className={classes.name} style={{ marginTop: '0' }}>
+                <div className={classes.profile}>
+                  <div
+                    className={classes.name}
+                    style={{ marginTop: '0', textAlign: 'left' }}
+                  >
                     <h2 className={classes.title}>Meus livros</h2>
-                    <div style={{ fontWeight: '300' }}>
-                      <span>
-                        Adicione, altere e veja os livros que você possui.
-                      </span>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <div style={{ fontWeight: '300' }}>
+                        <span>
+                          Adicione, altere e veja os livros que você possui.
+                        </span>
+                      </div>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="md"
+                        //type="submit"
+                        //disabled={loggedIn || loggingIn}
+                      >
+                        Novo
+                      </Button>
                     </div>
                   </div>
                 </div>
               </GridItem>
               <Divider style={{ margin: '2rem 0', width: '100%' }} />
+            </GridContainer>
+            <GridContainer justify="center">
+              <GridItem xs={12} sm={12} md={12}>
+                <Table data={rows} />
+              </GridItem>
             </GridContainer>
           </div>
         </div>

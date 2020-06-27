@@ -38,7 +38,7 @@ export default function NavTabs({ index, ...props }) {
       <div className={classes.container}>
         <div>
           <div className={classes.gridList}>
-            <BookMatchCard distance={6.2} name="Lelis Dota" />
+            <BookMatchCard distance={6.2} name="Luna Lovegood Nox" />
             <Card distance={1.2} name="Roberto Carlos" />
             <Card distance={1.3} name="Kamado Tanjiro" />
             <Card distance={3.2} name="Luna Lovegood" />
