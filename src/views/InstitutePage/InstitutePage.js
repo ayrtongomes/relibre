@@ -8,11 +8,10 @@ import Star from '@material-ui/icons/Star';
 import Book from '@material-ui/icons/Book';
 import Comment from '@material-ui/icons/Comment';
 // core components
-import Header from 'components/Header/Header.js';
+
 import Footer from 'components/Footer/Footer.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
-import HeaderLinks from 'components/Header/HeaderLinks';
 import NavPills from 'components/NavPills/NavPills.js';
 import Parallax from 'components/Parallax/Parallax.js';
 
@@ -40,17 +39,6 @@ class InstitutePage extends React.Component {
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
     return (
       <div>
-        <Header
-          brand="relibre"
-          rightLinks={<HeaderLinks />}
-          fixed
-          color="dark"
-          changeColorOnScroll={{
-            height: 400,
-            color: 'white'
-          }}
-          {...rest}
-        />
         <Parallax small filter image={require('assets/img/profile-bg.jpg')} />
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div>

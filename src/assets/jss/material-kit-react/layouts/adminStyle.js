@@ -29,7 +29,8 @@ const appStyle = theme => ({
     overflowScrolling: 'touch'
   },
   content: {
-    marginTop: '70px',
+    marginTop: '60px',
+    marginLeft: '260px',
     minHeight: 'calc(100vh - 123px)',
     [theme.breakpoints.down('sm')]: {
       padding: '0px 0px 0 15px !important'

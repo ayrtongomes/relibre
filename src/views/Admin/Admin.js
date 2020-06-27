@@ -7,7 +7,9 @@ import { Switch, Route } from 'react-router-dom';
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
 import Footer from 'components/Footer/Footer.js';
-
+import Sidebar from 'components/Sidebar';
+import Header from 'components/Header/Header.js';
+import HeaderLinks from 'components/Header/HeaderLinks';
 import { dashRoutes } from './routes.js';
 
 // Utils
@@ -98,7 +100,7 @@ class Main extends React.Component {
   // };
   getRoutes = dashRoutes => {
     return dashRoutes.map((prop, key) => {
-      if (prop.layout === '/client') {
+      if (prop.layout === '/minha-conta') {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -130,6 +132,30 @@ class Main extends React.Component {
     // 	</Link>)
     return (
       <div className={classes.wrapper}>
+        <Header
+          brand="relibre"
+          rightLinks={<HeaderLinks />}
+          fixed
+          color="dark"
+          changeColorOnScroll={{
+            height: 400,
+            color: 'white'
+          }}
+        />
+        <Sidebar
+          routes={dashRoutes}
+          // logo={this.state.logo}
+          // image={this.state.image}
+          // handleDrawerToggle={this.handleDrawerToggle}
+          // open={this.state.mobileOpen}
+          // color={this.state.color}
+          // bgColor={this.state.bgColor}
+          // miniActive={this.state.miniActive}
+          // user={user}
+          // userData={this.state.userData}
+          // generalRulesData={this.state.generalRulesData}
+          // {...rest}
+        />
         {/* {alert}
 			{loading} */}
         <div className={mainPanel} ref="mainPanel">

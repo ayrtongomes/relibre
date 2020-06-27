@@ -66,7 +66,10 @@ export default function HeaderLinks(props) {
               <NavLink to="/venda" className={classes.dropdownLink}>
                 Vendas
               </NavLink>,
-              <NavLink to="/register" className={classes.dropdownLink}>
+              <NavLink
+                to="/minha-conta/meu-perfil"
+                className={classes.dropdownLink}
+              >
                 Meu perfil
               </NavLink>,
               <NavLink to="/login" className={classes.dropdownLink}>

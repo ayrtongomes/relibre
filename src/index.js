@@ -70,7 +70,7 @@ const App = () => {
             <Route path="/doacao" component={Doacao} />
             <Route path="/venda" component={Venda} />
             <Route path="/combinacoes" component={Combinacao} />
-            <PrivateRoute path="/client/" component={AdminLayout} />
+            <PrivateRoute path="/minha-conta/" component={AdminLayout} />
             <Redirect from="/" to="/home" />
           </Switch>
         </ConnectedRouter>
