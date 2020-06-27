@@ -5,7 +5,7 @@ const parallaxStyle = {
     overflow: 'hidden',
     position: 'relative',
     backgroundPosition: 'center center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     margin: '0',
     padding: '0',
     border: '0',
@@ -28,7 +28,7 @@ const parallaxStyle = {
     }
   },
   small: {
-    height: '380px'
+    height: '120px'
   }
 };
 

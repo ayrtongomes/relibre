@@ -51,7 +51,10 @@ export default function HeaderLinks(props) {
             buttonIcon={Person}
             //dropdownList={[dropList]}
             dropdownList={[
-              <NavLink to="/combinacoes" className={classes.dropdownLink}>
+              <NavLink
+                to="/minha-conta/combinacoes"
+                className={classes.dropdownLink}
+              >
                 Combinações
               </NavLink>,
               <NavLink to="/troca" className={classes.dropdownLink}>
