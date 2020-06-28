@@ -42,12 +42,12 @@ export default function ContactRequest({ openModal = false, closeModal }) {
               Visando que localizamos livros próximos da sua região.
             </p>
             <p>
-              Recomendamos que habilite a permissão para localização para que
+              Recomendamos que habilite a permissão de localização para que
               tenha uma experiência completa.
             </p>
             <small>
               Você pode habilitar essa permissão nas configurações do seu
-              navegador
+              navegador.
             </small>
           </DialogContentText>
         </DialogContent>

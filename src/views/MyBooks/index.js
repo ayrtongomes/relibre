@@ -75,7 +75,8 @@ export default props => {
                     <div
                       style={{
                         display: 'flex',
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
                       }}
                     >
                       <div style={{ fontWeight: '300' }}>

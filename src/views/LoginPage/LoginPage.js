@@ -78,6 +78,7 @@ class LoginPage extends React.Component {
       };
       //this.props.login(obj);
     }
+    localStorage.setItem('user', true);
     cookies.set('logged', true);
     this.props.history.push('/minha-conta/meu-perfil');
   };

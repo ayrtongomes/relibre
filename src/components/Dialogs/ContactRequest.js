@@ -33,7 +33,7 @@ export default function ContactRequest({ openModal = false, closeModal }) {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle id="alert-dialog-slide-title">
-          {'Deseja solicitar o contato de Robertinho?'}
+          {'Deseja solicitar o contato do proprietário desse livro?'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">

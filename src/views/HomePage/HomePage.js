@@ -31,7 +31,7 @@ const HomePage = ({ classes, ...rest }) => {
         <div className={classes.container}>
           <GridContainer>
             <GridItem style={{ maxWidth: '60rem', margin: 'auto' }}>
-              <h1>Descubra pessoas para trocar livros próximas à você</h1>
+              <h1>Renove sua biblioteca</h1>
               <div className={classes.brand}>
                 <SearchBox />
               </div>

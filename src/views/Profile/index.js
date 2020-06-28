@@ -213,6 +213,7 @@ export default props => {
                           type="submit"
                           startIcon={<LocationSearching />}
                           className={classes.geolocButton}
+                          onClick={() => getGeoLocation()}
                           //disabled={loggedIn || loggingIn}
                         >
                           Usar geolocalização
