@@ -93,9 +93,9 @@ export default function NavTabs({ index, ...props }) {
           />
           <Tab
             classes={{ root: classes.labelRoot }}
-            label="Sebos"
+            label="Comerciantes"
             component={Link}
-            to="/"
+            to="/comerciante"
           />
         </Tabs>
       </AppBar>

@@ -196,7 +196,7 @@ export default props => {
                           }}
                           inputProps={{
                             type: 'text',
-                            value: 'Curitiba',
+                            value: 'Cidade Industrial - Curitiba',
                             disabled: true
                             //onChange: event => setPhone(event.target.value),
                             // endAdornment: (

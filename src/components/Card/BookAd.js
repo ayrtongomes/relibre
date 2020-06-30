@@ -114,6 +114,7 @@ export default props => {
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
+          </IconButton> 
         > */}
         <h4
           style={{
@@ -124,7 +125,6 @@ export default props => {
         >
           R$ 7,99
         </h4>
-        {/* </IconButton> */}
       </CardActions>
       <ContactFormRequest
         openModal={showModal}

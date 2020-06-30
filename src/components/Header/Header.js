@@ -17,6 +17,8 @@ import Menu from '@material-ui/icons/Menu';
 // core components
 import styles from 'assets/jss/material-kit-react/components/headerStyle.js';
 import logoDark from 'assets/img/logo-dark.png';
+import logoLight1 from 'assets/img/logo-relibre-light.png';
+import logoLight2 from 'assets/img/logo-relibre-light-2.png';
 
 const useStyles = makeStyles(styles);
 
@@ -70,9 +72,18 @@ export default function Header(props) {
 
   const brandComponent = (
     <NavLink to="/">
-      <img className={classes.logo} src={logoDark} alt="Logo Relibre" />
+      <img
+        className={classes.logo}
+        src={
+          props.color === 'transparent' || props.color === 'white'
+            ? logoDark
+            : logoLight1
+        }
+        alt="Logo Relibre"
+      />
     </NavLink>
   );
+
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={toolbarClasses}>

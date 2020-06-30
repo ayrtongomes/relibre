@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
@@ -12,8 +12,19 @@ import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import Table from 'components/Table';
 import Button from 'components/CustomButtons/Button';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import CustomInput from 'components/CustomInput/CustomInput.js';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { Email, Check, Phone, Book } from '@material-ui/icons';
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const useStyles = makeStyles(theme => ({
   ...profilePageStyle,
@@ -53,6 +64,9 @@ const rows = [
 ];
 
 export default props => {
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState('');
+
   const classes = useStyles();
 
   return (
@@ -75,7 +89,7 @@ export default props => {
                     >
                       <div style={{ fontWeight: '300' }}>
                         <span>
-                          Adicione, altere e veja os livros que você cadastrou
+                          Adicione, exclua e veja os livros que você cadastrou
                           na sua lista de desejos.
                         </span>
                       </div>
@@ -83,6 +97,7 @@ export default props => {
                         variant="contained"
                         color="primary"
                         size="md"
+                        onClick={() => setShowModal(true)}
                         //type="submit"
                         //disabled={loggedIn || loggingIn}
                       >
@@ -102,6 +117,46 @@ export default props => {
           </div>
         </div>
       </div>
+      <Dialog
+        open={showModal}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setShowModal(false)}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">
+          {'Adicionar livro desejado'}
+        </DialogTitle>
+        <DialogContent>
+          <GridContainer justify="left" style={{ width: '480px' }}>
+            <GridItem xs={12} sm={12}>
+              <CustomInput
+                labelText="Livro"
+                id="name"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  type: 'text',
+                  value: name,
+                  onChange: event => setName(event.target.value),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Book className={classes.inputIconsColor} />
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </GridItem>
+          </GridContainer>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowModal(false)} color="primary">
+            Adicionar a lista de desejos
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

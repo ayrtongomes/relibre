@@ -1,8 +1,10 @@
 import { container, title } from 'assets/jss/material-kit-react.js';
 
 import imagesStyle from 'assets/jss/material-kit-react/imagesStyles.js';
+import basicsStyle from 'assets/jss/material-kit-react/views/componentsSections/basicsStyle.js';
 
 const profilePageStyle = {
+  ...basicsStyle,
   container,
   profile: {
     textAlign: 'center',
