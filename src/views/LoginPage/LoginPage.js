@@ -19,10 +19,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import loginPageStyle from 'assets/jss/material-kit-react/views/loginPage.js';
 
-import { login, logout } from '../../redux/actions';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import compose from 'utils/compose';
 
 import image from 'assets/img/banner-register.png';
@@ -212,20 +208,4 @@ class LoginPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { loggingIn, loggedIn, logginFailed } = state.authentication;
-
-  return {
-    loggingIn,
-    loggedIn,
-    logginFailed
-  };
-};
-
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators({ login, logout }, dispatch);
-
-export default compose(
-  connect(mapStateToProps, null),
-  withStyles(loginPageStyle)
-)(LoginPage);
+export default compose(withStyles(loginPageStyle))(LoginPage);

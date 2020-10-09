@@ -1,5 +1,4 @@
 import React from 'react';
-// import { connect } from 'react-redux';
 
 // import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -183,18 +182,4 @@ Main.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-// function mapStateToProps(state) {
-// 	const { users, authentication, sweetAlert, loader} = state;
-// 	const { user } = authentication;
-// 	return {
-// 		user,
-// 		users,
-// 		alert: sweetAlert.alert,
-// 		loading: loader.loading
-// 	};
-// }
-
-export default compose(
-  //connect(mapStateToProps),
-  withStyles(appStyle)
-)(Main);
+export default compose(withStyles(appStyle))(Main);

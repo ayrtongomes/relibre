@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Modal from 'components/Dialogs/LocationNotAllowed';
 
@@ -20,11 +20,8 @@ import Comerciante from 'views/ResultPages/Comerciante';
 import CompanyProfile from 'views/CompanyProfilePage';
 import { PrivateRoute } from 'components/PrivateRoute.js';
 //import AuthLayout from 'views/LoginPage';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
 
 //import axios from 'axios';
-import store from './redux/store';
 
 let hist = createBrowserHistory();
 
@@ -59,29 +56,26 @@ const App = () => {
     //return obj;
   };
   return (
-    <Provider store={store}>
-      <Suspense fallback={<div />}>
-        <ConnectedRouter history={hist}>
-          <Switch>
-            <Route path="/home" component={HomePage} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={RegisterPage} />
-            <Route path="/troca" component={Troca} />
-            <Route path="/emprestimo" component={Emprestimo} />
-            <Route path="/doacao" component={Doacao} />
-            <Route path="/venda" component={Venda} />
-            <Route path="/comerciante" component={Comerciante} />
-            <Route
-              path="/comerciante-info/tio-zico"
-              component={CompanyProfile}
-            />
-            <PrivateRoute path="/minha-conta/" component={AdminLayout} />
-            <Redirect from="/" to="/home" />
-          </Switch>
-        </ConnectedRouter>
-      </Suspense>
+    <>
+      {/* <Suspense fallback={<div />}> */}
+      <BrowserRouter>
+        <Switch>
+          <Route path="/home" component={HomePage} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/troca" component={Troca} />
+          <Route path="/emprestimo" component={Emprestimo} />
+          <Route path="/doacao" component={Doacao} />
+          <Route path="/venda" component={Venda} />
+          <Route path="/comerciante" component={Comerciante} />
+          <Route path="/comerciante-info/tio-zico" component={CompanyProfile} />
+          <PrivateRoute path="/minha-conta/" component={AdminLayout} />
+          <Redirect from="/" to="/home" />
+        </Switch>
+      </BrowserRouter>
+      {/* </Suspense> */}
       <Modal openModal={showModal} closeModal={() => setShowModal(false)} />
-    </Provider>
+    </>
   );
 };
 

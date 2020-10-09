@@ -29,10 +29,6 @@ import SearchIcon from '@material-ui/icons/Search';
 // css
 import styles from './styles.module.scss';
 
-import { GetInstituicoesData } from '../../redux/actions';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import compose from 'utils/compose';
 
 // Sections for this page

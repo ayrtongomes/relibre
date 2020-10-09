@@ -21,11 +21,7 @@ import Typography from '@material-ui/core/Typography';
 
 import loginPageStyle from 'assets/jss/material-kit-react/views/loginPage.js';
 // REDIX INIT
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import compose from 'utils/compose';
-
-import { PostUser } from '../../redux/actions';
 
 import image from 'assets/img/banner-register.png';
 
@@ -96,10 +92,10 @@ class RegisterPage extends React.Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.userDataPost !== this.props.userDataPost) {
-      console.log(this.props.userDataPost);
-      document.location.href = '/login';
-    }
+    // if (prevProps.userDataPost !== this.props.userDataPost) {
+    //   console.log(this.props.userDataPost);
+    //   document.location.href = '/login';
+    // }
   }
   render() {
     const { classes } = this.props;
@@ -125,35 +121,6 @@ class RegisterPage extends React.Component {
                   >
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Cadastre-se agora!</h4>
-                      <div className={classes.socialLine}>
-                        {/* <Button
-                          justIcon
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className={"fab fa-twitter"} />
-                        </Button>
-                        <Button
-                          justIcon
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className={"fab fa-facebook"} />
-                        </Button>
-                        <Button
-                          justIcon
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className={"fab fa-google-plus-g"} />
-                        </Button>  */}
-                      </div>
                     </CardHeader>
                     <p className={classes.divider}>
                       Junte-se a nossa comunidade!
@@ -269,18 +236,4 @@ class RegisterPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    userDataPost: state.user.userDataPost
-
-    // partnersPostDataFailed: state.partners.partnersPostDataFailed,
-  };
-};
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ PostUser }, dispatch);
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withStyles(loginPageStyle)
-)(RegisterPage);
+export default compose(withStyles(loginPageStyle))(RegisterPage);
