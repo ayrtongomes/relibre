@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { createBrowserHistory } from 'history';
+// import { createBrowserHistory } from 'history';
 import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Modal from 'components/Dialogs/LocationNotAllowed';
@@ -18,12 +18,13 @@ import Doacao from 'views/ResultPages/Doacao';
 import Venda from 'views/ResultPages/Venda';
 import Comerciante from 'views/ResultPages/Comerciante';
 import CompanyProfile from 'views/CompanyProfilePage';
+import ChangePassword from 'views/ChangePassword';
 import { PrivateRoute } from 'components/PrivateRoute.js';
 //import AuthLayout from 'views/LoginPage';
 
 //import axios from 'axios';
 
-let hist = createBrowserHistory();
+// let hist = createBrowserHistory();
 
 const cookies = new Cookies();
 
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="/doacao" component={Doacao} />
           <Route path="/venda" component={Venda} />
           <Route path="/comerciante" component={Comerciante} />
+          <Route path="/change-password" component={ChangePassword} />
           <Route path="/comerciante-info/tio-zico" component={CompanyProfile} />
           <PrivateRoute path="/minha-conta/" component={AdminLayout} />
           <Redirect from="/" to="/home" />
