@@ -10,7 +10,8 @@ import Divider from '@material-ui/core/Divider';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
-import CardContact from 'components/Card/CardContact.js';
+import NavPills from 'components/NavPills/NavPills.js';
+import ToApprove from 'components/ContactList/ToApprove.js';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 
@@ -49,9 +50,8 @@ export default props => {
                     <h2 className={classes.title}>Contatos</h2>
                     <div style={{ fontWeight: '300' }}>
                       <span>
-                        Pronto! Agora é só entrar em contato com esses usuários
-                        para combinarem os próximos passos da troca, empréstimo
-                        ou doação!
+                        Veja quem solicitou seus dados de contato e também de
+                        quem você solicitou.
                       </span>
                     </div>
                   </div>
@@ -59,15 +59,22 @@ export default props => {
               </GridItem>
               <Divider style={{ margin: '2rem 0', width: '100%' }} />
             </GridContainer>
-            <GridContainer justify="start">
-              <GridItem xs={12} sm={12} md={6}>
-                <CardContact />
-              </GridItem>
-              <GridItem xs={12} sm={12} md={6}>
-                <CardContact />
-              </GridItem>
-              <GridItem xs={12} sm={12} md={6}>
-                <CardContact />
+            <GridContainer justify="center">
+              <GridItem xs={12} sm={12} md={12} className={classes.navWrapper}>
+                <NavPills
+                  alignCenter
+                  color="primary"
+                  tabs={[
+                    {
+                      tabButton: 'Para aprovação',
+                      tabContent: <ToApprove />
+                    },
+                    {
+                      tabButton: 'Solicitados',
+                      tabContent: <ToApprove />
+                    }
+                  ]}
+                />
               </GridItem>
             </GridContainer>
           </div>

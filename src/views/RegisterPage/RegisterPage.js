@@ -8,6 +8,8 @@ import Icon from '@material-ui/core/Icon';
 import Email from '@material-ui/icons/Email';
 import Phone from '@material-ui/icons/Phone';
 import AccountBox from '@material-ui/icons/AccountBox';
+import Check from '@material-ui/icons/Check';
+
 // core components
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
@@ -18,6 +20,8 @@ import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
 import Typography from '@material-ui/core/Typography';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import loginPageStyle from 'assets/jss/material-kit-react/views/loginPage.js';
 // REDIX INIT
@@ -35,7 +39,8 @@ class RegisterPage extends React.Component {
       password: '',
       email: '',
       nome: '',
-      passwordConfirm: null
+      passwordConfirm: '',
+      acceptedTerms: false
     };
   }
   componentDidMount() {
@@ -112,7 +117,7 @@ class RegisterPage extends React.Component {
         >
           <div className={classes.container}>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem xs={12} sm={12} md={5}>
                 <Card className={classes[this.state.cardAnimaton]}>
                   <form
                     className={classes.form}
@@ -210,6 +215,35 @@ class RegisterPage extends React.Component {
                             </InputAdornment>
                           )
                         }}
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onClick={() =>
+                              this.setState({
+                                acceptedTerms: !this.state.acceptedTerms
+                              })
+                            }
+                            checked={this.state.acceptedTerms}
+                            checkedIcon={
+                              <Check className={classes.checkedIcon} />
+                            }
+                            icon={<Check className={classes.uncheckedIcon} />}
+                            classes={{
+                              checked: classes.checked,
+                              root: classes.checkRoot
+                            }}
+                          />
+                        }
+                        label={
+                          <span>
+                            Eu concordo com{' '}
+                            <a href="#">
+                              os termos e a Política de Privacidade do Relibre
+                            </a>
+                            .
+                          </span>
+                        }
                       />
                       {passwordConfirm === false && (
                         <div style={{ textAlign: 'center' }}>

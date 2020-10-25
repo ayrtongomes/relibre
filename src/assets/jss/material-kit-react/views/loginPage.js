@@ -1,4 +1,9 @@
 import { container } from 'assets/jss/material-kit-react.js';
+import {
+  primaryColor,
+  grayColor,
+  roseColor
+} from 'assets/jss/material-kit-react.js';
 
 const signupPageStyle = {
   container: {
@@ -84,6 +89,58 @@ const signupPageStyle = {
   },
   inputIconsColor: {
     color: '#495057'
+  },
+  checkRoot: {
+    padding: '14px'
+  },
+  checked: {
+    color: primaryColor + '!important'
+  },
+  checkedIcon: {
+    width: '20px',
+    height: '20px',
+    border: '1px solid rgba(41,41,41, .54)',
+    borderRadius: '3px'
+  },
+  uncheckedIcon: {
+    width: '0px',
+    height: '0px',
+    padding: '9px',
+    border: '1px solid rgba(41,41,41, .54)',
+    borderRadius: '3px'
+  },
+  iconCheckbox: {
+    height: '116px',
+    width: '116px',
+    color: primaryColor[0],
+    padding: '0',
+    margin: '0 auto 20px',
+    '& > span:first-child': {
+      borderWidth: '4px',
+      borderStyle: 'solid',
+      borderColor: grayColor,
+      textAlign: 'center',
+      verticalAlign: 'middle',
+      borderRadius: '50%',
+      color: 'inherit',
+      transition: 'all 0.2s'
+    },
+    '&:hover': {
+      color: primaryColor[0],
+      '& > span:first-child': {
+        borderColor: primaryColor
+      }
+    }
+  },
+  iconCheckboxChecked: {
+    color: primaryColor[0],
+    '& > span:first-child': {
+      borderColor: primaryColor
+    }
+  },
+  iconCheckboxIcon: {
+    fontSize: '40px',
+    lineHeight: '111px'
   }
 };
 

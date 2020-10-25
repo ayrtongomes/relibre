@@ -59,6 +59,7 @@ RegularButton.propTypes = {
     'primary',
     'info',
     'success',
+    'outlined',
     'warning',
     'danger',
     'rose',

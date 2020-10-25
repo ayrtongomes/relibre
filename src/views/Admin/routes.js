@@ -1,5 +1,6 @@
 import Institute from 'views/InstitutePage';
 import Profile from 'views/Profile';
+import PendingContacts from 'views/PendingContacts';
 import Contacts from 'views/Contacts';
 import MyBooks from 'views/MyBooks';
 import BooksWishlist from 'views/BooksWishlist';
@@ -31,8 +32,16 @@ export const dashRoutes = [
     sidebar: true
   },
   {
+    path: '/para-aprovacao/contato',
+    name: 'Contatos pendentes',
+    icon: 'contacts',
+    component: PendingContacts,
+    layout: '/minha-conta',
+    sidebar: true
+  },
+  {
     path: '/contatos',
-    name: 'Contatos',
+    name: 'Contatos aprovados',
     icon: 'contacts',
     component: Contacts,
     layout: '/minha-conta',
