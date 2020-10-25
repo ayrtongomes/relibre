@@ -62,8 +62,6 @@ const useStyles = makeStyles(theme => ({
     color: '#414141'
   },
   rating: {
-    width: '100%',
-    justifyContent: 'center',
     '& label': {
       fontSize: '52px !important'
     }

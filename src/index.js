@@ -22,8 +22,7 @@ import ChangePassword from 'views/ChangePassword';
 import { PrivateRoute } from 'components/PrivateRoute.js';
 //import AuthLayout from 'views/LoginPage';
 
-//import axios from 'axios';
-
+import Provider from 'services/contexts';
 // let hist = createBrowserHistory();
 
 const cookies = new Cookies();
@@ -35,7 +34,7 @@ const App = () => {
   const [showModal, setShowModal] = React.useState(false);
 
   useEffect(() => {
-    getGeoLocation();
+    //getGeoLocation();
   }, []);
 
   const getGeoLocation = async () => {
@@ -81,4 +80,9 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);

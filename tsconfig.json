@@ -10,24 +10,16 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "noImplicitAny": false,
-    "baseUrl": "src",
-    "paths": {
-      "*": ["*"]
-    }
+    "jsx": "preserve"
   },
-  "rootDir": "src",
   "include": [
-    "src",
-    "index.d.ts",
-    "global.d.ts"
+    "src"
   ]
 }
