@@ -9,6 +9,7 @@ import 'assets/scss/material-kit-react.scss?v=1.4.0';
 
 import AdminLayout from 'views/Admin';
 import Login from 'views/LoginPage/LoginPage';
+import Terms from 'views/Terms';
 import HomePage from 'views/HomePage/HomePage';
 import RegisterPage from 'views/RegisterPage/RegisterPage';
 //import ResultPage from 'views/ResultPage';
@@ -63,6 +64,8 @@ const App = () => {
           <Route path="/home" component={HomePage} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={RegisterPage} />
+          <Route path="/termos" component={Terms} />
+
           <Route path="/troca" component={Troca} />
           <Route path="/emprestimo" component={Emprestimo} />
           <Route path="/doacao" component={Doacao} />

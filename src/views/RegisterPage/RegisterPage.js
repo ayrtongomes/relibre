@@ -232,7 +232,7 @@ export default function RegisterPage(props) {
                           label={
                             <span>
                               Eu concordo com{' '}
-                              <a href="#">
+                              <a href="/termos" target="_blank">
                                 os termos e a Política de Privacidade do Relibre
                               </a>
                               .
