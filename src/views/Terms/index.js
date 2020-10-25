@@ -35,7 +35,9 @@ const HomePage = ({ classes, ...rest }) => {
               serviços disponibilizados pelo Relibre. O serviço Relibre são
               regidos pelas condições abaixo.
             </p>
-            <h4 style={{ textAlign: 'left' }}>Aceitação dos Termos de Uso</h4>
+            <h4 style={{ textAlign: 'left' }}>
+              1. Aceitação dos Termos de Uso
+            </h4>
             <p style={{ fontWeight: 400 }}>
               Ao acessar e usar os Serviços Relibre você concorda com estas
               condições e termos e com a Política de Privacidade, que
@@ -47,7 +49,7 @@ const HomePage = ({ classes, ...rest }) => {
               ou negar acesso ao serviço ou a qualquer parte deles, a qualquer
               motivo.
             </p>
-            <h4 style={{ textAlign: 'left' }}>Qualificação</h4>
+            <h4 style={{ textAlign: 'left' }}>2. Qualificação</h4>
             <p style={{ fontWeight: 400 }}>
               Para criar uma conta no Relibre e utilizar o Serviço, você deve
               ter, no mínimo, 18 anos de idade. Ao criar uma conta e utilizar o
@@ -65,7 +67,7 @@ const HomePage = ({ classes, ...rest }) => {
               </ul>
             </p>
             <h4 style={{ textAlign: 'left' }}>
-              Rescisão de contrato e Alteração do Serviço
+              3. Rescisão de contrato e Alteração do Serviço
             </h4>
             <p style={{ fontWeight: 400 }}>
               O Relibre poderá cancelar sua conta a qualquer momento, sem aviso
@@ -81,7 +83,7 @@ const HomePage = ({ classes, ...rest }) => {
               representa seu consentimento com os termos alterados ou
               adicionados.
             </p>
-            <h4 style={{ textAlign: 'left' }}>Segurança</h4>
+            <h4 style={{ textAlign: 'left' }}>4. Segurança</h4>
             <p style={{ fontWeight: 400 }}>
               Embora a equipe Relibre se esforce para incentivar uma experiência
               de membro com respeito, por meio de recursos como a combinação,
@@ -95,7 +97,7 @@ const HomePage = ({ classes, ...rest }) => {
               usuários.
             </p>
             <h4 style={{ textAlign: 'left' }}>
-              Conduta e Obrigações do Usuário
+              5. Conduta e Obrigações do Usuário
             </h4>
             <p style={{ fontWeight: 400 }}>
               Ao utilizar o Serviço Relibre, você concorda em não:
@@ -203,7 +205,7 @@ const HomePage = ({ classes, ...rest }) => {
               2020.
             </p>
             <h4 style={{ textAlign: 'left' }}>
-              Informações que você nos fornece e como elas serão utilizadas
+              1. Informações que você nos fornece e como elas serão utilizadas
             </h4>
             <p style={{ fontWeight: 400 }}>
               Para que seja possível encontrar o livro mais próximo de você
@@ -236,7 +238,7 @@ const HomePage = ({ classes, ...rest }) => {
               anúncios que possam ser do seu interesse.
             </p>
             <h4 style={{ textAlign: 'left' }}>
-              Como compartilhamos as suas informações
+              2. Como compartilhamos as suas informações
             </h4>
             <p style={{ fontWeight: 400 }}>
               O objetivo do Relibre é conectar pessoas próximas de uma
@@ -250,7 +252,7 @@ const HomePage = ({ classes, ...rest }) => {
               proprietário pessoa jurídica do livro.
             </p>
             <h4 style={{ textAlign: 'left' }}>
-              Alterações da Política de Privacidade
+              3. Alterações da Política de Privacidade
             </h4>
             <p style={{ fontWeight: 400 }}>
               Esta política pode mudar ocasionalmente. Estas alterações serão
