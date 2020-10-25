@@ -75,7 +75,7 @@ export default function CardContact({ name, address }) {
   const theme = useTheme();
   const history = useHistory();
 
-  const [value, setValue] = React.useState(5);
+  const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -130,7 +130,6 @@ export default function CardContact({ name, address }) {
                 name="simple-controlled"
                 value={value}
                 onChange={(event, newValue) => {
-                  debugger;
                   setValue(newValue);
                 }}
               />
