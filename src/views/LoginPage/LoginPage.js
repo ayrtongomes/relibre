@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect, useLocation } from 'react-router-dom';
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -18,93 +18,72 @@ import Button from 'components/CustomButtons/Button.js';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import loginPageStyle from 'assets/jss/material-kit-react/views/loginPage.js';
+import { makeStyles } from '@material-ui/core/styles';
 
 import compose from 'utils/compose';
 
 import image from 'assets/img/banner-register.png';
 
 import Cookies from 'universal-cookie';
+import { useAuth } from 'services/auth';
 
 const cookies = new Cookies();
 
-class LoginPage extends React.Component {
-  constructor(props) {
-    super(props);
-    // we use this to make the card to appear after the page has been rendered
-    //this.props.logout();
+const useStyles = makeStyles(loginPageStyle);
 
-    this.state = {
-      cardAnimaton: 'cardHidden',
-      login: '',
-      password: ''
-    };
-  }
-  componentDidMount() {
-    cookies.set('logged', false);
-    // we add a hidden class to the card and after 700 ms we delete it and the transition appears
-    setTimeout(
-      function() {
-        this.setState({ cardAnimaton: '' });
-      }.bind(this),
-      700
-    );
-  }
+const LoginPage = props => {
+  const [cardAnimaton, setCardAnimation] = React.useState('cardHidden');
+  const [email, emailSet] = React.useState('');
+  const [password, passwordSet] = React.useState('');
+  const { user, login } = useAuth();
 
-  change(event, type) {
-    switch (type) {
-      case 'login':
-        this.setState({ login: event.target.value });
-        break;
-      case 'password':
-        this.setState({ password: event.target.value });
-        break;
-      default:
-        break;
-    }
-  }
-  submit = e => {
+  console.log(user);
+
+  setTimeout(function() {
+    setCardAnimation('');
+  }, 700);
+
+  const submit = async e => {
     e.preventDefault();
-    this.setState({ submitted: true });
-    const { login, password } = this.state;
+    //this.setState({ submitted: true });
     //const { dispatch } = this.props;
-    if (login && password) {
-      let obj = {
-        login: login,
-        senha: password
-      };
-      //this.props.login(obj);
+    if (email && password) {
+      await login({ login: email, password: password });
     }
-    localStorage.setItem('user', true);
-    cookies.set('logged', true);
-    this.props.history.push('/minha-conta/meu-perfil');
   };
 
-  render() {
-    const { classes, loggingIn, loggedIn, logginFailed } = this.props;
+  const classes = useStyles();
 
-    return (
-      <div>
-        <div
-          className={classes.pageHeader}
-          style={{
-            backgroundImage: 'url(' + image + ')',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top center'
-          }}
-        >
-          {/* <img src={logo}></img> */}
-          <div className={classes.container} style={{ paddingTop: '20vh' }}>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={4}>
-                <Card className={classes[this.state.cardAnimaton]}>
-                  <form
-                    className={classes.form}
-                    name="form"
-                    onSubmit={this.submit}
-                  >
-                    <CardHeader color="primary" className={classes.cardHeader}>
-                      <h4>Login</h4>
-                      {/* <div className={classes.socialLine}>
+  const location = useLocation();
+
+  if (user.token) {
+    const redirect =
+      location.state && location.state.from
+        ? location.state.from.pathname
+        : '/minha-conta/meu-perfil';
+
+    return <Redirect to={redirect} />;
+  }
+
+  return (
+    <div>
+      <div
+        className={classes.pageHeader}
+        style={{
+          backgroundImage: 'url(' + image + ')',
+          backgroundSize: 'cover',
+          backgroundPosition: 'top center'
+        }}
+      >
+        {/* <img src={logo}></img> */}
+        <div className={classes.container} style={{ paddingTop: '20vh' }}>
+          <GridContainer justify="center">
+            <GridItem xs={12} sm={12} md={4}>
+              <Card className={classes[cardAnimaton]}>
+                <form className={classes.form} name="form" onSubmit={submit}>
+                  <CardHeader color="primary" className={classes.cardHeader}>
+                    <h4>Login</h4>
+                    {/* <div className={classes.socialLine}>
                         <Button
                           justIcon
                           href="#pablo"
@@ -133,79 +112,68 @@ class LoginPage extends React.Component {
                           <i className={"fab fa-google-plus-g"} />
                         </Button>
                       </div>*/}
-                    </CardHeader>
-                    <NavLink to="/register">
-                      <p className={classes.divider}>
-                        Não tem cadastro? Registre-se agora.
-                      </p>
-                    </NavLink>
-                    <CardBody>
-                      <CustomInput
-                        labelText="Login"
-                        id="login"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: 'text',
-                          onChange: event => this.change(event, 'login'),
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Email className={classes.inputIconsColor} />
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                      <CustomInput
-                        labelText="Senha"
-                        id="pass"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: 'password',
-                          onChange: event => this.change(event, 'password'),
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Icon className={classes.inputIconsColor}>
-                                lock_outline
-                              </Icon>
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                    </CardBody>
-                    {logginFailed && (
-                      <div style={{ textAlign: 'center' }}>
-                        <Typography
-                          color="error"
-                          style={{ fontWeight: 'bold' }}
-                        >
-                          {'Usuário ou senha incorretos.'}
-                        </Typography>
-                      </div>
-                    )}
-                    <CardFooter className={classes.cardFooter}>
-                      <Button
-                        simple
-                        color="primary"
-                        size="lg"
-                        type="submit"
-                        //disabled={loggedIn || loggingIn}
-                      >
-                        ENTRAR
-                      </Button>
-                    </CardFooter>
-                  </form>
-                </Card>
-              </GridItem>
-            </GridContainer>
-          </div>
-          {/* <Footer whiteFont /> */}
+                  </CardHeader>
+                  <NavLink to="/register">
+                    <p className={classes.divider}>
+                      Não tem cadastro? Registre-se agora.
+                    </p>
+                  </NavLink>
+                  <CardBody>
+                    <CustomInput
+                      labelText="Login"
+                      id="login"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: 'text',
+                        onChange: event => emailSet(event.target.value),
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Email className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        )
+                      }}
+                    />
+                    <CustomInput
+                      labelText="Senha"
+                      id="pass"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: 'password',
+                        onChange: event => passwordSet(event.target.value),
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Icon className={classes.inputIconsColor}>
+                              lock_outline
+                            </Icon>
+                          </InputAdornment>
+                        )
+                      }}
+                    />
+                  </CardBody>
+                  <CardFooter className={classes.cardFooter}>
+                    <Button
+                      simple
+                      color="primary"
+                      size="lg"
+                      type="submit"
+                      //disabled={loggedIn || loggingIn}
+                    >
+                      ENTRAR
+                    </Button>
+                  </CardFooter>
+                </form>
+              </Card>
+            </GridItem>
+          </GridContainer>
         </div>
+        {/* <Footer whiteFont /> */}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default compose(withStyles(loginPageStyle))(LoginPage);
+export default LoginPage;

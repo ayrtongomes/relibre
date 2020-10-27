@@ -14,12 +14,12 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     height: 260,
-    fontSize: '"Roboto Slab", "Roboto", sans-serif'
+    fontSize: '"Inter", "Roboto", sans-serif'
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
-    fontSize: '"Roboto Slab", "Roboto", sans-serif'
+    fontSize: '"Inter", "Roboto", sans-serif'
   },
   content: {
     flex: '1 0 auto',
@@ -57,7 +57,7 @@ export default function MediaControlCard({ name, address }) {
           <Typography
             style={{
               textAlign: 'left',
-              fontFamily: '"Roboto Slab", "Roboto", sans-serif',
+              fontFamily: '"Inter", "Roboto", sans-serif',
               fontWeight: 600,
               color: '#3C4858'
             }}

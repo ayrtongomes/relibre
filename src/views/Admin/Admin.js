@@ -9,7 +9,7 @@ import Footer from 'components/Footer/Footer.js';
 import Sidebar from 'components/Sidebar';
 import Header from 'components/Header/Header.js';
 import HeaderLinks from 'components/Header/HeaderLinks';
-import { dashRoutes } from './routes.js';
+import { dashRoutes } from 'views/routes.js';
 
 // Utils
 import compose from 'utils/compose';
@@ -46,14 +46,14 @@ class Main extends React.Component {
     // }
     window.removeEventListener('resize', this.resizeFunction);
   }
-  componentDidUpdate(e) {
-    if (e.history.location.pathname !== e.location.pathname) {
-      this.refs.mainPanel.scrollTop = 0;
-      if (this.state.mobileOpen) {
-        this.setState({ mobileOpen: false });
-      }
-    }
-  }
+  // componentDidUpdate(e) {
+  //   if (e.history.location.pathname !== e.location.pathname) {
+  //     this.refs.mainPanel.scrollTop = 0;
+  //     if (this.state.mobileOpen) {
+  //       this.setState({ mobileOpen: false });
+  //     }
+  //   }
+  // }
   handleImageClick = image => {
     this.setState({ image: image });
   };
@@ -73,45 +73,7 @@ class Main extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
-  getRoute() {
-    return this.props.location.pathname !== '/admin/full-screen-maps';
-  }
-  // getActiveRoute = dashRoutes => {
-  // 	const {t} = this.props;
 
-  // 	let activeRoute = "";
-  // 	for (let i = 0; i < dashRoutes.length; i++) {
-  // 		if (dashRoutes[i].collapse) {
-  // 			let collapseActiveRoute = this.getActiveRoute(dashRoutes[i].views);
-  // 			if (collapseActiveRoute !== activeRoute) {
-  // 				return collapseActiveRoute;
-  // 			}
-  // 		} else {
-  // 			var path = dashRoutes[i].path.replace(':id','');
-  // 			if (
-  // 				window.location.href.indexOf(dashRoutes[i].layout + path) !== -1
-  // 			) {
-  // 				return t(dashRoutes[i].name);
-  // 			}
-  // 		}
-  // 	}
-  // 	return activeRoute;
-  // };
-  getRoutes = dashRoutes => {
-    return dashRoutes.map((prop, key) => {
-      if (prop.layout === '/minha-conta') {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
   resizeFunction() {
     if (window.innerWidth >= 960) {
       this.setState({ mobileOpen: false });
@@ -119,7 +81,7 @@ class Main extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, children } = this.props;
     const mainPanel = classes.mainPanel;
 
     // var dropList =
@@ -142,36 +104,11 @@ class Main extends React.Component {
             color: 'white'
           }}
         />
-        <Sidebar
-          routes={dashRoutes}
-          // logo={this.state.logo}
-          // image={this.state.image}
-          // handleDrawerToggle={this.handleDrawerToggle}
-          // open={this.state.mobileOpen}
-          // color={this.state.color}
-          // bgColor={this.state.bgColor}
-          // miniActive={this.state.miniActive}
-          // user={user}
-          // userData={this.state.userData}
-          // generalRulesData={this.state.generalRulesData}
-          // {...rest}
-        />
-        {/* {alert}
-			{loading} */}
+        <Sidebar routes={dashRoutes} />
         <div className={mainPanel} ref="mainPanel">
-          {/* On the /maps/full-screen-maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-          {this.getRoute() ? (
-            <div className={classes.content}>
-              <div className={classes.container}>
-                <Switch>{this.getRoutes(dashRoutes)}</Switch>
-              </div>
-            </div>
-          ) : (
-            <div className={classes.map}>
-              <Switch>{this.getRoutes(dashRoutes)}</Switch>
-            </div>
-          )}
-          {this.getRoute() ? <Footer fluid /> : null}
+          <div className={classes.content}>
+            <div className={classes.container}>{children}</div>
+          </div>
         </div>
       </div>
     );

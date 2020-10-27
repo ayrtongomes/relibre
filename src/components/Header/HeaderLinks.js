@@ -22,22 +22,22 @@ import styles from 'assets/jss/material-kit-react/components/headerLinksStyle.js
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
+import { useAuth } from 'services/auth';
 
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
   const classes = useStyles();
+  const { user, logout } = useAuth();
   const [logged, setLogged] = useState(cookies.get('logged') || false);
 
   useEffect(() => {
     setLogged(cookies.get('logged'));
   }, [cookies.get('logged')]);
 
-  console.log(logged);
-
   return (
     <List className={classes.list}>
-      {logged ? (
+      {user && user.token ? (
         <>
           <ListItem className={classes.listItem} style={{ marginRight: '5px' }}>
             <Button
@@ -55,7 +55,7 @@ export default function HeaderLinks(props) {
             {/* {user && user.login && ( */}
             <CustomDropdown
               noLiPadding
-              buttonText={'Ayrton'}
+              buttonText={'Usuário'}
               // buttonText={user.username}
               buttonProps={{
                 className: classes.navLink,
@@ -88,9 +88,9 @@ export default function HeaderLinks(props) {
                 >
                   Meu perfil
                 </NavLink>,
-                <NavLink to="/login" className={classes.dropdownLink}>
+                <a onClick={() => logout()} className={classes.dropdownLink}>
                   Sair
-                </NavLink>
+                </a>
               ]}
             />
             {/* )} */}

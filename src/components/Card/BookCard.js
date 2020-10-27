@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 325,
     alignSelf: 'baseline',
     justifySelf: 'center',
-    fontFamily: "'Fira Sans', 'Roboto', sans-serif"
+    fontFamily: "'Inter', 'Roboto', sans-serif"
   },
   media: {
     height: '470px',

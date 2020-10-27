@@ -14,27 +14,27 @@ function AuthProvider(props) {
     }
   }, []);
 
-  const login = async ({ email, password }) => {
+  const login = async ({ login, password }) => {
     const { data, errors } = await api.post('Account/Login', {
       body: {
-        email,
-        password
+        login: login,
+        password: password
       }
     });
 
-    // if (Object.keys(errors || {}).length) {
-    //   return { errors };
-    // }
+    if (Object.keys(errors || {}).length) {
+      return { errors };
+    }
 
-    if (data.accessToken) {
+    if (data && data.result.access_token) {
       let user = {
-        token: data.accessToken,
-        ...data.user
+        token: data.result.access_token,
+        login: data.result.login
       };
 
       localStorage.setItem(`@relibre:user`, JSON.stringify(user));
 
-      const fullUser = await fetchUser(user.id);
+      const fullUser = await fetchUser(data.result.token);
 
       user = {
         ...user,
@@ -52,7 +52,7 @@ function AuthProvider(props) {
   const logout = () => {
     setUser({});
     localStorage.setItem(`@relibre:user`, '');
-    window.location.href = '/';
+    window.location.href = '/login';
   };
 
   const register = async payload => {
@@ -82,9 +82,10 @@ function AuthProvider(props) {
     }
   };
 
-  const fetchUser = async id => {
+  const fetchUser = async token => {
     const { data: fullUser } = await api.get(`Account`, {
-      auth: true
+      auth: false,
+      token
     });
 
     return fullUser;

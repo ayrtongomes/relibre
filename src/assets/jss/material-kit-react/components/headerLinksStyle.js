@@ -37,7 +37,7 @@ const headerLinksStyle = theme => ({
     padding: '0 !important'
   },
   navLink: {
-    fontFamily: "'Fira Sans', 'Roboto', sans-serif !important",
+    fontFamily: "'Inter', 'Roboto', sans-serif !important",
     color: 'inherit',
     position: 'relative',
     padding: '0.9375rem',

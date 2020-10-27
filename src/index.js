@@ -22,8 +22,10 @@ import CompanyProfile from 'views/CompanyProfilePage';
 import ChangePassword from 'views/ChangePassword';
 import { PrivateRoute } from 'components/PrivateRoute.js';
 //import AuthLayout from 'views/LoginPage';
+import { dashRoutes } from 'views/routes.js';
 
 import Provider from 'services/contexts';
+import { useAuth } from 'services/auth';
 // let hist = createBrowserHistory();
 
 const cookies = new Cookies();
@@ -33,9 +35,23 @@ const cookies = new Cookies();
 
 const App = () => {
   const [showModal, setShowModal] = React.useState(false);
+  const [redirect, setRedirect] = React.useState(false);
+
+  const { logout } = useAuth();
 
   useEffect(() => {
-    //getGeoLocation();
+    function handleUserLocalData(event) {
+      if (event.key === '@relibre:user' && event.newValue === '') {
+        logout();
+        setRedirect(true);
+      }
+    }
+
+    function createEvent() {
+      window.addEventListener('storage', handleUserLocalData);
+    }
+
+    createEvent();
   }, []);
 
   const getGeoLocation = async () => {
@@ -56,6 +72,23 @@ const App = () => {
     );
     //return obj;
   };
+
+  const getRoutes = () => {
+    return dashRoutes.map((prop, key) => {
+      if (prop.layout === '/minha-conta') {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        );
+      } else {
+        return null;
+      }
+    });
+  };
+
   return (
     <>
       {/* <Suspense fallback={<div />}> */}
@@ -73,7 +106,9 @@ const App = () => {
           <Route path="/comerciante" component={Comerciante} />
           <Route path="/change-password" component={ChangePassword} />
           <Route path="/comerciante-info/tio-zico" component={CompanyProfile} />
-          <PrivateRoute path="/minha-conta/" component={AdminLayout} />
+          <PrivateRoute redirect={redirect}>
+            <AdminLayout>{getRoutes(dashRoutes)}</AdminLayout>
+          </PrivateRoute>
           <Redirect from="/" to="/home" />
         </Switch>
       </BrowserRouter>

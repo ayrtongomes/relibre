@@ -4,17 +4,18 @@ import getToken from 'utils/auth-header';
 const API_BASE_URL = `https://ec2-18-229-164-33.sa-east-1.compute.amazonaws.com/api/v1/`;
 
 const api = {
-  get: (endpoint, { auth }) => {
+  get: (endpoint, { auth, headers }) => {
     return fetch(API_BASE_URL + endpoint, {
       method: 'GET',
       ...(auth
         ? {
             headers: {
               ...getToken(),
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              ...headers
             }
           }
-        : { 'Content-Type': 'application/json' })
+        : { headers: { 'Content-Type': 'application/json', ...headers } })
     });
   },
   post: (endpoint, params) => {

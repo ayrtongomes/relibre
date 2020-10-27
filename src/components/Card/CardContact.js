@@ -24,12 +24,12 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     height: 260,
-    fontSize: '"Roboto Slab", "Roboto", sans-serif'
+    fontSize: '"Inter", "Roboto", sans-serif'
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
-    fontSize: '"Roboto Slab", "Roboto", sans-serif'
+    fontSize: '"Inter", "Roboto", sans-serif'
   },
   content: {
     flex: '1 0 auto',

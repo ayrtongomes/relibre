@@ -21,6 +21,7 @@ import CardBody from 'components/Card/CardBody.js';
 import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
+import Modal from 'components/Dialogs/CheckEmail.js';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -56,6 +57,8 @@ export default function RegisterPage(props) {
   const [acceptedTerms, acceptedTermsSet] = React.useState(false);
   const [passwordConfirm, passwordConfirmSet] = React.useState(true);
 
+  const [showModal, setShowModal] = React.useState(false);
+
   const submit = async e => {
     e.preventDefault();
     const payload = {
@@ -66,10 +69,11 @@ export default function RegisterPage(props) {
       birthDate: formatISO(new Date(birthDate))
     };
 
-    console.log(payload);
     const response = await register(payload);
 
-    console.log(response);
+    if (response && response.status === 'Sucesso') {
+      setShowModal(true);
+    }
   };
 
   const classes = useStyles();
@@ -259,7 +263,13 @@ export default function RegisterPage(props) {
             </GridItem>
           </GridContainer>
         </div>
-        {/* <Footer whiteFont /> */}
+        <Modal
+          openModal={showModal}
+          closeModal={() => {
+            setShowModal(false);
+            props.history.push('/login');
+          }}
+        />
       </div>
     </div>
   );

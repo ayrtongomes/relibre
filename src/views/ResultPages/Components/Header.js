@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1200
   },
   labelRoot: {
-    fontFamily: "'Fira Sans', 'Roboto', sans-serif !important",
+    fontFamily: "'Inter', 'Roboto', sans-serif !important",
     fontWeight: 600
   },
   appBar: {
