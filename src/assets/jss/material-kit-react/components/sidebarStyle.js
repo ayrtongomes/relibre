@@ -211,6 +211,11 @@ const sidebarStyle = theme => ({
     color: '#808080',
     ...defaultFont,
     width: 'auto',
+    '&.active, &:hover,&:focus': {
+      color: 'white !important',
+      backgroundColor: '#5271ff',
+      boxShadow: ' 0px 2px 8px 0px rgba(0, 0, 0, 0.2)'
+    },
     '&:hover': {
       outline: 'none',
       backgroundColor: grayColor[17],

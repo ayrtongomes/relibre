@@ -75,7 +75,6 @@ const LoginPage = props => {
           backgroundPosition: 'top center'
         }}
       >
-        {/* <img src={logo}></img> */}
         <div className={classes.container} style={{ paddingTop: '20vh' }}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
@@ -83,35 +82,6 @@ const LoginPage = props => {
                 <form className={classes.form} name="form" onSubmit={submit}>
                   <CardHeader color="primary" className={classes.cardHeader}>
                     <h4>Login</h4>
-                    {/* <div className={classes.socialLine}>
-                        <Button
-                          justIcon
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className={"fab fa-twitter"} />
-                        </Button>
-                        <Button
-                          justIcon
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className={"fab fa-facebook"} />
-                        </Button>
-                        <Button
-                          justIcon
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className={"fab fa-google-plus-g"} />
-                        </Button>
-                      </div>*/}
                   </CardHeader>
                   <NavLink to="/register">
                     <p className={classes.divider}>

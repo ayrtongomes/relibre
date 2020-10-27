@@ -72,6 +72,7 @@ class Sidebar extends React.Component {
   activeRoute = routeName => {
     return window.location.pathname.indexOf(routeName) > -1 ? 'active' : '';
   };
+
   openCollapse(collapse) {
     var st = {};
     st[collapse] = !this.state[collapse];
@@ -187,24 +188,24 @@ class Sidebar extends React.Component {
             </ListItem>
           );
         }
-        const innerNavLinkClasses =
-          classes.collapseItemLink +
-          ' ' +
-          cx({
-            [' ' + classes['blue']]: this.activeRoute(prop.path)
-          });
+        const innerNavLinkClasses = classes.collapseItemLink;
+        //+
+        //' ' +
+        // cx({
+        //   [' ' + classes['blue']]: this.activeRoute(prop.path)
+        // });
         const collapseItemMini =
           classes.collapseItemMini +
           ' ' +
           cx({
             [classes.collapseItemMiniRTL]: rtlActive
           });
-        const navLinkClasses =
-          classes.itemLink +
-          ' ' +
-          cx({
-            [' ' + classes['blue']]: this.activeRoute(prop.path)
-          });
+        const navLinkClasses = classes.itemLink;
+        //+
+        //' ' +
+        // cx({
+        //   [' ' + classes['blue']]: this.activeRoute(prop.path)
+        // });
         const itemText =
           classes.itemText +
           ' ' +
