@@ -36,22 +36,6 @@ export default function GoogleMaps() {
   const [options, setOptions] = React.useState([]);
   const loaded = React.useRef(false);
 
-  if (typeof window !== 'undefined' && !loaded.current) {
-    if (!document.querySelector('#google-maps')) {
-      loadScript(
-        'https://maps.googleapis.com/maps/api/js?key=AIzaSyBwRp1e12ec1vOTtGiA4fcCt2sCUS78UYc&libraries=places',
-        document.querySelector('head'),
-        'google-maps'
-      );
-    }
-
-    loaded.current = true;
-  }
-
-  const formatTitle = q => {
-    return q.replace(' ', '+');
-  };
-
   const fetch = React.useMemo(
     () =>
       throttle((request, callback) => {
@@ -64,15 +48,12 @@ export default function GoogleMaps() {
     []
   );
 
+  const formatTitle = q => {
+    return q.replace(' ', '+');
+  };
+
   React.useEffect(() => {
     let active = true;
-
-    // if (!autocompleteService.current && window.google) {
-    //   autocompleteService.current = new window.google.maps.places.AutocompleteService();
-    // }
-    // if (!autocompleteService.current) {
-    //   return undefined;
-    // }
 
     if (inputValue === '') {
       setOptions(value ? [value] : []);

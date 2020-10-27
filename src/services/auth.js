@@ -12,7 +12,7 @@ function AuthProvider(props) {
     if (localUser) {
       setUser(JSON.parse(localUser));
     }
-  }, []);
+  }, [fetchUser]);
 
   const login = async ({ login, password }) => {
     const { data, errors } = await api.post('Account/Login', {
@@ -79,17 +79,17 @@ function AuthProvider(props) {
     const { data } = await api.get(`Account`, {
       auth: true
     });
+    if (data && data.result) {
+      setUser(state => {
+        return { ...state, ...data.result };
+      });
 
-    setUser(state => {
-      return { ...state, ...data.result };
-    });
-
-    localStorage.setItem(
-      `@relibre:user`,
-      JSON.stringify({ ...user, ...data.result })
-    );
-
-    return data.result;
+      localStorage.setItem(
+        `@relibre:user`,
+        JSON.stringify({ ...user, ...data.result })
+      );
+      return data.result;
+    }
   };
 
   return (

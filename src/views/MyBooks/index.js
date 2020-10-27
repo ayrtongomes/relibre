@@ -11,6 +11,7 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import Table from 'components/Table';
+import Autocomplete from 'components/Autocomplete/Async';
 import Button from 'components/CustomButtons/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
