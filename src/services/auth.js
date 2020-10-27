@@ -22,27 +22,20 @@ function AuthProvider(props) {
       }
     });
 
-    if (Object.keys(errors || {}).length) {
-      return { errors };
-    }
-
     if (data && data.result.access_token) {
       let user = {
         token: data.result.access_token,
         login: data.result.login
       };
 
-      localStorage.setItem(`@relibre:user`, JSON.stringify(user));
-
-      const fullUser = await fetchUser(data.result.token);
+      // const fullUser = await fetchUser(data.result.token);
 
       user = {
-        ...user,
-        ...fullUser
+        ...user
+        // ...fullUser
       };
 
       localStorage.setItem(`@relibre:user`, JSON.stringify(user));
-
       setUser(user);
 
       return { errors: {} };
@@ -83,12 +76,20 @@ function AuthProvider(props) {
   };
 
   const fetchUser = async token => {
-    const { data: fullUser } = await api.get(`Account`, {
-      auth: false,
-      token
+    const { data } = await api.get(`Account`, {
+      auth: true
     });
 
-    return fullUser;
+    setUser(state => {
+      return { ...state, ...data.result };
+    });
+
+    localStorage.setItem(
+      `@relibre:user`,
+      JSON.stringify({ ...user, ...data.result })
+    );
+
+    return data.result;
   };
 
   return (

@@ -37,11 +37,13 @@ const LoginPage = props => {
   const [password, passwordSet] = React.useState('');
   const { user, login } = useAuth();
 
-  console.log(user);
-
   setTimeout(function() {
     setCardAnimation('');
   }, 700);
+
+  const classes = useStyles();
+
+  const location = useLocation();
 
   const submit = async e => {
     e.preventDefault();
@@ -51,10 +53,6 @@ const LoginPage = props => {
       await login({ login: email, password: password });
     }
   };
-
-  const classes = useStyles();
-
-  const location = useLocation();
 
   if (user.token) {
     const redirect =

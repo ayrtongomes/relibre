@@ -21,6 +21,7 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import Icon from '@material-ui/core/Icon';
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 import DateFnsUtils from '@date-io/date-fns';
+import { useAuth } from 'services/auth';
 
 const cookies = new Cookies();
 
@@ -48,13 +49,29 @@ const useStyles = makeStyles(theme => ({
 
 export default props => {
   const classes = useStyles();
+  const { user, fetchUser } = useAuth();
 
-  const [name, setName] = useState('Ayrton da Costa Gomes');
-  const [email, setEmail] = useState('ayrton.gomes@relibre.com');
-  const [phone, setPhone] = useState('(41) 90000-0000');
+  const [name, setName] = useState(user ? user.name : '');
+  const [email, setEmail] = useState(user ? user.login : '');
+  const [phone, setPhone] = useState(
+    user && user.phones ? user.phones[0].number : ''
+  );
   const [selectedDate, handleDateChange] = useState(new Date());
   const [showModal, setShowModal] = React.useState(false);
 
+  React.useEffect(() => {
+    async function loadData() {
+      if (!user || !user.name) {
+        const fullUser = await fetchUser();
+        if (fullUser) {
+          setName(fullUser.name);
+          setEmail(fullUser.email);
+          setPhone(fullUser.phones[0].number);
+        }
+      }
+    }
+    loadData();
+  }, []);
   const submit = e => {
     e.preventDefault();
     // this.setState({ submitted: true });
@@ -156,7 +173,7 @@ export default props => {
                           fullWidth: true
                         }}
                         inputProps={{
-                          type: 'text',
+                          type: 'email',
                           value: email,
                           onChange: event => setEmail(event.target.value),
                           endAdornment: (
@@ -196,7 +213,7 @@ export default props => {
                           }}
                           inputProps={{
                             type: 'text',
-                            value: 'Cidade Industrial - Curitiba',
+                            value: '',
                             disabled: true
                             //onChange: event => setPhone(event.target.value),
                             // endAdornment: (

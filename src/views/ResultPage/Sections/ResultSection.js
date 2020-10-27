@@ -28,7 +28,6 @@ class ResultSection extends React.Component {
     // const { results } = this.state;
     return (
       <div>
-        {console.log('results', results)}
         <div>
           <GridContainer>
             {/* { results >  0 &&
