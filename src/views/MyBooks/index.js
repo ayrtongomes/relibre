@@ -158,23 +158,7 @@ export default props => {
         <DialogContent>
           <GridContainer justify="left">
             <GridItem xs={12} sm={12}>
-              <CustomInput
-                labelText="Livro"
-                id="name"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  type: 'text',
-                  value: name,
-                  onChange: event => setName(event.target.value),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Book className={classes.inputIconsColor} />
-                    </InputAdornment>
-                  )
-                }}
-              />
+              <Autocomplete />
             </GridItem>
 
             <GridItem xs={12} sm={12} md={6} lg={6}>

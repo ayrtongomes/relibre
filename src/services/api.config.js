@@ -1,7 +1,7 @@
 import fetch from 'utils/custom-fetch';
 import getToken from 'utils/auth-header';
 
-const API_BASE_URL = `https://ec2-18-229-164-33.sa-east-1.compute.amazonaws.com/api/v1/`;
+const API_BASE_URL = `https://relibre.herokuapp.com/api/v1/`;
 
 const api = {
   get: (endpoint, { auth }) => {

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 // import fetch from 'isomorphic-unfetch';
 
 import AsyncSelect from 'react-select/async';
@@ -21,7 +21,14 @@ export default function Asynchronous() {
     }
   };
 
-  const searchCities = async searchTerm => {
+  const loadSuggestedOptions = useCallback(
+    debounce((inputValue, callback) => {
+      promiseBookOptions(inputValue).then(options => callback(options));
+    }, 300),
+    []
+  );
+
+  const onSearch = async searchTerm => {
     if (searchTerm === '') return [];
 
     return await fetch(
@@ -38,7 +45,7 @@ export default function Asynchronous() {
         return data.items.map(book => {
           return {
             label: book.volumeInfo.title,
-            value: book.id
+            value: book
           };
         });
       });
@@ -46,10 +53,10 @@ export default function Asynchronous() {
     //return [];
   };
 
-  const promiseCityOptions = searchTerm =>
+  const promiseBookOptions = searchTerm =>
     new Promise(resolve => {
       setTimeout(() => {
-        resolve(searchCities(searchTerm));
+        resolve(onSearch(searchTerm));
       }, 300);
     });
 
@@ -60,8 +67,10 @@ export default function Asynchronous() {
       styles={{
         control: base => ({
           ...base,
-          fontSize: '18px',
-          minHeight: '58px',
+          fontSize: '14px !important',
+          fontWeight: 400,
+          fontFamily: '"Inter"',
+          minHeight: '46px',
           boxShadow: 'inherit'
         }),
         valueContainer: base => ({
@@ -70,7 +79,9 @@ export default function Asynchronous() {
         }),
         option: (base, { isDisabled, isFocused, isSelected }) => ({
           ...base,
-          fontSize: '18px !important',
+          fontSize: '14px !important',
+          fontFamily: '"Inter"',
+          fontWeight: 400,
           backgroundColor: isDisabled
             ? null
             : isSelected
@@ -92,7 +103,7 @@ export default function Asynchronous() {
         //onChange(selected.value);
       }}
       placeholder={'Digite o nome do livro'}
-      loadOptions={promiseCityOptions}
+      loadOptions={loadSuggestedOptions}
       noOptionsMessage={() => null}
       loadingMessage={() => null}
     />
