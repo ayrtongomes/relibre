@@ -20,6 +20,7 @@ import Venda from 'views/ResultPages/Venda';
 import Comerciante from 'views/ResultPages/Comerciante';
 import CompanyProfile from 'views/CompanyProfilePage';
 import ChangePassword from 'views/ChangePassword';
+import ForgetPassword from 'views/ForgetPassword';
 import { PrivateRoute } from 'components/PrivateRoute.js';
 //import AuthLayout from 'views/LoginPage';
 import { dashRoutes } from 'views/routes.js';
@@ -105,6 +106,7 @@ const App = () => {
           <Route path="/venda" component={Venda} />
           <Route path="/comerciante" component={Comerciante} />
           <Route path="/change-password" component={ChangePassword} />
+          <Route path="/forget-password" component={ForgetPassword} />
           <Route path="/comerciante-info/tio-zico" component={CompanyProfile} />
           <PrivateRoute redirect={redirect}>
             <AdminLayout>{getRoutes(dashRoutes)}</AdminLayout>

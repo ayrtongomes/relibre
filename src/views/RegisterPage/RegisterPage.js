@@ -350,7 +350,7 @@ export default function RegisterPage(props) {
                     {loading ? (
                       <CircularProgress size={30} />
                     ) : (
-                      <Button simple color="primary" size="lg" type="submit">
+                      <Button color="primary" type="submit">
                         CADASTRAR
                       </Button>
                     )}

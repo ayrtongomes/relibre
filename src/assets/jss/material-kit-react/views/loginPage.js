@@ -72,6 +72,7 @@ const signupPageStyle = {
     fontSize: '20px'
   },
   divider: {
+    color: '#414141',
     marginTop: '30px',
     marginBottom: '0px',
     textAlign: 'center'

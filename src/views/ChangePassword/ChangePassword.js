@@ -94,7 +94,7 @@ class ChangePassword extends React.Component {
         >
           <div className={classes.container} style={{ paddingTop: '20vh' }}>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem xs={12} sm={12} md={6}>
                 <Card className={classes[this.state.cardAnimaton]}>
                   <form
                     className={classes.form}
@@ -154,9 +154,7 @@ class ChangePassword extends React.Component {
                     )} */}
                     <CardFooter className={classes.cardFooter}>
                       <Button
-                        simple
                         color="primary"
-                        size="lg"
                         type="submit"
                         //disabled={loggedIn || loggingIn}
                       >

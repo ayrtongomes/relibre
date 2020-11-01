@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Redirect, useLocation } from 'react-router-dom';
+import { NavLink, Redirect, useLocation, useHistory } from 'react-router-dom';
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -46,7 +46,7 @@ const LoginPage = props => {
   }, 700);
 
   const classes = useStyles();
-
+  const history = useHistory();
   const location = useLocation();
 
   const submit = async e => {
@@ -145,8 +145,7 @@ const LoginPage = props => {
                         <Button
                           simple
                           color="primary"
-                          //size="md"
-                          //disabled={loggedIn || loggingIn}
+                          onClick={() => history.push('/forget-password')}
                         >
                           Esqueci a senha
                         </Button>
