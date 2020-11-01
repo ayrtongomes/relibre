@@ -71,7 +71,7 @@ export default function Header(props) {
   });
 
   const brandComponent = (
-    <NavLink to="/">
+    <NavLink to="/home">
       <img
         className={classes.logo}
         src={

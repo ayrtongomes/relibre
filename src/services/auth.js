@@ -12,7 +12,7 @@ function AuthProvider(props) {
     if (localUser) {
       setUser(JSON.parse(localUser));
     }
-  }, [fetchUser]);
+  }, []);
 
   const login = async ({ login, password }) => {
     const { data, errors } = await api.post('Account/Login', {
@@ -21,6 +21,10 @@ function AuthProvider(props) {
         password: password
       }
     });
+
+    if (errors) {
+      return { errors };
+    }
 
     if (data && data.result.access_token) {
       let user = {

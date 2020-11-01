@@ -33,7 +33,8 @@ const appStyle = theme => ({
     marginLeft: '260px',
     minHeight: 'calc(100vh - 123px)',
     [theme.breakpoints.down('sm')]: {
-      padding: '0px 0px 0 15px !important'
+      padding: '0px 0px 0 15px !important',
+      marginLeft: '-16px'
     }
   },
   //container: { ...containerFluid },

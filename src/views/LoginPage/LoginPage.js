@@ -5,6 +5,8 @@ import { NavLink, Redirect, useLocation } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 // @material-ui/icons
 import Email from '@material-ui/icons/Email';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 // core components
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
@@ -12,7 +14,7 @@ import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
-import Typography from '@material-ui/core/Typography';
+import Danger from 'components/Typography/Danger.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
 import Button from 'components/CustomButtons/Button.js';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -35,6 +37,8 @@ const LoginPage = props => {
   const [cardAnimaton, setCardAnimation] = React.useState('cardHidden');
   const [email, emailSet] = React.useState('');
   const [password, passwordSet] = React.useState('');
+  const [loading, loadingSet] = React.useState(false);
+  const [error, errorSet] = React.useState(false);
   const { user, login } = useAuth();
 
   setTimeout(function() {
@@ -47,11 +51,19 @@ const LoginPage = props => {
 
   const submit = async e => {
     e.preventDefault();
+    loadingSet(true);
     //this.setState({ submitted: true });
     //const { dispatch } = this.props;
     if (email && password) {
-      await login({ login: email, password: password });
+      const { errors } = await login({
+        login: email,
+        password: password
+      });
+      if (errors && errors.length > 0) {
+        errorSet(true);
+      }
     }
+    loadingSet(false);
   };
 
   if (user.token) {
@@ -88,13 +100,13 @@ const LoginPage = props => {
                   </NavLink>
                   <CardBody>
                     <CustomInput
-                      labelText="Login"
-                      id="login"
+                      labelText="E-mail"
+                      id="email"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        type: 'text',
+                        type: 'email',
                         onChange: event => emailSet(event.target.value),
                         endAdornment: (
                           <InputAdornment position="end">
@@ -121,17 +133,33 @@ const LoginPage = props => {
                         )
                       }}
                     />
+                    {error ? (
+                      <Danger>E-mail e/ou senha inválidos</Danger>
+                    ) : null}
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button
-                      simple
-                      color="primary"
-                      size="lg"
-                      type="submit"
-                      //disabled={loggedIn || loggingIn}
-                    >
-                      ENTRAR
-                    </Button>
+                    {loading ? (
+                      <CircularProgress size={30} />
+                    ) : (
+                      <GridContainer justify="space-between">
+                        <Button
+                          simple
+                          color="primary"
+                          //size="md"
+                          //disabled={loggedIn || loggingIn}
+                        >
+                          Esqueci a senha
+                        </Button>
+                        <Button
+                          color="primary"
+                          //size="md"
+                          type="submit"
+                          //disabled={loggedIn || loggingIn}
+                        >
+                          ENTRAR
+                        </Button>
+                      </GridContainer>
+                    )}
                   </CardFooter>
                 </form>
               </Card>

@@ -44,13 +44,15 @@ export default function Asynchronous() {
       .then(data => {
         return data.items.map(book => {
           return {
-            label: book.volumeInfo.title,
+            label: (
+              <div>
+                <p>{book.volumeInfo.title}</p>
+              </div>
+            ),
             value: book
           };
         });
       });
-
-    //return [];
   };
 
   const promiseBookOptions = searchTerm =>
