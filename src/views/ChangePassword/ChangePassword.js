@@ -92,7 +92,6 @@ class ChangePassword extends React.Component {
             backgroundPosition: 'top center'
           }}
         >
-          {/* <img src={logo}></img> */}
           <div className={classes.container} style={{ paddingTop: '20vh' }}>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>

@@ -159,6 +159,14 @@ export default props => {
                             format="dd/MM/yyyy"
                             label="Data de nascimento"
                             views={['year', 'month', 'date']}
+                            maxDate={
+                              new Date(
+                                new Date().getFullYear() - 18,
+                                new Date().getMonth(),
+                                new Date().getDay()
+                              )
+                            }
+                            maxDateMessage="Você precisa ser maior de idade"
                             value={selectedDate}
                             onChange={handleDateChange}
                           />

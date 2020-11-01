@@ -11,6 +11,7 @@ import Email from '@material-ui/icons/Email';
 import Phone from '@material-ui/icons/Phone';
 import AccountBox from '@material-ui/icons/AccountBox';
 import Check from '@material-ui/icons/Check';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // core components
 import GridContainer from 'components/Grid/GridContainer.js';
@@ -38,6 +39,7 @@ import compose from 'utils/compose';
 import { useAuth } from 'services/auth';
 
 import image from 'assets/img/banner-register.png';
+import { REGEXES } from '../../utils/regex';
 
 const useStyles = makeStyles(loginPageStyle);
 
@@ -51,16 +53,75 @@ export default function RegisterPage(props) {
 
   const [name, nameSet] = React.useState('');
   const [email, emailSet] = React.useState('');
-  const [birthDate, birthDateSet] = React.useState(new Date());
+  const [birthDate, birthDateSet] = React.useState(null);
   const [phone, phoneSet] = React.useState('');
   const [password, passwordSet] = React.useState('');
   const [acceptedTerms, acceptedTermsSet] = React.useState(false);
   const [passwordConfirm, passwordConfirmSet] = React.useState(true);
 
   const [showModal, setShowModal] = React.useState(false);
+  const [loading, loadingSet] = React.useState(false);
+  const [error, errorSet] = React.useState(null);
+
+  const validate = e => {
+    e.preventDefault();
+
+    let error = {};
+    if (name === '' || name.length < 3) {
+      error = {
+        ...error,
+        name: 'Nome inválido'
+      };
+    }
+
+    if (email === '' || !REGEXES.email.test(email)) {
+      error = {
+        ...error,
+        name: 'E-mail inválido'
+      };
+    }
+
+    if (phone === '' || !REGEXES.phone.test(phone)) {
+      error = {
+        ...error,
+        phone: 'Telefone inválido'
+      };
+    }
+
+    if (password === '' || password.length < 5) {
+      error = {
+        ...error,
+        password: 'Senha fraca'
+      };
+    }
+
+    if (!acceptedTerms) {
+      error = {
+        ...error,
+        terms: 'É necessário aceitar os termos'
+      };
+    }
+
+    console.log(birthDate);
+
+    errorSet(error);
+    if (
+      error.name ||
+      error.email ||
+      error.email ||
+      error.password ||
+      error.terms ||
+      !birthDate
+    ) {
+      return;
+    } else {
+      return submit(e);
+    }
+  };
 
   const submit = async e => {
-    e.preventDefault();
+    loadingSet(true);
+
     const payload = {
       name: name,
       login: email,
@@ -74,6 +135,7 @@ export default function RegisterPage(props) {
     if (response && response.status === 'Sucesso') {
       setShowModal(true);
     }
+    loadingSet(false);
   };
 
   const classes = useStyles();
@@ -92,7 +154,7 @@ export default function RegisterPage(props) {
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={6}>
               <Card className={classes[cardAnimaton]}>
-                <form className={classes.form} name="form" onSubmit={submit}>
+                <form className={classes.form} name="form" onSubmit={validate}>
                   <CardHeader color="primary" className={classes.cardHeader}>
                     <h4>Cadastre-se agora!</h4>
                   </CardHeader>
@@ -110,32 +172,18 @@ export default function RegisterPage(props) {
                           }}
                           inputProps={{
                             type: 'text',
-                            onChange: event => nameSet(event.target.value),
+                            onChange: event => {
+                              nameSet(event.target.value);
+                              errorSet(value => ({ ...value, name: null }));
+                            },
                             endAdornment: (
                               <InputAdornment position="end">
                                 <AccountBox
                                   className={classes.inputIconsColor}
                                 />
                               </InputAdornment>
-                            )
-                          }}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={6}>
-                        <CustomInput
-                          labelText="Telefone"
-                          id="phone"
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          inputProps={{
-                            type: 'text',
-                            onChange: event => phoneSet(event.target.value),
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <Phone className={classes.inputIconsColor} />
-                              </InputAdornment>
-                            )
+                            ),
+                            error: error && error.name ? true : false
                           }}
                         />
                       </GridItem>
@@ -147,11 +195,42 @@ export default function RegisterPage(props) {
                               format="dd/MM/yyyy"
                               label="Data de nascimento"
                               views={['year', 'month', 'date']}
+                              maxDate={
+                                new Date(
+                                  new Date().getFullYear() - 18,
+                                  new Date().getMonth(),
+                                  new Date().getDay()
+                                )
+                              }
+                              maxDateMessage="Você precisa ser maior de idade"
+                              invalidDateMessage="Data inválida"
                               value={birthDate}
                               onChange={birthDateSet}
                             />
                           </MuiPickersUtilsProvider>
                         </div>
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={6}>
+                        <CustomInput
+                          labelText="Telefone"
+                          id="phone"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                          inputProps={{
+                            type: 'text',
+                            onChange: event => {
+                              phoneSet(event.target.value);
+                              errorSet(value => ({ ...value, phone: null }));
+                            },
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <Phone className={classes.inputIconsColor} />
+                              </InputAdornment>
+                            ),
+                            error: error && error.phone ? true : false
+                          }}
+                        />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={12}>
                         <CustomInput
@@ -162,12 +241,16 @@ export default function RegisterPage(props) {
                           }}
                           inputProps={{
                             type: 'email',
-                            onChange: event => emailSet(event.target.value),
+                            onChange: event => {
+                              emailSet(event.target.value);
+                              errorSet(value => ({ ...value, email: null }));
+                            },
                             endAdornment: (
                               <InputAdornment position="end">
                                 <Email className={classes.inputIconsColor} />
                               </InputAdornment>
-                            )
+                            ),
+                            error: error && error.email ? true : false
                           }}
                         />
                       </GridItem>
@@ -180,14 +263,18 @@ export default function RegisterPage(props) {
                           }}
                           inputProps={{
                             type: 'password',
-                            onChange: event => passwordSet(event.target.value),
+                            onChange: event => {
+                              passwordSet(event.target.value);
+                              errorSet(value => ({ ...value, password: null }));
+                            },
                             endAdornment: (
                               <InputAdornment position="end">
                                 <Icon className={classes.inputIconsColor}>
                                   lock_outline
                                 </Icon>
                               </InputAdornment>
-                            )
+                            ),
+                            error: error && error.password ? true : false
                           }}
                         />
                       </GridItem>
@@ -213,7 +300,8 @@ export default function RegisterPage(props) {
                                   lock_outline
                                 </Icon>
                               </InputAdornment>
-                            )
+                            ),
+                            error: !passwordConfirm
                           }}
                         />
                       </GridItem>
@@ -252,11 +340,20 @@ export default function RegisterPage(props) {
                         </Typography>
                       </div>
                     )}
+                    {error && error.terms ? (
+                      <div style={{ textAlign: 'center' }}>
+                        <Typography color="error">{error.terms}</Typography>
+                      </div>
+                    ) : null}
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button simple color="primary" size="lg" type="submit">
-                      CADASTRAR
-                    </Button>
+                    {loading ? (
+                      <CircularProgress size={30} />
+                    ) : (
+                      <Button simple color="primary" size="lg" type="submit">
+                        CADASTRAR
+                      </Button>
+                    )}
                   </CardFooter>
                 </form>
               </Card>
