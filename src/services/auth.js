@@ -32,7 +32,8 @@ function AuthProvider(props) {
         login: data.result.login,
         name: data.result.name,
         birthDate: data.result.birthDate,
-        phone: data.result.phone
+        phone: data.result.phone,
+        fullAddress: data.result.address
       };
 
       // const fullUser = await fetchUser(data.result.token);

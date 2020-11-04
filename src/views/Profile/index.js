@@ -229,6 +229,7 @@ export default props => {
                         inputProps={{
                           type: 'email',
                           value: email,
+                          disabled: true,
                           onChange: event => setEmail(event.target.value),
                           endAdornment: (
                             <InputAdornment position="end">
@@ -257,7 +258,7 @@ export default props => {
                         }}
                       />
                     </GridItem>
-                    <GridItem xs={12} sm={12} md={6} lg={6}>
+                    <GridItem xs={12} sm={12} md={7} lg={7}>
                       <div style={{ display: 'flex' }}>
                         <CustomInput
                           labelText="Endereço"
