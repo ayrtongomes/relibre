@@ -26,6 +26,20 @@ import { useAuth } from 'services/auth';
 
 const useStyles = makeStyles(styles);
 
+const getFirstName = (name = '') => {
+  const arr = (typeof name === 'string' ? name : '').split(' ') || [''];
+
+  if (arr.length > 0) {
+    if (arr instanceof Array) {
+      return arr[0];
+    } else if (typeof arr === 'string') {
+      return arr;
+    }
+  }
+
+  return '';
+};
+
 export default function HeaderLinks(props) {
   const classes = useStyles();
   const { user, logout } = useAuth();
@@ -55,7 +69,7 @@ export default function HeaderLinks(props) {
             {/* {user && user.login && ( */}
             <CustomDropdown
               noLiPadding
-              buttonText={'Usuário'}
+              buttonText={getFirstName(user.name)}
               // buttonText={user.username}
               buttonProps={{
                 className: classes.navLink,

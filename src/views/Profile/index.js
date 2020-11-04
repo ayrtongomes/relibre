@@ -15,7 +15,9 @@ import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
 import Button from 'components/CustomButtons/Button.js';
+import SnackbarContent from 'components/Snackbar/SnackbarContent.js';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Email, Person, Phone, LocationSearching } from '@material-ui/icons';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import Icon from '@material-ui/core/Icon';
@@ -64,6 +66,8 @@ export default props => {
     user && user.birthDate ? new Date() : undefined
   );
   const [showModal, setShowModal] = React.useState(false);
+  const [showNot, setShowNot] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   //console.log(format(user.birthdate, 'dd/MM/yyyy'));
   React.useEffect(() => {
@@ -79,20 +83,10 @@ export default props => {
     }
     loadData();
   }, []);
-  const submit = e => {
+  const submit = async e => {
     e.preventDefault();
-    // this.setState({ submitted: true });
-    // const { login, password } = this.state;
-    // //const { dispatch } = this.props;
-    // if (login && password) {
-    //   let obj = {
-    //     login: login,
-    //     senha: password
-    //   };
-    //   //this.props.login(obj);
-    // }
-    // cookies.set('logged', true);
-    // this.props.history.push('/minha-conta/meu-perfil');
+
+    await getGeoLocation();
   };
 
   React.useEffect(() => {
@@ -103,6 +97,13 @@ export default props => {
     }
     submitEdit();
   }, [geoLoc]);
+
+  const showNotification = () => {
+    setShowNot(true);
+    setTimeout(x => {
+      setShowNot(false);
+    }, 6000);
+  };
 
   const getGeoLocation = async () => {
     await navigator.geolocation.getCurrentPosition(
@@ -125,6 +126,7 @@ export default props => {
   };
 
   const editUser = async () => {
+    setLoading(true);
     const payload = {
       name: name,
       //birthDate: formatISO(selectedDate),
@@ -144,18 +146,28 @@ export default props => {
     try {
       if (geoLoc.lat && geoLoc.lat) {
         const { data } = await updateUser(payload);
-        console.log(data);
         if (data && data.name) {
           setAddress(data.addresses[0].full_address);
+          showNotification();
         }
+      } else {
+        setShowModal(true);
       }
     } catch (err) {
       //Handle error
+    } finally {
+      setLoading(false);
     }
   };
   return (
     <div>
       <Parallax small filter image={require('assets/img/banner-home.png')} />
+      {showNot ? (
+        <SnackbarContent
+          message={'Perfil atualizado com sucesso.'}
+          color="success"
+        />
+      ) : null}
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
@@ -259,7 +271,7 @@ export default props => {
                       />
                     </GridItem>
                     <GridItem xs={12} sm={12} md={7} lg={7}>
-                      <div style={{ display: 'flex' }}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
                         <CustomInput
                           labelText="Endereço"
                           id="address"
@@ -278,30 +290,41 @@ export default props => {
                             // )
                           }}
                         />
-                        <Button
-                          simple
-                          color="primary"
-                          size="md"
-                          type="submit"
-                          startIcon={<LocationSearching />}
-                          className={classes.geolocButton}
-                          onClick={() => getGeoLocation()}
-                          //disabled={loggedIn || loggingIn}
-                        >
-                          Usar geolocalização
-                        </Button>
+                        {loading ? (
+                          <CircularProgress
+                            size={30}
+                            style={{ marginLeft: '16px' }}
+                          />
+                        ) : (
+                          <Button
+                            simple
+                            color="primary"
+                            size="md"
+                            type="submit"
+                            startIcon={<LocationSearching />}
+                            className={classes.geolocButton}
+                            onClick={() => getGeoLocation()}
+                            //disabled={loggedIn || loggingIn}
+                          >
+                            Usar geolocalização
+                          </Button>
+                        )}
                       </div>
                     </GridItem>
                   </GridContainer>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="md"
-                    type="submit"
-                    //disabled={loggedIn || loggingIn}
-                  >
-                    Salvar
-                  </Button>
+                  {loading ? (
+                    <CircularProgress size={30} />
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="md"
+                      type="submit"
+                      //disabled={loggedIn || loggingIn}
+                    >
+                      Salvar
+                    </Button>
+                  )}
                 </form>
               </GridItem>
             </GridContainer>
