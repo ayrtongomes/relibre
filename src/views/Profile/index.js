@@ -21,6 +21,7 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import Icon from '@material-ui/core/Icon';
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 import DateFnsUtils from '@date-io/date-fns';
+import { formatISO, format } from 'date-fns';
 import { useAuth } from 'services/auth';
 
 const cookies = new Cookies();
@@ -53,29 +54,18 @@ export default props => {
 
   const [name, setName] = useState(user ? user.name : '');
   const [email, setEmail] = useState(user ? user.login : '');
-  const [phone, setPhone] = useState(
-    user && user.phones ? user.phones[0].number : ''
+  const [phone, setPhone] = useState(user && user.phone ? user.phone : '');
+  const [address, setAddress] = useState(
+    user && user.fullAddress ? user.fullAddress : ''
   );
-  const [phoneId, setPhoneId] = useState(
-    user && user.phones ? user.phones[0].id : ''
-  );
-  const [addressId, setAddressId] = useState(
-    user && user.addresses && user.addresses[0] ? user.addresses[0].id : ''
-  );
-  const [long, setLong] = useState(
-    user && user.addresses && user.addresses[0]
-      ? user.addresses[0].longitude
-      : ''
-  );
-  const [lat, setLat] = useState(
-    user && user.addresses && user.addresses[0]
-      ? user.addresses[0].latitude
-      : ''
-  );
+  const [geoLoc, setGeoLoc] = useState({});
 
-  const [selectedDate, handleDateChange] = useState(new Date());
+  const [selectedDate, handleDateChange] = useState(
+    user && user.birthDate ? new Date() : undefined
+  );
   const [showModal, setShowModal] = React.useState(false);
 
+  //console.log(format(user.birthdate, 'dd/MM/yyyy'));
   React.useEffect(() => {
     async function loadData() {
       if (!user || !user.name) {
@@ -105,25 +95,14 @@ export default props => {
     // this.props.history.push('/minha-conta/meu-perfil');
   };
 
-  const getPayload = () => {
-    return {
-      name: name,
-      login: email,
-      phones: [
-        {
-          //id: phoneId,
-          number: phone
-        }
-      ],
-      addresses: [
-        {
-          //id: addressId,
-          latitude: lat,
-          longitude: long
-        }
-      ]
-    };
-  };
+  React.useEffect(() => {
+    async function submitEdit() {
+      if (geoLoc.lat && geoLoc.long) {
+        await editUser();
+      }
+    }
+    submitEdit();
+  }, [geoLoc]);
 
   const getGeoLocation = async () => {
     await navigator.geolocation.getCurrentPosition(
@@ -132,35 +111,10 @@ export default props => {
           lat: position.coords.latitude,
           long: position.coords.longitude
         };
-        setLat(obj.lat);
-        setLong(obj.long);
-
+        setGeoLoc(obj);
         cookies.set('location', obj, { path: '/' });
 
-        const payload = {
-          name: name,
-          login: email,
-          phones: [
-            {
-              //id: phoneId,
-              number: phone
-            }
-          ],
-          addresses: [
-            {
-              //id: addressId,
-              latitude: obj.lat,
-              longitude: obj.long
-            }
-          ]
-        };
-
-        try {
-          const { data } = updateUser(payload);
-          console.log('response>', data);
-        } catch (err) {
-          //Handle error
-        }
+        return { obj };
       },
       error => {
         if (error.code === 1) {
@@ -170,6 +124,35 @@ export default props => {
     );
   };
 
+  const editUser = async () => {
+    const payload = {
+      name: name,
+      //birthDate: formatISO(selectedDate),
+      phones: [
+        {
+          number: phone
+        }
+      ],
+      addresses: [
+        {
+          latitude: `${geoLoc.lat}`,
+          longitude: `${geoLoc.long}`
+        }
+      ]
+    };
+
+    try {
+      if (geoLoc.lat && geoLoc.lat) {
+        const { data } = await updateUser(payload);
+        console.log(data);
+        if (data && data.name) {
+          setAddress(data.addresses[0].full_address);
+        }
+      }
+    } catch (err) {
+      //Handle error
+    }
+  };
   return (
     <div>
       <Parallax small filter image={require('assets/img/banner-home.png')} />
@@ -284,7 +267,7 @@ export default props => {
                           }}
                           inputProps={{
                             type: 'text',
-                            value: '',
+                            value: address,
                             disabled: true
                             //onChange: event => setPhone(event.target.value),
                             // endAdornment: (

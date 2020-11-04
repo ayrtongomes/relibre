@@ -68,17 +68,19 @@ function AuthProvider(props) {
 
     const localUser = localStorage.getItem(`@relibre:user`);
     if (data && data.result) {
-      debugger;
       const user = {
         ...JSON.parse(localUser),
-        ...data.result
+        name: data.result.name,
+        birthDate: data.result.birthdate,
+        phone: data.result.phones[0].number,
+        fullAddress: data.result.addresses[0].full_address
       };
 
       localStorage.setItem(`@relibre:user`, JSON.stringify(user));
 
       setUser(user);
 
-      return data.result;
+      return { data: data.result };
     }
   };
 
