@@ -26,10 +26,13 @@ function AuthProvider(props) {
       return { errors };
     }
 
-    if (data && data.result.access_token) {
+    if (data && data.result.access_Token) {
       let user = {
-        token: data.result.access_token,
-        login: data.result.login
+        token: data.result.access_Token,
+        login: data.result.login,
+        name: data.result.name,
+        birthDate: data.result.birthDate,
+        phone: data.result.phone
       };
 
       // const fullUser = await fetchUser(data.result.token);
@@ -64,18 +67,18 @@ function AuthProvider(props) {
     const { data } = await api.put(`Account`, payload);
 
     const localUser = localStorage.getItem(`@relibre:user`);
-
-    if (data) {
+    if (data && data.result) {
+      debugger;
       const user = {
         ...JSON.parse(localUser),
-        ...data
+        ...data.result
       };
 
       localStorage.setItem(`@relibre:user`, JSON.stringify(user));
 
       setUser(user);
 
-      return data;
+      return data.result;
     }
   };
 

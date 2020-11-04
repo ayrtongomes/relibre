@@ -12,7 +12,7 @@ export const PrivateRoute = ({ children, ...rest }) => {
       {...rest}
       render={({ location, ...props }) => {
         if (rest.redirect) {
-          return <Redirect to={{ pathname: '/login' }} />;
+          return <Redirect to={{ pathname: '/home' }} />;
         }
         return user && user.token ? (
           location.pathname === '/' ? (
@@ -22,7 +22,7 @@ export const PrivateRoute = ({ children, ...rest }) => {
           )
         ) : (
           <Redirect
-            to={{ pathname: '/login', state: { from: props.location } }}
+            to={{ pathname: '/home', state: { from: props.location } }}
           />
         );
       }}

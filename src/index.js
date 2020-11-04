@@ -36,24 +36,24 @@ const cookies = new Cookies();
 
 const App = () => {
   const [showModal, setShowModal] = React.useState(false);
-  const [redirect, setRedirect] = React.useState(false);
+  // const [redirect, setRedirect] = React.useState(false);
 
-  const { logout } = useAuth();
+  // const { logout } = useAuth();
 
-  useEffect(() => {
-    function handleUserLocalData(event) {
-      if (event.key === '@relibre:user' && event.newValue === '') {
-        logout();
-        setRedirect(true);
-      }
-    }
+  // useEffect(() => {
+  //   function handleUserLocalData(event) {
+  //     if (event.key === '@relibre:user' && event.newValue === '') {
+  //       logout();
+  //       setRedirect(true);
+  //     }
+  //   }
 
-    function createEvent() {
-      window.addEventListener('storage', handleUserLocalData);
-    }
+  //   function createEvent() {
+  //     window.addEventListener('storage', handleUserLocalData);
+  //   }
 
-    createEvent();
-  }, []);
+  //   createEvent();
+  // }, []);
 
   const getGeoLocation = async () => {
     await navigator.geolocation.getCurrentPosition(
@@ -108,10 +108,9 @@ const App = () => {
           <Route path="/change-password" component={ChangePassword} />
           <Route path="/forget-password" component={ForgetPassword} />
           <Route path="/comerciante-info/tio-zico" component={CompanyProfile} />
-          <PrivateRoute redirect={redirect}>
+          <PrivateRoute redirect={false}>
             <AdminLayout>{getRoutes(dashRoutes)}</AdminLayout>
           </PrivateRoute>
-          <Redirect from="/" to="/home" />
         </Switch>
       </BrowserRouter>
       {/* </Suspense> */}

@@ -34,7 +34,7 @@ export default function Asynchronous() {
     return await fetch(
       `https://www.googleapis.com/books/v1/volumes?q=${formatTitle(
         searchTerm
-      )}&orderBy=relevance`,
+      )}&langRestrict=pt&orderBy=relevance`,
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
@@ -46,7 +46,11 @@ export default function Asynchronous() {
           return {
             label: (
               <div>
-                <p>{book.volumeInfo.title}</p>
+                <div>{book.volumeInfo.title}</div>
+                {book.volumeInfo.authors &&
+                book.volumeInfo.authors.length > 0 ? (
+                  <small>Autores:{book.volumeInfo.authors.join(', ')};</small>
+                ) : null}
               </div>
             ),
             value: book
@@ -84,19 +88,25 @@ export default function Asynchronous() {
           fontSize: '14px !important',
           fontFamily: '"Inter"',
           fontWeight: 400,
+          padding: '8px',
+          borderBottom: '1px solid #ccc',
           backgroundColor: isDisabled
             ? null
             : isSelected
-            ? '#0066ff'
+            ? '#596ecc'
             : isFocused
-            ? '#0066ff'
+            ? '#596ecc'
             : null,
           cursor: isDisabled ? 'not-allowed' : 'default',
           color: !isDisabled && (isSelected || isFocused) ? 'white' : '#414141',
 
           ':active': {
             ...base[':active'],
-            backgroundColor: !isDisabled && (isSelected ? '#0066ff' : '#0066ff')
+            backgroundColor: !isDisabled && (isSelected ? '#596ecc' : '#596ecc')
+          },
+          '& small': {
+            color:
+              !isDisabled && (isSelected || isFocused) ? 'white' : '#414141'
           }
         })
       }}

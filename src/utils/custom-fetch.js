@@ -11,8 +11,8 @@ export default async function(apiPath, init) {
 
   if (resp.status >= 400) {
     if (resp.status === 401) {
-      localStorage.setItem('user', '');
-      window.location.href = '/';
+      localStorage.setItem('@relibre:user', '');
+      window.location.href = '/login';
     }
 
     try {

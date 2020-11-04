@@ -94,7 +94,7 @@ const LoginPage = props => {
                     <h4>Login</h4>
                   </CardHeader>
                   <NavLink to="/register">
-                    <p className={classes.divider}>
+                    <p className={classes.divider} style={{ color: '#5271ff' }}>
                       Não tem cadastro? Registre-se agora.
                     </p>
                   </NavLink>

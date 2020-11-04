@@ -49,13 +49,30 @@ const useStyles = makeStyles(theme => ({
 
 export default props => {
   const classes = useStyles();
-  const { user, fetchUser } = useAuth();
+  const { user, fetchUser, updateUser } = useAuth();
 
   const [name, setName] = useState(user ? user.name : '');
   const [email, setEmail] = useState(user ? user.login : '');
   const [phone, setPhone] = useState(
     user && user.phones ? user.phones[0].number : ''
   );
+  const [phoneId, setPhoneId] = useState(
+    user && user.phones ? user.phones[0].id : ''
+  );
+  const [addressId, setAddressId] = useState(
+    user && user.addresses && user.addresses[0] ? user.addresses[0].id : ''
+  );
+  const [long, setLong] = useState(
+    user && user.addresses && user.addresses[0]
+      ? user.addresses[0].longitude
+      : ''
+  );
+  const [lat, setLat] = useState(
+    user && user.addresses && user.addresses[0]
+      ? user.addresses[0].latitude
+      : ''
+  );
+
   const [selectedDate, handleDateChange] = useState(new Date());
   const [showModal, setShowModal] = React.useState(false);
 
@@ -88,15 +105,62 @@ export default props => {
     // this.props.history.push('/minha-conta/meu-perfil');
   };
 
+  const getPayload = () => {
+    return {
+      name: name,
+      login: email,
+      phones: [
+        {
+          //id: phoneId,
+          number: phone
+        }
+      ],
+      addresses: [
+        {
+          //id: addressId,
+          latitude: lat,
+          longitude: long
+        }
+      ]
+    };
+  };
+
   const getGeoLocation = async () => {
     await navigator.geolocation.getCurrentPosition(
       position => {
         let obj = {
           lat: position.coords.latitude,
-          long: position.coords.longitude,
-          city: 'Curitiba'
+          long: position.coords.longitude
         };
+        setLat(obj.lat);
+        setLong(obj.long);
+
         cookies.set('location', obj, { path: '/' });
+
+        const payload = {
+          name: name,
+          login: email,
+          phones: [
+            {
+              //id: phoneId,
+              number: phone
+            }
+          ],
+          addresses: [
+            {
+              //id: addressId,
+              latitude: obj.lat,
+              longitude: obj.long
+            }
+          ]
+        };
+
+        try {
+          const { data } = updateUser(payload);
+          console.log('response>', data);
+        } catch (err) {
+          //Handle error
+        }
       },
       error => {
         if (error.code === 1) {
@@ -104,7 +168,6 @@ export default props => {
         }
       }
     );
-    //return obj;
   };
 
   return (
