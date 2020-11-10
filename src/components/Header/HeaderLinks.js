@@ -43,11 +43,6 @@ const getFirstName = (name = '') => {
 export default function HeaderLinks(props) {
   const classes = useStyles();
   const { user, logout } = useAuth();
-  const [logged, setLogged] = useState(cookies.get('logged') || false);
-
-  useEffect(() => {
-    setLogged(cookies.get('logged'));
-  }, [cookies.get('logged')]);
 
   return (
     <List className={classes.list}>

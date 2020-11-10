@@ -65,6 +65,7 @@ function AuthProvider(props) {
   };
 
   const updateUser = async payload => {
+    debugger;
     const { data } = await api.put(`Account`, payload);
 
     const localUser = localStorage.getItem(`@relibre:user`);

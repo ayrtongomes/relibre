@@ -63,7 +63,7 @@ export default props => {
   const [geoLoc, setGeoLoc] = useState({});
 
   const [selectedDate, handleDateChange] = useState(
-    user && user.birthDate ? new Date() : undefined
+    user && user.birthDate ? new Date(user.birthDate) : undefined
   );
   const [showModal, setShowModal] = React.useState(false);
   const [showNot, setShowNot] = React.useState(false);
@@ -129,7 +129,7 @@ export default props => {
     setLoading(true);
     const payload = {
       name: name,
-      //birthDate: formatISO(selectedDate),
+      birthDate: formatISO(selectedDate),
       phones: [
         {
           number: phone
