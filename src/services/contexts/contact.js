@@ -4,69 +4,71 @@ import api from '../api.config';
 const ContactContext = React.createContext({});
 
 function ContactProvider(props) {
-    const baseUrl = `Contact`;
+  const baseUrl = `Contact`;
 
-    const fetchContacts = async (type, approved, denied, offset, limit) => {
-        const url = buildUrl(type, approved, denied, offset, limit);
-        const { data } = await api.get(url, { auth: true });
-        return getResults(data);
-    };
+  const fetchContacts = async (type, approved, denied, offset, limit) => {
+    const url = buildUrl(type, approved, denied, offset, limit);
+    const { data } = await api.get(url, { auth: true });
+    return getResults(data);
+  };
 
-    const createContact = async payload => {
-        const { data } = await api.post(baseUrl, { auth: true, body: payload });
-        return getResults(data);
-    };
+  const createContact = async payload => {
+    const { data } = await api.post(baseUrl, { auth: true, body: payload });
+    return getResults(data);
+  };
 
-    const approveContact = async payload => {
-        const { data } = await api.post(baseUrl + `/Approve`, { auth: true, body: payload });
-        return getResults(data);
-    };
+  const approveContact = async payload => {
+    const { data } = await api.post(baseUrl + `/Approve`, {
+      auth: true,
+      body: payload
+    });
+    return getResults(data);
+  };
 
-    const buildUrl = (type, approved, denied, offset, limit) => {
-        let url = baseUrl;
-        let charToAdd = `?`;
-        if (type) {
-            url += `${charToAdd}type=${type}`;
-            charToAdd = `&`;
-        }
-        if (approved) {
-            url += `${charToAdd}approved=${approved}`;
-            charToAdd = `&`;
-        }
-        if (denied) {
-            url += `${charToAdd}denied=${denied}`;
-            charToAdd = `&`;
-        }
-        if (offset) {
-            url += `${charToAdd}offset=${offset}`;
-            charToAdd = `&`;
-        }
-        if (limit) {
-            url += `${charToAdd}limit=${limit}`;
-        }
-        return url;
-    };
+  const buildUrl = (type, approved, denied, offset, limit) => {
+    let url = baseUrl;
+    let charToAdd = `?`;
+    if (type) {
+      url += `${charToAdd}type=${type}`;
+      charToAdd = `&`;
+    }
+    if (approved) {
+      url += `${charToAdd}approved=${approved}`;
+      charToAdd = `&`;
+    }
+    if (denied) {
+      url += `${charToAdd}denied=${denied}`;
+      charToAdd = `&`;
+    }
+    if (offset) {
+      url += `${charToAdd}offset=${offset}`;
+      charToAdd = `&`;
+    }
+    if (limit) {
+      url += `${charToAdd}limit=${limit}`;
+    }
+    return url;
+  };
 
-    const getResults = data => {
-        if (data) {
-            if (data.errors && data.errors.length > 0)
-                return data.errors;
+  const getResults = data => {
+    if (data) {
+      if (data.errors && data.errors.length > 0) return data.errors;
 
-            return data.result;
-        }
-        return {};
-    };
+      return data.result;
+    }
+    return {};
+  };
 
-    return (
-        <ContactContext.Provider
-          value={{
-            createContact,
-            approveContact,
-            fetchContacts
-          }}
-          {...props}
-        />
-      );
+  return (
+    <ContactContext.Provider
+      value={{
+        createContact,
+        approveContact,
+        fetchContacts
+      }}
+      {...props}
+    />
+  );
 }
 
 const useContacts = () => React.useContext(ContactContext);

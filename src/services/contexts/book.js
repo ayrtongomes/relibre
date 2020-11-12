@@ -1,24 +1,64 @@
 import React from 'react';
 import api from '../api.config';
-
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 // Context
 const BooksContext = React.createContext({});
 
 function BooksProvider(props) {
-  async function fetchBooks(type, title) {
-    const LAT = -25.5034081;
-    const LONG = -49.3090909;
+  const geoloc = cookies.get('location');
+  const LAT = geoloc ? geoloc.lat : null;
+  const LONG = geoloc ? geoloc.long : null;
 
-    let baseURL = `Book?limit=50&latitude=${LAT}&longitude=${LONG}`;
+  async function fetchBooks(type, title) {
+    let charToAdd = `?`;
+
+    let endpoint = `Book`;
+    if (LAT && LONG) {
+      endpoint += `${charToAdd}latitude=${LAT}&longitude=${LONG}`;
+      charToAdd = `&`;
+    }
     if (type) {
-      baseURL + `&type=${type}`;
+      endpoint += `${charToAdd}type=${type}`;
+      charToAdd = `&`;
     }
     if (title) {
-      baseURL + `&type=${title}`;
+      endpoint += `${charToAdd}title=${title}`;
+      charToAdd = `&`;
     }
-    const { data } = await api.get(baseURL, {
+    const { data } = await api.get(endpoint, {
       auth: true
     });
+
+    if (data && data.result) {
+      return data.result;
+    }
+
+    if (data && data.result) {
+      return data.result;
+    }
+
+    return [];
+  }
+
+  async function fetchPublicBooks(type, title) {
+    let endpoint = `Book/Public`;
+    if (LAT && LONG) {
+      endpoint += `?latitude=${LAT}&longitude=${LONG}`;
+    }
+    if (type) {
+      endpoint += `&type=${type}`;
+    }
+    if (title) {
+      endpoint += `&title=${title}`;
+    }
+    const { data } = await api.get(endpoint, {
+      auth: false
+    });
+
+    if (data && data.result) {
+      return data.result;
+    }
 
     if (data && data.result) {
       return data.result;
@@ -51,6 +91,7 @@ function BooksProvider(props) {
       value={{
         createBook,
         fetchBooks,
+        fetchPublicBooks,
         //fetchBook,
         updateBook
       }}

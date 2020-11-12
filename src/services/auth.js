@@ -57,7 +57,9 @@ function AuthProvider(props) {
   };
 
   const register = async payload => {
-    const { data } = await api.post(`Account/Register`, { body: payload });
+    const { data, errors } = await api.post(`Account/Register`, {
+      body: payload
+    });
 
     if (data) {
       return data;
@@ -65,7 +67,6 @@ function AuthProvider(props) {
   };
 
   const updateUser = async payload => {
-    debugger;
     const { data } = await api.put(`Account`, payload);
 
     const localUser = localStorage.getItem(`@relibre:user`);

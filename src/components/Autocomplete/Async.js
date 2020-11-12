@@ -7,7 +7,7 @@ import debounce from 'lodash/debounce';
 
 import AsyncSelect from 'react-select/async';
 
-export default function Asynchronous() {
+export default function Asynchronous({ onChange = () => {}, ...props }) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [inputValue, setInputValue] = React.useState('');
@@ -111,8 +111,7 @@ export default function Asynchronous() {
         })
       }}
       onChange={selected => {
-        console.log(selected);
-        //onChange(selected.value);
+        onChange(selected.value);
       }}
       placeholder={'Digite o nome do livro'}
       loadOptions={loadSuggestedOptions}

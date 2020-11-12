@@ -47,9 +47,9 @@ export default function CustomizedTables(props) {
             <StyledTableCell>Título</StyledTableCell>
             <StyledTableCell align="right">Autor</StyledTableCell>
             {!isWish && (
-              <StyledTableCell align="right">Disponível para</StyledTableCell>
+              <StyledTableCell align="center">Disponível para</StyledTableCell>
             )}
-            <StyledTableCell align="right">Data de criação</StyledTableCell>
+            <StyledTableCell align="center">Data de criação</StyledTableCell>
             <StyledTableCell align="right">Ações</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -61,9 +61,9 @@ export default function CustomizedTables(props) {
               </StyledTableCell>
               <StyledTableCell align="right">{row.author}</StyledTableCell>
               {!isWish && (
-                <StyledTableCell align="right">{row.type}</StyledTableCell>
+                <StyledTableCell align="center">{row.type}</StyledTableCell>
               )}
-              <StyledTableCell align="right">{row.date}</StyledTableCell>
+              <StyledTableCell align="center">{row.date}</StyledTableCell>
               <StyledTableCell align="right">
                 <div>
                   {!isWish && (
@@ -77,16 +77,6 @@ export default function CustomizedTables(props) {
                         color="success"
                       >
                         <Edit className={classes.icons} />
-                      </Button>
-                      <Button
-                        justIcon
-                        //round
-                        href="#pablo"
-                        className={classes.notificationNavLink}
-                        onClick={e => e.preventDefault()}
-                        color="info"
-                      >
-                        <Search className={classes.icons} />
                       </Button>
                     </>
                   )}

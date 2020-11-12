@@ -1,6 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -17,6 +20,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Explore from '@material-ui/icons/Explore';
 import ContactRequest from 'components/Dialogs/ContactRequest';
+import { formatDistance } from 'utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,7 +48,33 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default props => {
+const getTypes = types => {
+  let arr = [];
+  if (types.some(t => t.description === 'Trocar')) {
+    arr.push('Troca');
+  }
+  if (types.some(t => t.description === 'Emprestar')) {
+    arr.push('Empréstimo');
+  }
+  if (types.some(t => t.description === 'Doar')) {
+    arr.push('Doação');
+  }
+
+  let str = '';
+
+  arr.map((type, idx) => {
+    if (idx === 0) {
+      str = type;
+    } else if (idx + 1 === arr.length) {
+      str += ` e ${type}`;
+    } else {
+      str += `, ${type}`;
+    }
+  });
+
+  return str;
+};
+export default ({ data, ...props }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
@@ -57,7 +87,7 @@ export default props => {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {props.name.charAt(0).toUpperCase()}
+            {data && data.name ? data.name.charAt(0).toUpperCase() : 'A'}
           </Avatar>
         }
         action={
@@ -79,23 +109,24 @@ export default props => {
                 textTransform: 'itallic'
               }}
             >
-              {props.distance} km
+              {formatDistance(data.distance)}
             </span>
           </div>
         }
-        title={props.name}
-        subheader="30 de junho de 2020"
+        title={data && data.name ? data.name : 'Anônimo'}
+        subheader={format(new Date(data.book.created_at), 'dd/MM/yyyy HH:mm', {
+          locale: ptBR
+        })}
       />
       <CardMedia
         className={classes.media}
-        image="http://books.google.com/books/content?id=PDcQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-        title="Paella dish"
+        image={data.images[0].image}
+        title={'Imagem do livro ' + data.book.title}
       />
       <CardContent>
-        <h4 style={{ textAlign: 'left' }}>Harry Potter e a Pedra Filosofal</h4>
+        <h4 style={{ textAlign: 'left' }}>{data.book.title}</h4>
         <Typography variant="body2" color="textSecondary" component="p">
-          Tenho esse livro a dois anos, mas está bem conservado. Li duas vezes e
-          guardei na estante. Sem marcas de rasura
+          {data.book.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -106,12 +137,6 @@ export default props => {
         >
           tenho interesse
         </Button>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
@@ -128,7 +153,7 @@ export default props => {
           <Typography paragraph>
             <b>Este livro está disponível para:</b>
           </Typography>
-          <Typography paragraph>Troca, venda e empréstimo e doação.</Typography>
+          <Typography paragraph>{getTypes(data.types)}</Typography>
         </CardContent>
       </Collapse>
       <ContactRequest

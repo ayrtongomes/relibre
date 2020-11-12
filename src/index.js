@@ -90,6 +90,14 @@ const App = () => {
     });
   };
 
+  // useEffect(() => {
+  //   async function loadData() {
+  //     const data = await getContacts();
+  //     console.log(data);
+  //   }
+  //   loadData();
+  // }, []);
+
   return (
     <>
       {/* <Suspense fallback={<div />}> */}
