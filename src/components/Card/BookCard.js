@@ -25,6 +25,8 @@ import { formatDistance } from 'utils';
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 325,
+    width: 325,
+    minWidth: 325,
     alignSelf: 'baseline',
     justifySelf: 'center',
     fontFamily: "'Inter', 'Roboto', sans-serif"

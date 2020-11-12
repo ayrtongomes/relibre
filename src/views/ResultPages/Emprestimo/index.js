@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Components/Header.js';
 import Card from 'components/Card/BookCard';
+import BookMatchCard from 'components/Card/BookMatchCard.js';
+import BookAd from 'components/Card/BookAd.js';
 import Footer from 'components/Footer/Footer';
-
+import { useBooks } from '../../../services/contexts/book.js';
+import { useAuth } from 'services/auth.js';
+import { formatDistance } from 'utils';
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: '60px',
@@ -29,19 +33,54 @@ const useStyles = makeStyles(theme => ({
 export default function NavTabs({ index, ...props }) {
   const classes = useStyles();
 
+  const { fetchPublicBooks, fetchBooks } = useBooks();
+  const { user } = useAuth();
+
+  const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      const localUser = localStorage.getItem('@relibre:user');
+      const parsedUser = localUser ? JSON.parse(localUser) : null;
+      if (parsedUser && parsedUser.token) {
+        const data = await fetchBooks('Emprestar');
+        if (data && data.length > 0) {
+          setBooks(data);
+        }
+        console.log(data);
+      } else {
+        const data = await fetchPublicBooks('Emprestar');
+        if (data && data.length > 0) {
+          setBooks(data);
+        }
+      }
+      setIsLoading(false);
+    }
+
+    loadData();
+  }, []);
+
   return (
     <div>
       <Header index={1} />
       <div className={classes.toolbar}></div>
-
       <div className={classes.container}>
         <div>
-          <div className={classes.gridList}>
-            <Card distance={2.2} name="Carlos Santana" />
-            <Card distance={2.7} name="Joui Ryoko" />
-            <Card distance={3.2} name="André Camargo" />
-            <Card distance={4.8} name="Lucas" />
-          </div>
+          {isLoading ? (
+            'Carregando'
+          ) : (
+            <div className={classes.gridList}>
+              <BookMatchCard distance={6.2} name="Luna Lovegood Nox" />
+
+              {books && books.length > 0
+                ? books.map((book, index) => {
+                    return <Card key={`book-${index}`} data={book} />;
+                  })
+                : null}
+              <BookAd name="Sebo Rei do Livro" />
+            </div>
+          )}
         </div>
       </div>
       <Footer />

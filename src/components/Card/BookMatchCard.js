@@ -22,6 +22,8 @@ import matchSrcIcon from 'assets/img/friendship.svg';
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 325,
+    width: 325,
+    minWidth: 325,
     alignSelf: 'baseline',
     justifySelf: 'center',
     backgroundSize: '200%',

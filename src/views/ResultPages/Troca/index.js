@@ -44,13 +44,13 @@ export default function NavTabs({ index, ...props }) {
       const localUser = localStorage.getItem('@relibre:user');
       const parsedUser = localUser ? JSON.parse(localUser) : null;
       if (parsedUser && parsedUser.token) {
-        const data = await fetchBooks('Troca');
+        const data = await fetchBooks('Trocar');
         if (data && data.length > 0) {
           setBooks(data);
         }
         console.log(data);
       } else {
-        const data = await fetchPublicBooks('Troca');
+        const data = await fetchPublicBooks('Trocar');
         if (data && data.length > 0) {
           setBooks(data);
         }
