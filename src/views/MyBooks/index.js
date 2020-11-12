@@ -116,7 +116,10 @@ export default props => {
         const formatted = data.map(b => {
           return {
             title: b.book.title,
-            author: b.book.authors[0].name,
+            author:
+              b.book.authors && b.book.authors.length > 0
+                ? b.book.authors[0].name
+                : '',
             type: b.types.map(type => type.description).join(', '),
             date: format(new Date(b.book.created_at), 'dd/MM/yyyy')
           };
