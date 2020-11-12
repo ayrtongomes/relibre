@@ -25,6 +25,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Email, Check, Phone, Book } from '@material-ui/icons';
 import SnackbarContent from 'components/Snackbar/SnackbarContent.js';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 import { useBooks } from 'services/contexts/book.js';
@@ -83,7 +84,6 @@ const CHECK_TYPES = {
 export default props => {
   const classes = useStyles();
 
-  const { createBook } = useBooks();
   const fileUpload = useRef();
 
   const [showModal, setShowModal] = useState(false);
@@ -94,7 +94,7 @@ export default props => {
   const [description, setDescription] = useState('');
   const [checked, setCheckd] = useState([]);
 
-  const { fetchPublicBooks, fetchBooks } = useBooks();
+  const { createBook, fetchBooks } = useBooks();
 
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -177,11 +177,20 @@ export default props => {
   };
 
   const handleSubmit = async () => {
+    setSaving(true);
+
     const payload = getPayload();
-    const data = await createBook(payload);
-    if (data) {
-      await fetchBooks();
-      showNotification();
+    try {
+      const data = await createBook(payload);
+      if (data) {
+        await fetchBooks();
+        showNotification();
+      }
+    } catch (err) {
+      //Handler error
+    } finally {
+      setSaving(false);
+      setShowModal(false);
     }
   };
 
@@ -390,7 +399,11 @@ export default props => {
             }}
             color="primary"
           >
-            Finalizar cadastro
+            {saving ? (
+              <CircularProgress size={30} color="white" />
+            ) : (
+              'Finalizar cadastro'
+            )}
           </Button>
         </DialogActions>
       </Dialog>

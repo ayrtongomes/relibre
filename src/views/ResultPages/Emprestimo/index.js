@@ -68,7 +68,7 @@ export default function NavTabs({ index, ...props }) {
       <div className={classes.container}>
         <div>
           {isLoading ? (
-            'Carregando'
+            'Carregando...'
           ) : (
             <div className={classes.gridList}>
               <BookMatchCard distance={6.2} name="Luna Lovegood Nox" />

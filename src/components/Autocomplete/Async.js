@@ -79,6 +79,11 @@ export default function Asynchronous({ onChange = () => {}, ...props }) {
           minHeight: '46px',
           boxShadow: 'inherit'
         }),
+        menu: base => ({
+          ...base,
+          position: 'relative',
+          zIndex: 999999
+        }),
         valueContainer: base => ({
           ...base,
           padding: '0.7em 1em'
