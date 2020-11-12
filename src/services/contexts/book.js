@@ -43,14 +43,19 @@ function BooksProvider(props) {
 
   async function fetchPublicBooks(type, title) {
     let endpoint = `Book/Public`;
+    let charToAdd = `?`;
+
     if (LAT && LONG) {
-      endpoint += `?latitude=${LAT}&longitude=${LONG}`;
+      endpoint += `${charToAdd}latitude=${LAT}&longitude=${LONG}`;
+      charToAdd = `&`;
     }
     if (type) {
-      endpoint += `&type=${type}`;
+      endpoint += `${charToAdd}type=${type}`;
+      charToAdd = `&`;
     }
     if (title) {
-      endpoint += `&title=${title}`;
+      endpoint += `${charToAdd}title=${title}`;
+      charToAdd = `&`;
     }
     const { data } = await api.get(endpoint, {
       auth: false
