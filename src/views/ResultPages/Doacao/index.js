@@ -63,7 +63,7 @@ export default function NavTabs({ index, ...props }) {
 
   return (
     <div>
-      <Header index={1} />
+      <Header index={2} />
       <div className={classes.toolbar}></div>
       <div className={classes.container}>
         <div>

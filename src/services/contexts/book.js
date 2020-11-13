@@ -14,7 +14,7 @@ function BooksProvider(props) {
     let charToAdd = `?`;
 
     let endpoint = `Book`;
-    if (LAT && LONG) {
+    if (LAT && LONG && type) {
       endpoint += `${charToAdd}latitude=${LAT}&longitude=${LONG}`;
       charToAdd = `&`;
     }
