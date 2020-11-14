@@ -1,34 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
 import makeStyles from '@material-ui/core/styles/makeStyles';
 // @material-ui/icons
-import Star from '@material-ui/icons/Star';
-import Book from '@material-ui/icons/Book';
-import Comment from '@material-ui/icons/Comment';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 // core components
-import Header from 'components/Header/Header.js';
-import Footer from 'components/Footer/Footer.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
-import HeaderLinks from 'components/Header/HeaderLinks';
-import NavPills from 'components/NavPills/NavPills.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import BookMatchCard from 'components/Card/BookMatchCard.js';
-
-import studio1 from 'assets/img/examples/studio-1.jpg';
-import studio2 from 'assets/img/examples/studio-2.jpg';
-import studio3 from 'assets/img/examples/studio-3.jpg';
-import studio4 from 'assets/img/examples/studio-4.jpg';
-import studio5 from 'assets/img/examples/studio-5.jpg';
-import work1 from 'assets/img/examples/olu-eletu.jpg';
-import work2 from 'assets/img/examples/clem-onojeghuo.jpg';
-import work3 from 'assets/img/examples/cynthia-del-rio.jpg';
-import work4 from 'assets/img/examples/mariya-georgieva.jpg';
-import work5 from 'assets/img/examples/clem-onojegaw.jpg';
+import { useBooks } from 'services/contexts/book.js';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 
@@ -52,13 +35,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default props => {
+  const { fetchBooks } = useBooks();
+  const [matches, setMatches] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      const dataMatches = await fetchBooks('Combinacoes');
+      if (dataMatches && dataMatches.length > 0) {
+        setMatches(dataMatches);
+      }
+      console.log(dataMatches);
+
+      setIsLoading(false);
+    }
+
+    loadData();
+  }, []);
+
   const classes = useStyles();
-  // const imageClasses = classNames(
-  //   classes.imgRaised,
-  //   classes.imgRoundedCircle,
-  //   classes.imgFluid
-  // );
-  const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+
   return (
     <div>
       <Parallax small filter image={require('assets/img/banner-home.png')} />
@@ -91,11 +87,26 @@ export default props => {
               <Divider style={{ margin: '3rem 0', width: '100%' }} />
             </GridContainer>
             <div className={classes.container}>
-              <div>
-                <div className={classes.gridList}>
-                  <BookMatchCard distance={6.2} name="Luna Lovegood Nox" />
+              {isLoading ? (
+                'Carregando...'
+              ) : (
+                <div>
+                  {matches && matches.length > 0 ? (
+                    <div className={classes.gridList}>
+                      {matches.map((book, index) => {
+                        return (
+                          <BookMatchCard
+                            key={`bookMatch-${index}`}
+                            data={book}
+                          />
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    'Nenhum resultado encontrado'
+                  )}
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

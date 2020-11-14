@@ -7,7 +7,7 @@ import BookAd from 'components/Card/BookAd.js';
 import Footer from 'components/Footer/Footer';
 import { useBooks } from '../../../services/contexts/book.js';
 import { useAuth } from 'services/auth.js';
-import { formatDistance } from 'utils';
+
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: '60px',
@@ -37,6 +37,7 @@ export default function NavTabs({ index, ...props }) {
   const { user } = useAuth();
 
   const [books, setBooks] = useState([]);
+  const [matches, setMatches] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -48,7 +49,11 @@ export default function NavTabs({ index, ...props }) {
         if (data && data.length > 0) {
           setBooks(data);
         }
-        console.log(data);
+        const dataMatches = await fetchBooks('Combinacoes');
+        if (dataMatches && dataMatches.length > 0) {
+          setMatches(dataMatches);
+        }
+        console.log(dataMatches);
       } else {
         const data = await fetchPublicBooks('Trocar');
         if (data && data.length > 0) {
@@ -71,11 +76,19 @@ export default function NavTabs({ index, ...props }) {
             'Carregando...'
           ) : (
             <div className={classes.gridList}>
-              <BookMatchCard distance={6.2} name="Luna Lovegood Nox" />
+              {matches && matches.length > 0
+                ? matches.map((book, index) => {
+                    return (
+                      <BookMatchCard key={`bookMatch-${index}`} data={book} />
+                    );
+                  })
+                : null}
 
               {books && books.length > 0
                 ? books.map((book, index) => {
-                    return <Card key={`book-${index}`} data={book} />;
+                    if (book && book.book && book.book.title) {
+                      return <Card key={`book-${index}`} data={book} />;
+                    }
                   })
                 : null}
               <BookAd name="Sebo Rei do Livro" />
