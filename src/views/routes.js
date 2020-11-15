@@ -24,6 +24,13 @@ export const dashRoutes = [
     sidebar: true
   },
   {
+    path: '/meus-livros/:view/:id?',
+    name: 'Meus livros',
+    icon: 'library_books',
+    component: MyBooks,
+    layout: '/minha-conta'
+  },
+  {
     path: '/livros-desejados',
     name: 'Livros que eu quero',
     icon: 'collections_bookmark',

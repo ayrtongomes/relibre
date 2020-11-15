@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAlert } from 'react-alert';
 import api from '../api.config';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -6,9 +7,33 @@ const cookies = new Cookies();
 const BooksContext = React.createContext({});
 
 function BooksProvider(props) {
+  const alert = useAlert();
   const geoloc = cookies.get('location');
-  const LAT = geoloc ? geoloc.lat : null;
-  const LONG = geoloc ? geoloc.long : null;
+  let LAT = geoloc ? geoloc.lat : null;
+  let LONG = geoloc ? geoloc.long : null;
+
+  const getGeoLocation = async () => {
+    await navigator.geolocation.getCurrentPosition(
+      position => {
+        let obj = {
+          lat: position.coords.latitude,
+          long: position.coords.longitude
+        };
+        cookies.set('location', obj, { path: '/' });
+        LAT = obj.lat;
+        LONG = obj.long;
+      },
+      error => {
+        if (error.code === 1) {
+          alert.success('Não foi possível obter sua localização');
+        }
+      }
+    );
+  };
+
+  if (!LAT || !LONG) {
+    getGeoLocation();
+  }
 
   async function fetchBooks(type, title) {
     let charToAdd = `?`;
@@ -73,7 +98,10 @@ function BooksProvider(props) {
   }
 
   async function createBook(payload) {
-    const data = await api.post('Book', { auth: true, body: payload });
+    const data = await api.post('Book', {
+      auth: true,
+      body: payload
+    });
 
     return data;
   }
@@ -84,12 +112,17 @@ function BooksProvider(props) {
     return data;
   }
 
-  // async function fetchBook(id) {
-  //   const URL = `book/${id}`;
-  //   const { data } = await api.get(URL, { auth: true });
+  async function deleteBook(id) {
+    const data = await api.delete(`Book/${id}`);
 
-  //   return data;
-  // }
+    return data;
+  }
+
+  async function fetchBook(id) {
+    const { data } = await api.get(`Book?id_book=${id}`, { auth: true });
+
+    return data;
+  }
 
   return (
     <BooksContext.Provider
@@ -97,8 +130,9 @@ function BooksProvider(props) {
         createBook,
         fetchBooks,
         fetchPublicBooks,
-        //fetchBook,
-        updateBook
+        deleteBook,
+        updateBook,
+        fetchBook
       }}
       {...props}
     />

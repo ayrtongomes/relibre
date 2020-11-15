@@ -4,7 +4,7 @@ import api from '../api.config';
 const ContactContext = React.createContext({});
 
 function ContactProvider(props) {
-  const baseUrl = `Contact`;
+  const baseEndpoint = `Contact`;
 
   const fetchContacts = async (type, approved, denied, offset, limit) => {
     const url = buildUrl(type, approved, denied, offset, limit);
@@ -13,12 +13,15 @@ function ContactProvider(props) {
   };
 
   const createContact = async payload => {
-    const { data } = await api.post(baseUrl, { auth: true, body: payload });
+    const { data } = await api.post(baseEndpoint, {
+      auth: true,
+      body: payload
+    });
     return getResults(data);
   };
 
   const approveContact = async payload => {
-    const { data } = await api.post(baseUrl + `/Approve`, {
+    const { data } = await api.post(baseEndpoint + `/Approve`, {
       auth: true,
       body: payload
     });
@@ -26,7 +29,7 @@ function ContactProvider(props) {
   };
 
   const buildUrl = (type, approved, denied, offset, limit) => {
-    let url = baseUrl;
+    let url = baseEndpoint;
     let charToAdd = `?`;
     if (type) {
       url += `${charToAdd}type=${type}`;

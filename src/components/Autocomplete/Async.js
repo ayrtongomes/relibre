@@ -7,7 +7,11 @@ import debounce from 'lodash/debounce';
 
 import AsyncSelect from 'react-select/async';
 
-export default function Asynchronous({ onChange = () => {}, ...props }) {
+export default function Asynchronous({
+  onChange = () => {},
+  disabled = false,
+  ...props
+}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [inputValue, setInputValue] = React.useState('');
@@ -118,6 +122,7 @@ export default function Asynchronous({ onChange = () => {}, ...props }) {
       onChange={selected => {
         onChange(selected.value);
       }}
+      isDisabled={disabled}
       placeholder={'Digite o nome do livro'}
       loadOptions={loadSuggestedOptions}
       noOptionsMessage={() => null}

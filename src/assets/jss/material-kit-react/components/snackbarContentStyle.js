@@ -15,7 +15,7 @@ const snackbarContentStyle = {
     position: 'absolute',
     padding: '20px 15px',
     lineHeight: '20px',
-    right: '15px',
+    right: '25px',
     top: '75px',
     fontSize: '14px',
     backgroundColor: 'white',
@@ -42,6 +42,11 @@ const snackbarContentStyle = {
     ...warningBoxShadow
   },
   danger: {
+    backgroundColor: '#f55a4e',
+    color: '#ffffff',
+    ...dangerBoxShadow
+  },
+  error: {
     backgroundColor: '#f55a4e',
     color: '#ffffff',
     ...dangerBoxShadow

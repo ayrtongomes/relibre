@@ -50,11 +50,10 @@ export default function NavTabs({ index, ...props }) {
         if (data && data.length > 0) {
           setBooks(data);
         }
-        const dataMatches = await fetchBooks('Combinacoes');
+        const dataMatches = await fetchBooks('Combinacao');
         if (dataMatches && dataMatches.length > 0) {
           setMatches(dataMatches);
         }
-        console.log(dataMatches);
       } else {
         const data = await fetchPublicBooks('Emprestar');
         if (data && data.length > 0) {

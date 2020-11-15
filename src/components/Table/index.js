@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -36,7 +37,7 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables(props) {
   const classes = useStyles();
-
+  const history = useHistory();
   const { data, isWish = false } = props;
 
   return (
@@ -71,9 +72,13 @@ export default function CustomizedTables(props) {
                       <Button
                         justIcon
                         //round
-                        href="#pablo"
+                        type="button"
                         className={classes.notificationNavLink}
-                        onClick={e => e.preventDefault()}
+                        onClick={() => {
+                          history.push(
+                            `/minha-conta/meus-livros/edit/${row.id}`
+                          );
+                        }}
                         color="success"
                       >
                         <Edit className={classes.icons} />

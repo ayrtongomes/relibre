@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
@@ -25,6 +26,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Email, Check, Phone, Book } from '@material-ui/icons';
 import SnackbarContent from 'components/Snackbar/SnackbarContent.js';
+import NewBook from './new';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
@@ -54,37 +56,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function createData(title, author, type, date) {
-  return { title, author, type, date };
-}
-
-const rows = [
-  createData(
-    'Harry Potter e a Pedra Filosofal',
-    'J.K. Rowling',
-    'Troca, Empréstimo',
-    '30/06/2020'
-  ),
-  createData('Watchmen', 'Alan Moore', 'Troca, Empréstimo', '30/06/2020'),
-  createData('O Hobbit', 'Tolkien', 'Troca, Venda', '30/06/2020'),
-  createData(
-    'Harry Potter e o Enigma do Príncipe',
-    'J.K. Rowling',
-    'Troca, Venda',
-    '30/06/2020'
-  )
-];
-
-const CHECK_TYPES = {
-  21: 'Trocar',
-  22: 'Doar',
-  23: 'Emprestar'
-};
-
 export default props => {
   const classes = useStyles();
 
+  const { id: editId, view } = useParams();
+  const history = useHistory();
   const fileUpload = useRef();
+
+  const isEdit = view !== undefined && editId !== undefined;
 
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState('');
@@ -98,16 +77,8 @@ export default props => {
 
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
 
-  const [showNot, setShowNot] = React.useState(false);
-
-  const showNotification = () => {
-    setShowNot(true);
-    setTimeout(x => {
-      setShowNot(false);
-    }, 6000);
-  };
+  const [refreshControl, refreshControlSet] = React.useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -115,6 +86,7 @@ export default props => {
       if (data && data.length > 0) {
         const formatted = data.map(b => {
           return {
+            id: b.id,
             title: b.book.title,
             author:
               b.book.authors && b.book.authors.length > 0
@@ -124,85 +96,21 @@ export default props => {
             date: format(new Date(b.book.created_at), 'dd/MM/yyyy')
           };
         });
-        console.log(formatted);
         setBooks(formatted);
       }
     }
     setIsLoading(false);
 
     loadData();
-  }, [fetchBooks, showNot]);
+  }, [fetchBooks, refreshControl]);
 
-  const handleToggle = value => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setCheckd(newChecked);
-  };
-
-  const getPayload = () => {
-    return {
-      images: [
-        {
-          image: selectedBook.volumeInfo.imageLinks.thumbnail
-        }
-      ],
-      book: {
-        description: description,
-        code_integration: selectedBook.id,
-        isbn_13: selectedBook.id,
-        title: selectedBook.volumeInfo.title,
-        maturity_rating: selectedBook.volumeInfo.maturityRating,
-        authors: selectedBook.volumeInfo.authors
-          ? selectedBook.volumeInfo.authors.map(a => {
-              return { name: a };
-            })
-          : [],
-        categories: selectedBook.volumeInfo.categories
-          ? selectedBook.volumeInfo.categories.map(c => {
-              return { name: c };
-            })
-          : []
-      },
-      types: checked.map(c => {
-        return { description: CHECK_TYPES[c] };
-      })
-    };
-  };
-
-  const handleSubmit = async () => {
-    setSaving(true);
-
-    const payload = getPayload();
-    try {
-      const data = await createBook(payload);
-      if (data) {
-        await fetchBooks();
-        showNotification();
-      }
-    } catch (err) {
-      //Handler error
-    } finally {
-      setSaving(false);
-      setShowModal(false);
-    }
-  };
+  useEffect(() => {
+    setShowModal(isEdit);
+  }, [isEdit]);
 
   return (
     <div>
       <Parallax small filter image={require('assets/img/banner-home.png')} />
-      {showNot ? (
-        <SnackbarContent
-          message={'Livro cadastrado com sucesso.'}
-          color="success"
-        />
-      ) : null}
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
@@ -230,7 +138,10 @@ export default props => {
                         variant="contained"
                         color="primary"
                         size="md"
-                        onClick={() => setShowModal(true)}
+                        onClick={() => {
+                          setShowModal(true);
+                          history.push('/minha-conta/meus-livros/new');
+                        }}
                       >
                         Novo
                       </Button>
@@ -256,156 +167,15 @@ export default props => {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">
-          {'Cadastro de livro'}
-        </DialogTitle>
-        <DialogContent>
-          <GridContainer justify="left">
-            <GridItem xs={12} sm={12}>
-              <Autocomplete
-                onChange={selected => {
-                  setSelectedBook({ ...selected });
-                }}
-              />
-            </GridItem>
-
-            <GridItem xs={12} sm={12} md={6} lg={6}>
-              <div className={classes.title}>
-                <span
-                  style={{
-                    color: '#AAAAAA',
-                    fontSize: '14px',
-                    fontWeight: 300
-                  }}
-                >
-                  Este livro, eu quero:
-                </span>
-              </div>
-              <div
-                className={
-                  classes.checkboxAndRadio +
-                  ' ' +
-                  classes.checkboxAndRadioHorizontal
-                }
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      tabIndex={-1}
-                      onClick={() => handleToggle(21)}
-                      checked={checked.indexOf(21) !== -1 ? true : false}
-                      checkedIcon={<Check className={classes.checkedIcon} />}
-                      icon={<Check className={classes.uncheckedIcon} />}
-                      classes={{ checked: classes.checked }}
-                    />
-                  }
-                  classes={{ label: classes.label }}
-                  label="Trocar"
-                />
-              </div>
-              <div
-                className={
-                  classes.checkboxAndRadio +
-                  ' ' +
-                  classes.checkboxAndRadioHorizontal
-                }
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      tabIndex={-1}
-                      onClick={() => handleToggle(22)}
-                      checked={checked.indexOf(22) !== -1 ? true : false}
-                      checkedIcon={<Check className={classes.checkedIcon} />}
-                      icon={<Check className={classes.uncheckedIcon} />}
-                      classes={{ checked: classes.checked }}
-                    />
-                  }
-                  classes={{ label: classes.label }}
-                  label="Emprestar"
-                />
-              </div>
-              <div
-                className={
-                  classes.checkboxAndRadio +
-                  ' ' +
-                  classes.checkboxAndRadioHorizontal
-                }
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      tabIndex={-1}
-                      onClick={() => handleToggle(23)}
-                      checked={checked.indexOf(23) !== -1 ? true : false}
-                      checkedIcon={<Check className={classes.checkedIcon} />}
-                      icon={<Check className={classes.uncheckedIcon} />}
-                      classes={{ checked: classes.checked }}
-                    />
-                  }
-                  classes={{ label: classes.label }}
-                  label="Doar"
-                />
-              </div>
-            </GridItem>
-            {/* <GridItem
-              xs={12}
-              sm={12}
-              md={6}
-              lg={6}
-              style={{ textAlign: 'right', marginTop: '15%' }}
-            >
-              <input
-                ref={fileUpload}
-                type="file"
-                style={{ display: 'none' }}
-                // onChange={e => {
-                //   onChange([...e.target.files]);
-                // }}
-              />
-              <Button
-                color="info"
-                type="file"
-                // onClick={e => {
-                //   fileUpload.click();
-                // }}
-              >
-                Anexar imagem
-              </Button>
-            </GridItem> */}
-            <GridItem xs={12} sm={12} md={12} lg={12}>
-              <CustomInput
-                labelText="Descrição"
-                id="message"
-                formControlProps={{
-                  fullWidth: true,
-                  className: classes.textArea
-                }}
-                inputProps={{
-                  multiline: true,
-                  rows: 5,
-                  value: description,
-                  onChange: e => setDescription(e.target.value)
-                }}
-              />
-            </GridItem>
-          </GridContainer>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              handleSubmit();
-              setShowModal(false);
-            }}
-            color="primary"
-          >
-            {saving ? (
-              <CircularProgress size={30} color="white" />
-            ) : (
-              'Finalizar cadastro'
-            )}
-          </Button>
-        </DialogActions>
+        <NewBook
+          {...props}
+          view={view}
+          id={editId}
+          closeModal={() => {
+            setShowModal(false);
+            refreshControlSet(!refreshControl);
+          }}
+        />
       </Dialog>
     </div>
   );

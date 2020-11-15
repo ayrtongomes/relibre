@@ -41,7 +41,7 @@ export default props => {
 
   useEffect(() => {
     async function loadData() {
-      const dataMatches = await fetchBooks('Combinacoes');
+      const dataMatches = await fetchBooks('Combinacao');
       if (dataMatches && dataMatches.length > 0) {
         setMatches(dataMatches);
       }

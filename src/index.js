@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Modal from 'components/Dialogs/LocationNotAllowed';
+import AlertProvider, { alertOptions, AlertTemplate } from 'components/Alert';
 
 import 'assets/scss/material-kit-react.scss?v=1.4.0';
 
@@ -128,8 +129,12 @@ const App = () => {
 };
 
 ReactDOM.render(
-  <Provider>
-    <App />
-  </Provider>,
+  <React.StrictMode>
+    <AlertProvider template={AlertTemplate} {...alertOptions}>
+      <Provider>
+        <App />
+      </Provider>
+    </AlertProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 );

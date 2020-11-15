@@ -18,7 +18,8 @@ function AuthProvider(props) {
     const { data, errors } = await api.post('Account/Login', {
       body: {
         login: login,
-        password: password
+        password: password,
+        platform: 'personal'
       }
     });
 
