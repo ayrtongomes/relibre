@@ -25,7 +25,9 @@ function BooksProvider(props) {
       },
       error => {
         if (error.code === 1) {
-          alert.success('Não foi possível obter sua localização');
+          alert.success(
+            'Sem acesso a sua localização não será possível filtrar os livros mais próximos de ti'
+          );
         }
       }
     );
@@ -106,8 +108,8 @@ function BooksProvider(props) {
     return data;
   }
 
-  async function updateBook(id, payload) {
-    const data = await api.put(`Book/${id}`, payload);
+  async function updateBook(payload) {
+    const data = await api.put(`Book`, payload);
 
     return data;
   }

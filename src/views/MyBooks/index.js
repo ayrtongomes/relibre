@@ -106,59 +106,67 @@ export default props => {
 
   useEffect(() => {
     setShowModal(isEdit);
-  }, [isEdit]);
+  }, [isEdit, editId]);
 
   return (
     <div>
-      <Parallax small filter image={require('assets/img/banner-home.png')} />
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <div>
-          <div className={classes.container}>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={12}>
-                <div className={classes.profile}>
-                  <div
-                    className={classes.name}
-                    style={{ marginTop: '0', textAlign: 'left' }}
-                  >
-                    <h2 className={classes.title}>Meus livros</h2>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                      }}
-                    >
-                      <div style={{ fontWeight: '300' }}>
-                        <span>
-                          Adicione, altere e veja os livros que você possui.
-                        </span>
-                      </div>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="md"
-                        onClick={() => {
-                          setShowModal(true);
-                          history.push('/minha-conta/meus-livros/new');
-                        }}
+      {view !== undefined ? null : (
+        <>
+          <Parallax
+            small
+            filter
+            image={require('assets/img/banner-home.png')}
+          />
+          <div className={classNames(classes.main, classes.mainRaised)}>
+            <div>
+              <div className={classes.container}>
+                <GridContainer justify="center">
+                  <GridItem xs={12} sm={12} md={12}>
+                    <div className={classes.profile}>
+                      <div
+                        className={classes.name}
+                        style={{ marginTop: '0', textAlign: 'left' }}
                       >
-                        Novo
-                      </Button>
+                        <h2 className={classes.title}>Meus livros</h2>
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <div style={{ fontWeight: '300' }}>
+                            <span>
+                              Adicione, altere e veja os livros que você possui.
+                            </span>
+                          </div>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            size="md"
+                            onClick={() => {
+                              setShowModal(true);
+                              history.push('/minha-conta/meus-livros/new');
+                            }}
+                          >
+                            Novo
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </GridItem>
-              <Divider style={{ margin: '2rem 0', width: '100%' }} />
-            </GridContainer>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={12}>
-                {isLoading ? 'Carregando...' : <Table data={books} />}
-              </GridItem>
-            </GridContainer>
+                  </GridItem>
+                  <Divider style={{ margin: '2rem 0', width: '100%' }} />
+                </GridContainer>
+                <GridContainer justify="center">
+                  <GridItem xs={12} sm={12} md={12}>
+                    {isLoading ? 'Carregando...' : <Table data={books} />}
+                  </GridItem>
+                </GridContainer>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
       <Dialog
         open={showModal}
         TransitionComponent={Transition}

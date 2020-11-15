@@ -44,50 +44,34 @@ const useStyles = makeStyles(theme => ({
 
 const MyBooks = ({ view, id = '', closeModal, ...props }) => {
   const classes = useStyles();
-  const { createBook, fetchBook } = useBooks();
+  const { createBook, fetchBook, updateBook } = useBooks();
   const alert = useAlert();
 
   const [selectedBook, setSelectedBook] = useState(null);
+  const [editingBook, setEditingBook] = useState(null);
   const [description, setDescription] = useState('');
   const [checked, setCheckd] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  const [showNot, setShowNot] = React.useState(false);
-
-  const showNotification = () => {
-    setShowNot(true);
-    setTimeout(x => {
-      setShowNot(false);
-    }, 6000);
-  };
-
   useEffect(() => {
     async function loadData() {
       if (id) {
         const data = await fetchBook(id);
-        //  if (data && data.length > 0) {
-        //    const formatted = data.map(b => {
-        //      return {
-        //        title: b.book.title,
-        //        author:
-        //          b.book.authors && b.book.authors.length > 0
-        //            ? b.book.authors[0].name
-        //            : '',
-        //        type: b.types.map(type => type.description).join(', '),
-        //        date: format(new Date(b.book.created_at), 'dd/MM/yyyy')
-        //      };
-        //    });
-        //    setBooks(formatted);
-        //  }
+        if (data && data.result) {
+          setEditingBook(data.result);
+          setDescription(data.result.book.description);
+          const types = data.result.types.map(t => t.description);
+          setCheckd([...types]);
+        }
         console.log(data);
       }
     }
     setIsLoading(false);
 
     loadData();
-  }, [fetchBook, showNot]);
+  }, [fetchBook, id]);
 
   const handleToggle = value => {
     const currentIndex = checked.indexOf(value);
@@ -132,7 +116,15 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
     };
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
+    if (id) {
+      handleEdit();
+    } else {
+      handleCreate();
+    }
+  };
+
+  const handleCreate = async () => {
     setSaving(true);
 
     const payload = getPayload();
@@ -150,6 +142,42 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
     }
   };
 
+  const handleEdit = async () => {
+    setSaving(true);
+
+    const payload = {
+      id: parseInt(id),
+      images: [
+        ...editingBook.images
+        // {
+        //   image: selectedBook.volumeInfo.imageLinks.thumbnail
+        // }
+      ],
+      book: {
+        ...editingBook.book,
+        description: description
+      },
+      types: checked.map(c => {
+        return { description: c };
+      })
+    };
+
+    try {
+      const data = await updateBook(payload);
+      if (data) {
+        // await fetchBooks();
+        alert.success('Livro atualizado com sucesso');
+        closeModal();
+      }
+    } catch (err) {
+      alert.error('Ocorreu um erro ao editar o livro');
+
+      //Handler error
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <>
       <DialogTitle id="alert-dialog-slide-title">
@@ -163,6 +191,7 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
                 setSelectedBook({ ...selected });
               }}
               disabled={id ? true : false}
+              initialValue={id && editingBook ? editingBook.book.title : null}
             />
           </GridItem>
 
@@ -188,7 +217,6 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    tabIndex={-1}
                     onClick={() => handleToggle('Trocar')}
                     checked={checked.indexOf('Trocar') !== -1 ? true : false}
                     checkedIcon={<Check className={classes.checkedIcon} />}
@@ -210,9 +238,8 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    tabIndex={-1}
-                    onClick={() => handleToggle('Doar')}
-                    checked={checked.indexOf('Doar') !== -1 ? true : false}
+                    onClick={() => handleToggle('Emprestar')}
+                    checked={checked.indexOf('Emprestar') !== -1 ? true : false}
                     checkedIcon={<Check className={classes.checkedIcon} />}
                     icon={<Check className={classes.uncheckedIcon} />}
                     classes={{ checked: classes.checked }}
@@ -232,9 +259,8 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    tabIndex={-1}
-                    onClick={() => handleToggle('Emprestar')}
-                    checked={checked.indexOf('Emprestar') !== -1 ? true : false}
+                    onClick={() => handleToggle('Doar')}
+                    checked={checked.indexOf('Doar') !== -1 ? true : false}
                     checkedIcon={<Check className={classes.checkedIcon} />}
                     icon={<Check className={classes.uncheckedIcon} />}
                     classes={{ checked: classes.checked }}

@@ -10,6 +10,7 @@ import AsyncSelect from 'react-select/async';
 export default function Asynchronous({
   onChange = () => {},
   disabled = false,
+  initialValue,
   ...props
 }) {
   const [open, setOpen] = React.useState(false);
@@ -123,7 +124,7 @@ export default function Asynchronous({
         onChange(selected.value);
       }}
       isDisabled={disabled}
-      placeholder={'Digite o nome do livro'}
+      placeholder={initialValue ? initialValue : 'Digite o nome do livro'}
       loadOptions={loadSuggestedOptions}
       noOptionsMessage={() => null}
       loadingMessage={() => null}
