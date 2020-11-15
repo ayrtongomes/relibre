@@ -25,7 +25,7 @@ function BooksProvider(props) {
       },
       error => {
         if (error.code === 1) {
-          alert.success(
+          alert.info(
             'Sem acesso a sua localização não será possível filtrar os livros mais próximos de ti'
           );
         }

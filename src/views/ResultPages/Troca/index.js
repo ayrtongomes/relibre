@@ -46,14 +46,15 @@ export default function NavTabs({ index, ...props }) {
       const parsedUser = localUser ? JSON.parse(localUser) : null;
       if (parsedUser && parsedUser.token) {
         const data = await fetchBooks('Trocar');
-        if (data && data.length > 0) {
-          setBooks(data);
+        if (data) {
+          setBooks(data.books);
+          setMatches(data.matches);
         }
-        const dataMatches = await fetchBooks('Combinacao');
-        if (dataMatches && dataMatches.length > 0) {
-          setMatches(dataMatches);
-        }
-        console.log(dataMatches);
+        // const dataMatches = await fetchBooks('Combinacao');
+        // if (dataMatches && dataMatches.length > 0) {
+        //   setMatches(dataMatches);
+        // }
+        console.log(data);
       } else {
         const data = await fetchPublicBooks('Trocar');
         if (data && data.length > 0) {

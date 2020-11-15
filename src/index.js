@@ -108,14 +108,14 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/termos" component={Terms} />
+          <Route path="/change-password" component={ChangePassword} />
+          <Route path="/forget-password" component={ForgetPassword} />
 
           <Route path="/troca" component={Troca} />
           <Route path="/emprestimo" component={Emprestimo} />
           <Route path="/doacao" component={Doacao} />
           <Route path="/venda" component={Venda} />
           <Route path="/comerciante" component={Comerciante} />
-          <Route path="/change-password" component={ChangePassword} />
-          <Route path="/forget-password" component={ForgetPassword} />
           <Route path="/comerciante-info/tio-zico" component={CompanyProfile} />
           <PrivateRoute redirect={false}>
             <AdminLayout>{getRoutes(dashRoutes)}</AdminLayout>

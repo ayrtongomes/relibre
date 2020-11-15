@@ -48,30 +48,15 @@ export default function HeaderLinks(props) {
     <List className={classes.list}>
       {user && user.token ? (
         <>
-          <ListItem className={classes.listItem} style={{ marginRight: '5px' }}>
-            <Button
-              justIcon
-              //round
-              href="#pablo"
-              className={classes.notificationNavLink}
-              onClick={e => e.preventDefault()}
-              color="transparent"
-            >
-              <NotificationsActive className={classes.icons} />
-            </Button>
-          </ListItem>
           <ListItem className={classes.listItem}>
-            {/* {user && user.login && ( */}
             <CustomDropdown
               noLiPadding
               buttonText={getFirstName(user.name)}
-              // buttonText={user.username}
               buttonProps={{
                 className: classes.navLink,
                 color: 'transparent'
               }}
               buttonIcon={Person}
-              //dropdownList={[dropList]}
               dropdownList={[
                 <NavLink
                   to="/minha-conta/combinacoes"
@@ -102,7 +87,6 @@ export default function HeaderLinks(props) {
                 </a>
               ]}
             />
-            {/* )} */}
           </ListItem>
         </>
       ) : (

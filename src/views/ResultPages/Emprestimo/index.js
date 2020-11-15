@@ -47,12 +47,9 @@ export default function NavTabs({ index, ...props }) {
       const parsedUser = localUser ? JSON.parse(localUser) : null;
       if (parsedUser && parsedUser.token) {
         const data = await fetchBooks('Emprestar');
-        if (data && data.length > 0) {
-          setBooks(data);
-        }
-        const dataMatches = await fetchBooks('Combinacao');
-        if (dataMatches && dataMatches.length > 0) {
-          setMatches(dataMatches);
+        if (data) {
+          setBooks(data.books);
+          setMatches(data.matches);
         }
       } else {
         const data = await fetchPublicBooks('Emprestar');

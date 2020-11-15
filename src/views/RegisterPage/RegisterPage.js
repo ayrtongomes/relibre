@@ -102,8 +102,6 @@ export default function RegisterPage(props) {
       };
     }
 
-    console.log(birthDate);
-
     errorSet(error);
     if (
       error.name ||
