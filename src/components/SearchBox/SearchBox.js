@@ -16,26 +16,35 @@ const cookies = new Cookies();
 
 const SearchBox = ({ ...props }) => {
   const history = useHistory();
+  const [term, setTerm] = useState();
   return (
-    <Paper className={styles.searchBox}>
-      <InputBase
-        type="search"
-        className={styles.input}
-        placeholder="Pesquise o título do livro"
-        inputProps={{ 'aria-label': 'Pesquise o título do livro' }}
-        //value={city}
-      />
-      <Button
-        color="primary"
-        className={styles.iconButton}
-        aria-label="Search"
-        onClick={() => {
-          history.push('/troca');
-        }}
-      >
-        <SearchIcon />
-      </Button>
-    </Paper>
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        history.push(`/troca?title=${term}`);
+      }}
+    >
+      <Paper className={styles.searchBox}>
+        <InputBase
+          type="search"
+          className={styles.input}
+          placeholder="Pesquise o título do livro"
+          inputProps={{
+            'aria-label': 'Pesquise o título do livro',
+            value: term,
+            onChange: e => setTerm(e.target.value)
+          }}
+        />
+        <Button
+          color="primary"
+          type="submit"
+          className={styles.iconButton}
+          aria-label="Search"
+        >
+          <SearchIcon />
+        </Button>
+      </Paper>
+    </form>
   );
 };
 

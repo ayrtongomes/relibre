@@ -41,18 +41,22 @@ export default function NavTabs({ index, ...props }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.search);
+  const searchTerm = params.get('title');
+
   useEffect(() => {
     async function loadData() {
       const localUser = localStorage.getItem('@relibre:user');
       const parsedUser = localUser ? JSON.parse(localUser) : null;
       if (parsedUser && parsedUser.token) {
-        const data = await fetchBooks('Emprestar');
+        const data = await fetchBooks('Emprestar', searchTerm);
         if (data) {
           setBooks(data.books);
           setMatches(data.matches);
         }
       } else {
-        const data = await fetchPublicBooks('Emprestar');
+        const data = await fetchPublicBooks('Emprestar', searchTerm);
         if (data && data.length > 0) {
           setBooks(data);
         }
@@ -65,7 +69,7 @@ export default function NavTabs({ index, ...props }) {
 
   return (
     <div>
-      <Header index={1} />
+      <Header index={1} searchParam={`?title=${searchTerm}`} />
       <div className={classes.toolbar}></div>
       <div className={classes.container}>
         <div>

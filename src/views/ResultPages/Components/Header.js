@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NavTabs({ index, ...props }) {
+export default function NavTabs({ index, searchParam = '', ...props }) {
   const classes = useStyles();
 
   return (
@@ -71,25 +71,25 @@ export default function NavTabs({ index, ...props }) {
             classes={{ root: classes.labelRoot }}
             label="Trocas"
             component={Link}
-            to="/troca"
+            to={`/troca${searchParam}`}
           />
           <Tab
             classes={{ root: classes.labelRoot }}
             label="Empréstimos"
             component={Link}
-            to="/emprestimo"
+            to={`/emprestimo${searchParam}`}
           />
           <Tab
             classes={{ root: classes.labelRoot }}
             label="Doações"
             component={Link}
-            to="/doacao"
+            to={`/doacao${searchParam}`}
           />
           <Tab
             classes={{ root: classes.labelRoot }}
             label="Vendas"
             component={Link}
-            to="/venda"
+            to={`/venda${searchParam}`}
           />
           <Tab
             classes={{ root: classes.labelRoot }}
