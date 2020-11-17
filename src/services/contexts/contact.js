@@ -55,9 +55,9 @@ function ContactProvider(props) {
 
   const getResults = data => {
     if (data) {
-      if (data.errors && data.errors.length > 0) return data.errors;
+      if (data.errors && data.errors.length > 0) return { errors: data.errors };
 
-      return data.result;
+      return { data: data.result };
     }
     return {};
   };

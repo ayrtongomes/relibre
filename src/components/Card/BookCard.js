@@ -183,6 +183,7 @@ export default ({ data, ...props }) => {
       </Collapse>
       <ContactRequest
         openModal={showModal}
+        bookId={data.id}
         closeModal={() => setShowModal(false)}
       />
     </Card>
