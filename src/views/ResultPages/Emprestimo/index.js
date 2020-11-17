@@ -89,7 +89,7 @@ export default function NavTabs({ index, ...props }) {
                     }
                   })
                 : null}
-              <BookAd name="Sebo Rei do Livro" />
+              {/* <BookAd name="Sebo Rei do Livro" /> */}
             </div>
           )}
         </div>

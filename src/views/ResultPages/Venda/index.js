@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Components/Header.js';
 import BookAd from 'components/Card/BookAd';
 import Footer from 'components/Footer/Footer';
+
+import { useBooks } from '../../../services/contexts/book.js';
+import { useAuth } from 'services/auth.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,18 +32,53 @@ const useStyles = makeStyles(theme => ({
 export default function NavTabs({ index, ...props }) {
   const classes = useStyles();
 
+  const { fetchPublicBooks, fetchBooks } = useBooks();
+  const { user } = useAuth();
+
+  const [books, setBooks] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      const localUser = localStorage.getItem('@relibre:user');
+      const parsedUser = localUser ? JSON.parse(localUser) : null;
+      if (parsedUser && parsedUser.token) {
+        const data = await fetchBooks('Venda');
+        if (data) {
+          setBooks(data);
+        }
+      } else {
+        const data = await fetchPublicBooks('Venda');
+        if (data && data.length > 0) {
+          setBooks(data);
+        }
+      }
+      setIsLoading(false);
+    }
+
+    loadData();
+  }, []);
+
   return (
     <div>
       <Header index={3} />
       <div className={classes.toolbar}></div>
       <div className={classes.container}>
         <div>
-          <div className={classes.gridList}>
-            <BookAd name="Sebo Rei do Livro" />
-            <BookAd name="Sebo Leitura Divina" />
-            <BookAd name="Sebo do Carlito" />
-            <BookAd name="Amazon Livros" />
-          </div>
+          {isLoading ? (
+            'Carregando...'
+          ) : (
+            <div className={classes.gridList}>
+              {books && books.length > 0
+                ? books.map((book, index) => {
+                    if (book && book.book && book.book.title) {
+                      return <BookAd key={`book-${index}`} data={book} />;
+                    }
+                  })
+                : null}
+            </div>
+          )}
         </div>
       </div>
       <Footer />

@@ -87,7 +87,7 @@ export default function NavTabs({ index, ...props }) {
                     return <Card key={`book-${index}`} data={book} />;
                   })
                 : null}
-              <BookAd name="Sebo Rei do Livro" />
+              {/* <BookAd name="Sebo Rei do Livro" /> */}
             </div>
           )}
         </div>

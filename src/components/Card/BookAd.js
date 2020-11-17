@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default props => {
+export default ({ data, ...props }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
@@ -80,24 +80,22 @@ export default props => {
             Ad
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={props.name}
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
+        title={data.name}
       />
       <CardMedia
         className={classes.media}
-        image="http://books.google.com/books/content?id=NgcjBgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-        title="HP"
+        image={data.images[0].image}
+        title={'Imagem do livro ' + data.book.title}
       />
       <CardContent>
-        <h4 style={{ textAlign: 'left' }}>
-          Harry Potter e o Enigma do Príncipe
-        </h4>
+        <h4 style={{ textAlign: 'left' }}>{data.book.title}</h4>
         <Typography variant="body2" color="textSecondary" component="p">
-          Seminovo, perfeito estado. Preço bacana.
+          {data.book.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -124,7 +122,7 @@ export default props => {
             color: 'rgb(89, 85, 85)'
           }}
         >
-          R$ 7,99
+          R$ {data.price}
         </h4>
       </CardActions>
       <ContactFormRequest
