@@ -185,6 +185,7 @@ export default props => {
           closeModal={() => {
             setShowModal(false);
             refreshControlSet(!refreshControl);
+            history.push('/minha-conta/meus-livros');
           }}
         />
       </Dialog>

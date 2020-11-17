@@ -20,6 +20,7 @@ import Autocomplete from 'components/Autocomplete/Async';
 import CustomInput from 'components/CustomInput/CustomInput.js';
 
 import { useBooks } from 'services/contexts/book.js';
+import { useAuth } from 'services/auth';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 
@@ -47,6 +48,9 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
   const { createBook, fetchBook, updateBook } = useBooks();
   const alert = useAlert();
 
+  const [enableCreate, enableCreateSet] = useState(false);
+  const { fetchUser } = useAuth();
+
   const [selectedBook, setSelectedBook] = useState(null);
   const [editingBook, setEditingBook] = useState(null);
   const [description, setDescription] = useState('');
@@ -65,7 +69,18 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
           const types = data.result.types.map(t => t.description);
           setCheckd([...types]);
         }
-        console.log(data);
+      }
+      const userData = await fetchUser();
+      if (userData && userData.addresses[0]) {
+        const lat = userData.addresses[0].latitude;
+        const long = userData.addresses[0].longitude;
+        if (lat && long && lat !== '' && lat !== '') {
+          enableCreateSet(true);
+        } else {
+          alert.info(
+            'Não é possível cadastrar livros sem habilitar sua geolocalização, por favor autorize editano seu perfil'
+          );
+        }
       }
     }
     setIsLoading(false);
@@ -296,12 +311,9 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
             closeModal();
           }}
           color="primary"
+          disabled={!enableCreate}
         >
-          {saving ? (
-            <CircularProgress size={30} color="white" />
-          ) : (
-            'Finalizar cadastro'
-          )}
+          {saving ? <CircularProgress size={30} color="white" /> : 'Salvar'}
         </Button>
       </DialogActions>
     </>
