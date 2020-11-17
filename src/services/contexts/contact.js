@@ -13,10 +13,12 @@ function ContactProvider(props) {
   };
 
   const createContact = async payload => {
-    const { data } = await api.post(baseEndpoint, {
+    const data = await api.post(baseEndpoint, {
       auth: true,
       body: payload
     });
+    debugger;
+
     return getResults(data);
   };
 

@@ -15,6 +15,8 @@ import { blue } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ContactFormRequest from 'components/Dialogs/ContactFormRequest';
+import ContactRequest from 'components/Dialogs/ContactRequest';
+import { useAuth } from 'services/auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,12 +68,33 @@ const useStyles = makeStyles(theme => ({
 
 export default ({ data, ...props }) => {
   const classes = useStyles();
+  const { user } = useAuth();
+
   const [expanded, setExpanded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const getModal = () => {
+    if (user && user.token) {
+      return (
+        <ContactRequest
+          openModal={showModal}
+          bookId={data.id}
+          closeModal={() => setShowModal(false)}
+        />
+      );
+    }
+    return (
+      <ContactFormRequest
+        openModal={showModal}
+        bookId={data.id}
+        closeModal={() => setShowModal(false)}
+      />
+    );
+  };
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -125,10 +148,7 @@ export default ({ data, ...props }) => {
           R$ {data.price}
         </h4>
       </CardActions>
-      <ContactFormRequest
-        openModal={showModal}
-        closeModal={() => setShowModal(false)}
-      />
+      {getModal()}
     </Card>
   );
 };
