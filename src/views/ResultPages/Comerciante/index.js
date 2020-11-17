@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Components/Header.js';
 import Footer from 'components/Footer/Footer';
 import Card from 'components/Card/CardCompany';
+import { useBooks } from 'services/contexts/book.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,25 +35,45 @@ const useStyles = makeStyles(theme => ({
 export default function NavTabs({ index, ...props }) {
   const classes = useStyles();
 
+  const { fetchBookStore } = useBooks();
+
+  const [stores, setStores] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      const data = await fetchBookStore();
+      if (data && data.length > 0) {
+        setStores(data);
+      }
+
+      setIsLoading(false);
+    }
+
+    loadData();
+  }, []);
+
   return (
     <div>
       <Header index={4} />
       <div className={classes.toolbar}></div>
 
       <div className={classes.container}>
-        {/* <div className={classes.gridList}> */}
-        <Card
-          name="Sebo Tio Chico"
-          address="Rua Agostinho Carrara, 333 - Portão, Curitiba - PR"
-        />
-        <Card
-          name="Livraria Novo Mundo"
-          address="Rua Mikkel Nielse, 333 - Novo mundo, Curitiba - PR"
-        />
-        <Card
-          name="Sebo Vale Verde"
-          address="Rua Leonor Cardoso, 333 - Centro, Curitiba - PR"
-        />
+        {isLoading
+          ? 'Carregando...'
+          : stores && stores.length > 0
+          ? stores.map((store, index) => {
+              if (store) {
+                return (
+                  <Card
+                    key={`store-${index}`}
+                    name="Sebo Tio Chico"
+                    address="Rua Agostinho Carrara, 333 - Portão, Curitiba - PR"
+                  />
+                );
+              }
+            })
+          : null}
         {/* </div> */}
       </div>
       <Footer />

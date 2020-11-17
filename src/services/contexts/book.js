@@ -126,6 +126,29 @@ function BooksProvider(props) {
     return data;
   }
 
+  async function fetchBookStore() {
+    let endpoint = `Store`;
+    let charToAdd = `?`;
+
+    if (LAT && LONG) {
+      endpoint += `${charToAdd}latitude=${LAT}&longitude=${LONG}`;
+      charToAdd = `&`;
+    }
+
+    const { data } = await api.get(endpoint, {
+      auth: false
+    });
+
+    if (data && data.result) {
+      return data.result;
+    }
+
+    if (data && data.result) {
+      return data.result;
+    }
+
+    return [];
+  }
   return (
     <BooksContext.Provider
       value={{
@@ -134,7 +157,8 @@ function BooksProvider(props) {
         fetchPublicBooks,
         deleteBook,
         updateBook,
-        fetchBook
+        fetchBook,
+        fetchBookStore
       }}
       {...props}
     />
