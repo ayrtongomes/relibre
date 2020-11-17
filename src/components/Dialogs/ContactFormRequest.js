@@ -20,7 +20,7 @@ export default function ContactRequest({
   closeModal
 }) {
   const alert = useAlert();
-  const { createContact } = useContacts();
+  const { createPublicContact } = useContacts();
 
   const [open, setOpen] = React.useState(openModal);
   const [name, setName] = React.useState('');
@@ -41,12 +41,12 @@ export default function ContactRequest({
     try {
       const payload = {
         id_book: bookId,
+        email: email,
         name: name,
-        phone: phone,
-        email: email
+        phone: phone
       };
 
-      const { data, errors } = await createContact(payload);
+      const { data, errors } = await createPublicContact(payload);
       if (errors) {
         return alert.error('Não é possível solicitar o contato desse livro');
       } else {

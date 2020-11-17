@@ -17,7 +17,15 @@ function ContactProvider(props) {
       auth: true,
       body: payload
     });
-    debugger;
+
+    return getResults(data);
+  };
+
+  const createPublicContact = async payload => {
+    const data = await api.post(baseEndpoint + '/Public', {
+      auth: false,
+      body: payload
+    });
 
     return getResults(data);
   };
@@ -69,7 +77,8 @@ function ContactProvider(props) {
       value={{
         createContact,
         approveContact,
-        fetchContacts
+        fetchContacts,
+        createPublicContact
       }}
       {...props}
     />
