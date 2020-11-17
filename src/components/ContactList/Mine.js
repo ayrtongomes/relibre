@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
@@ -43,14 +43,14 @@ const rows = [
   )
 ];
 
-const ToApprove = ({ data, ...props }) => {
+const Mine = ({ data, ...props }) => {
   return (
     <GridContainer justify="center">
       <GridItem xs={12} sm={12} md={12}>
-        <Table data={rows} toApprove />
+        <Table data={rows} />
       </GridItem>
     </GridContainer>
   );
 };
 
-export default ToApprove;
+export default Mine;

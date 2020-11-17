@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
@@ -12,6 +12,10 @@ import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import NavPills from 'components/NavPills/NavPills.js';
 import ToApprove from 'components/ContactList/ToApprove.js';
+import Mine from 'components/ContactList/Mine.js';
+
+import { useContacts } from 'services/contexts/contact.js';
+import { format } from 'date-fns';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 
@@ -35,6 +39,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default props => {
+  const { fetchContacts } = useContacts();
+
+  const [toApprove, setToApprove] = useState([]);
+  const [mine, setMine] = useState([]);
+
+  // useEffect(() => {
+  //   return (cleanUp = () => {});
+  // }, []);
+
   const classes = useStyles();
 
   return (
@@ -47,7 +60,7 @@ export default props => {
               <GridItem xs={12} sm={12} md={12}>
                 <div style={{ textAlign: 'left' }} className={classes.profile}>
                   <div className={classes.name} style={{ marginTop: '0' }}>
-                    <h2 className={classes.title}>Contatos</h2>
+                    <h2 className={classes.title}>Contatos Pendentes</h2>
                     <div style={{ fontWeight: '300' }}>
                       <span>
                         Veja quem solicitou seus dados de contato e também de
@@ -67,11 +80,11 @@ export default props => {
                   tabs={[
                     {
                       tabButton: 'Para aprovação',
-                      tabContent: <ToApprove />
+                      tabContent: <ToApprove data={toApprove} />
                     },
                     {
                       tabButton: 'Solicitados',
-                      tabContent: <ToApprove />
+                      tabContent: <Mine data={mine} />
                     }
                   ]}
                 />

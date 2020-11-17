@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from 'components/CustomButtons/Button.js';
-import { Edit, Clear, Search } from '@material-ui/icons';
+import { Check, Clear, Search } from '@material-ui/icons';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables(props) {
   const classes = useStyles();
 
-  const { data, isSolicited = false, isApproved = false } = props;
+  const { data, isSolicited = false, isApproved = false, toApprove } = props;
 
   return (
     <TableContainer component={Paper}>
@@ -45,8 +45,12 @@ export default function CustomizedTables(props) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Livro</StyledTableCell>
-            <StyledTableCell align="left">Dono</StyledTableCell>
-            <StyledTableCell align="center">Avaliação do Dono</StyledTableCell>
+            <StyledTableCell align="left">
+              {toApprove ? 'Usuário' : 'Dono'}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              Avaliação do {toApprove ? 'Usuário' : 'Dono'}
+            </StyledTableCell>
             <StyledTableCell align="right">Data de criação</StyledTableCell>
             <StyledTableCell align="right">Ações</StyledTableCell>
           </TableRow>
@@ -62,18 +66,18 @@ export default function CustomizedTables(props) {
               <StyledTableCell align="right">{row.date}</StyledTableCell>
               <StyledTableCell align="right">
                 <div>
-                  <>
-                    <Button
-                      justIcon
-                      //round
-                      href="#pablo"
-                      className={classes.notificationNavLink}
-                      onClick={e => e.preventDefault()}
-                      color="info"
-                    >
-                      <Search className={classes.icons} />
-                    </Button>
-                  </>
+                  {toApprove ? (
+                    <>
+                      <Button
+                        justIcon
+                        className={classes.notificationNavLink}
+                        onClick={e => e.preventDefault()}
+                        color="success"
+                      >
+                        <Check className={classes.icons} />
+                      </Button>
+                    </>
+                  ) : null}
                   <Button
                     justIcon
                     //round

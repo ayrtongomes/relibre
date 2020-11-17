@@ -46,7 +46,7 @@ export default props => {
               <GridItem xs={12} sm={12} md={12}>
                 <div style={{ textAlign: 'left' }} className={classes.profile}>
                   <div className={classes.name} style={{ marginTop: '0' }}>
-                    <h2 className={classes.title}>Contatos</h2>
+                    <h2 className={classes.title}>Contatos Aprovados</h2>
                     <div style={{ fontWeight: '300' }}>
                       <span>
                         Pronto! Agora é só entrar em contato com esses usuários
