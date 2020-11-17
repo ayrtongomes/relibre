@@ -171,7 +171,10 @@ export default props => {
         open={showModal}
         TransitionComponent={Transition}
         keepMounted
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          setShowModal(false);
+          history.push('/minha-conta/meus-livros');
+        }}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
