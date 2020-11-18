@@ -73,7 +73,10 @@ export default function NavTabs({ index, ...props }) {
 
   return (
     <div>
-      <Header index={0} searchParam={`?title=${searchTerm}`} />
+      <Header
+        index={0}
+        searchParam={searchTerm ? `?title=${searchTerm}` : ''}
+      />
       <div className={classes.toolbar}></div>
       <div className={classes.container}>
         <div>

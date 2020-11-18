@@ -220,6 +220,7 @@ export default ({ data, ...props }) => {
       <ContactRequest
         openModal={showModal}
         closeModal={() => setShowModal(false)}
+        bookId={data.id}
       />
     </Card>
   );
