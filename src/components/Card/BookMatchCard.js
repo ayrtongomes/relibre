@@ -155,7 +155,7 @@ export default ({ data, ...props }) => {
         }
         title={data && data.name ? data.name : 'Anônimo'}
         subheader={formatExtensive(
-          format(new Date(data.book.created_at), 'dd/MM/yyyy', {
+          format(new Date(data.created_at), 'dd/MM/yyyy', {
             locale: ptBR
           })
         )}

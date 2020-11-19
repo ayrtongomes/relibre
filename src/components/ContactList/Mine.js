@@ -44,10 +44,12 @@ const rows = [
 ];
 
 const Mine = ({ data, ...props }) => {
+  console.log('mine:', data);
+
   return (
     <GridContainer justify="center">
       <GridItem xs={12} sm={12} md={12}>
-        <Table data={rows} />
+        <Table data={data} />
       </GridItem>
     </GridContainer>
   );

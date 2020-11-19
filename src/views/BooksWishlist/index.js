@@ -102,7 +102,7 @@ export default props => {
                 ? b.book.authors[0].name
                 : '',
             type: b.types.map(type => type.description).join(', '),
-            date: format(new Date(b.book.created_at), 'dd/MM/yyyy')
+            date: format(new Date(b.created_at), 'dd/MM/yyyy')
           };
         });
         console.log(formatted);

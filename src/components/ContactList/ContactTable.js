@@ -57,7 +57,7 @@ export default function CustomizedTables(props) {
         </TableHead>
         <TableBody>
           {data.map(row => (
-            <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.idContact}>
               <StyledTableCell component="th" scope="row">
                 {row.title}
               </StyledTableCell>

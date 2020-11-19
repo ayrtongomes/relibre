@@ -44,10 +44,11 @@ const rows = [
 ];
 
 const ToApprove = ({ data, ...props }) => {
+  console.log('toApprove:', data);
   return (
     <GridContainer justify="center">
       <GridItem xs={12} sm={12} md={12}>
-        <Table data={rows} toApprove />
+        <Table data={data} toApprove />
       </GridItem>
     </GridContainer>
   );

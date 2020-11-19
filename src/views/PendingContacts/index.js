@@ -44,9 +44,56 @@ export default props => {
   const [toApprove, setToApprove] = useState([]);
   const [mine, setMine] = useState([]);
 
-  // useEffect(() => {
-  //   return (cleanUp = () => {});
-  // }, []);
+  const [isLoading, setIsLoading] = useState(true);
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    async function loadData() {
+      const { data: toApData } = await fetchContacts('Received', false);
+      const { data: mineData } = await fetchContacts('Send', false);
+      if (toApData && toApData.length > 0) {
+        const formatted = toApData.map(b => {
+          return {
+            idContact: b.id_contact,
+            book: {
+              id: b.id_book,
+              price: b.price,
+              ...b.book
+            },
+            contactInfo: {
+              name: b.fullName,
+              email: b.email,
+              phone: b.phone
+            },
+            date: format(new Date(b.created_at), 'dd/MM/yyyy')
+          };
+        });
+        setToApprove(formatted);
+      }
+      if (mineData && mineData.length > 0) {
+        const formatted = mineData.map(b => {
+          return {
+            idContact: b.id_contact,
+            book: {
+              id: b.id_book,
+              price: b.price,
+              ...b.book
+            },
+            contactInfo: {
+              name: b.fullName,
+              email: b.email,
+              phone: b.phone
+            },
+            date: format(new Date(b.created_at), 'dd/MM/yyyy')
+          };
+        });
+        setMine(formatted);
+      }
+      setIsLoading(false);
+    }
+
+    loadData();
+  }, []);
 
   const classes = useStyles();
 
