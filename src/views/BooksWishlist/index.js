@@ -81,15 +81,6 @@ export default props => {
   const [isLoading, setIsLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  const [showNot, setShowNot] = React.useState(false);
-
-  const showNotification = () => {
-    setShowNot(true);
-    setTimeout(x => {
-      setShowNot(false);
-    }, 6000);
-  };
-
   useEffect(() => {
     async function loadData() {
       const data = await fetchBooks('Interesse');
@@ -108,11 +99,11 @@ export default props => {
         console.log(formatted);
         setBooks(formatted);
       }
+      setIsLoading(false);
     }
-    setIsLoading(false);
 
     loadData();
-  }, [fetchBooks, showNot]);
+  }, [fetchBooks]);
 
   const getPayload = () => {
     return {
@@ -154,7 +145,7 @@ export default props => {
       const data = await createBook(payload);
       if (data) {
         await fetchBooks('Interesse');
-        showNotification();
+        alert.success('Livro adicionado a sua lista de desejos com sucesso');
       }
     } catch (err) {
       //Handler error
@@ -169,12 +160,6 @@ export default props => {
   return (
     <div>
       <Parallax small filter image={require('assets/img/banner-home.png')} />
-      {showNot ? (
-        <SnackbarContent
-          message={'Livro cadastrado com sucesso.'}
-          color="success"
-        />
-      ) : null}
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>

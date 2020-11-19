@@ -18,7 +18,11 @@ const formatAddress = address => {
     address.state &&
     address.state
   )
-    return `${address.street}, ${address.number} - ${address.neighborhood}, ${address.city} - ${address.state}, ${address.state} `;
+    return `${address.street}, ${address.number} - ${address.neighborhood}, ${
+      address.city
+    } - ${address.state}, ${address.zip_code} - ${
+      address.complement ? address.complement : ''
+    } `;
 };
 
 export { formatDistance, formatAddress };

@@ -66,14 +66,8 @@ export default props => {
   const isEdit = view !== undefined && editId !== undefined;
 
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [selectedBook, setSelectedBook] = useState(null);
-  const [description, setDescription] = useState('');
-  const [checked, setCheckd] = useState([]);
 
-  const { createBook, fetchBooks } = useBooks();
+  const { fetchBooks } = useBooks();
 
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -98,8 +92,8 @@ export default props => {
         });
         setBooks(formatted);
       }
+      setIsLoading(false);
     }
-    setIsLoading(false);
 
     loadData();
   }, [fetchBooks, refreshControl]);

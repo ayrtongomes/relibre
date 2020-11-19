@@ -103,10 +103,30 @@ export default props => {
                         <RoomRounded />
                         <h4>{formatAddress(store.addresses[0])}</h4>
                       </div>
+                      <div>
+                        <b>Telefone:</b>{' '}
+                        <span style={{ fontWeight: 300 }}>{store.phone}</span>
+                        {' | '}
+                        <b>E-mail:</b>{' '}
+                        <span style={{ fontWeight: 300 }}>{store.login}</span>
+                        {' | '}
+                        <b>Site:</b>{' '}
+                        {store.webSite ? (
+                          <>
+                            <a
+                              style={{ fontWeight: 300 }}
+                              href={store.webSite}
+                              target="_blank"
+                            >
+                              {store.webSite}
+                            </a>{' '}
+                          </>
+                        ) : null}
+                      </div>
                       <div
                         style={{
                           width: '80%',
-                          margin: '0 auto'
+                          margin: '12px auto'
                         }}
                       >
                         <Typography

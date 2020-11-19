@@ -25,14 +25,14 @@ export const dashRoutes = [
   },
   {
     path: '/meus-livros/:view/:id?',
-    name: 'Meus livros',
+    name: 'Meus Livros',
     icon: 'library_books',
     component: MyBooks,
     layout: '/minha-conta'
   },
   {
     path: '/livros-desejados',
-    name: 'Livros que eu quero',
+    name: 'Lista de Desejos',
     icon: 'collections_bookmark',
     component: BooksWishlist,
     layout: '/minha-conta',
@@ -40,7 +40,7 @@ export const dashRoutes = [
   },
   {
     path: '/para-aprovacao/contato',
-    name: 'Contatos pendentes',
+    name: 'Contatos Pendentes',
     icon: 'contacts',
     component: PendingContacts,
     layout: '/minha-conta',
@@ -48,7 +48,7 @@ export const dashRoutes = [
   },
   {
     path: '/contatos',
-    name: 'Contatos aprovados',
+    name: 'Contatos Aprovados',
     icon: 'contacts',
     component: Contacts,
     layout: '/minha-conta',
@@ -56,7 +56,7 @@ export const dashRoutes = [
   },
   {
     path: '/meu-perfil',
-    name: 'Meu perfil',
+    name: 'Meu Perfil',
     icon: 'account_circle',
     component: Profile,
     layout: '/minha-conta',

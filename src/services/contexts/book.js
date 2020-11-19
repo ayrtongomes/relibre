@@ -115,7 +115,7 @@ function BooksProvider(props) {
   }
 
   async function deleteBook(id) {
-    const data = await api.delete(`Book/${id}`);
+    const data = await api.delete(`Book?id=${id}`);
 
     return data;
   }
