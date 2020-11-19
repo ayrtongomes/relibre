@@ -4,6 +4,7 @@ import Header from '../Components/Header.js';
 import Footer from 'components/Footer/Footer';
 import Card from 'components/Card/CardCompany';
 import { useBooks } from 'services/contexts/book.js';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,21 +60,17 @@ export default function NavTabs({ index, ...props }) {
       <div className={classes.toolbar}></div>
 
       <div className={classes.container}>
-        {isLoading
-          ? 'Carregando...'
-          : stores && stores.length > 0
-          ? stores.map((store, index) => {
-              if (store) {
-                return (
-                  <Card
-                    key={`store-${index}`}
-                    name="Sebo Tio Chico"
-                    address="Rua Agostinho Carrara, 333 - Portão, Curitiba - PR"
-                  />
-                );
-              }
-            })
-          : null}
+        {isLoading ? (
+          <div style={{ textAlign: 'center', marginTop: '60px' }}>
+            <CircularProgress />
+          </div>
+        ) : stores && stores.length > 0 ? (
+          stores.map((store, index) => {
+            if (store) {
+              return <Card key={`store-${index}`} data={store} />;
+            }
+          })
+        ) : null}
         {/* </div> */}
       </div>
       <Footer />

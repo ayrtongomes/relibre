@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
@@ -15,9 +16,11 @@ import Footer from 'components/Footer/Footer.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import HeaderLinks from 'components/Header/HeaderLinks';
-import NavPills from 'components/NavPills/NavPills.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import BookAd from 'components/Card/BookAd.js';
+import { useBooks } from 'services/contexts/book.js';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { formatAddress } from 'utils';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 
@@ -42,12 +45,27 @@ const useStyles = makeStyles(theme => ({
 
 export default props => {
   const classes = useStyles();
-  // const imageClasses = classNames(
-  //   classes.imgRaised,
-  //   classes.imgRoundedCircle,
-  //   classes.imgFluid
-  // );
-  const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+  const { id } = useParams();
+
+  const { fetchBookStoreById } = useBooks();
+
+  const [store, setStore] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      const { data } = await fetchBookStoreById(id);
+      if (data && data.id) {
+        console.log(data);
+        setStore(data);
+      }
+
+      setIsLoading(false);
+    }
+
+    loadData();
+  }, []);
+
   return (
     <div>
       <Header
@@ -67,53 +85,53 @@ export default props => {
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={12}>
-                <div className={classes.profile}>
-                  <div className={classes.name} style={{ marginTop: '20px' }}>
-                    <h1 className={classes.title}>Sebo Tio Chico</h1>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      <RoomRounded />
-                      <h4>
-                        Rua Agostinho Carrara, 333 - Portão, Curitiba - PR
-                      </h4>
-                    </div>
-                    <div
-                      style={{
-                        width: '80%',
-                        margin: '0 auto'
-                      }}
-                    >
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
+                {isLoading ? (
+                  <div style={{ textAlign: 'center', marginTop: '60px' }}>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <div className={classes.profile}>
+                    <div className={classes.name} style={{ marginTop: '20px' }}>
+                      <h1 className={classes.title}>{store.name}</h1>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
                       >
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book.
-                      </Typography>
+                        <RoomRounded />
+                        <h4>{formatAddress(store.addresses[0])}</h4>
+                      </div>
+                      <div
+                        style={{
+                          width: '80%',
+                          margin: '0 auto'
+                        }}
+                      >
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          {store.description}
+                        </Typography>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </GridItem>
               <Divider style={{ margin: '3rem 0', width: '85%' }} />
             </GridContainer>
             <div className={classes.container}>
               <div>
                 <div className={classes.gridList}>
+                  {/* <BookAd name="Sebo Tio Chico" />
                   <BookAd name="Sebo Tio Chico" />
                   <BookAd name="Sebo Tio Chico" />
                   <BookAd name="Sebo Tio Chico" />
                   <BookAd name="Sebo Tio Chico" />
-                  <BookAd name="Sebo Tio Chico" />
-                  <BookAd name="Sebo Tio Chico" />
+                  <BookAd name="Sebo Tio Chico" /> */}
                 </div>
               </div>
             </div>

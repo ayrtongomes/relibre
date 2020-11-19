@@ -8,7 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Button from '@material-ui/core/Button';
+import placeholder from 'assets/img/store-placeholder.svg';
 import { useHistory } from 'react-router-dom';
+import { formatAddress } from 'utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,14 +21,19 @@ const useStyles = makeStyles(theme => ({
   details: {
     display: 'flex',
     flexDirection: 'column',
-    fontSize: '"Inter", "Roboto", sans-serif'
+    fontSize: '"Inter", "Roboto", sans-serif',
+    width: '100%',
+    height: '100%'
   },
   content: {
     flex: '1 0 auto',
-    textAlign: 'left'
+    textAlign: 'left',
+    width: '100%',
+    height: '100%',
+    position: 'relative'
   },
   cover: {
-    width: '70%'
+    width: '30%'
   },
   controls: {
     display: 'flex',
@@ -37,10 +44,20 @@ const useStyles = makeStyles(theme => ({
   playIcon: {
     height: 38,
     width: 38
+  },
+  bottomContainer: {
+    position: 'absolute',
+    bottom: '16px',
+    width: '95%'
+  },
+  bottomContent: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '95%'
   }
 }));
 
-export default function MediaControlCard({ name, address }) {
+export default function MediaControlCard({ data }) {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
@@ -49,7 +66,7 @@ export default function MediaControlCard({ name, address }) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
-        image="http://via.placeholder.com/640x360"
+        image={placeholder}
         title="Live from space album cover"
       />
       <div className={classes.details}>
@@ -64,24 +81,31 @@ export default function MediaControlCard({ name, address }) {
             component="h5"
             variant="h5"
           >
-            {name}
+            {data.name}
           </Typography>
-          <Typography color="textSecondary">{address}</Typography>
+          <Typography color="textSecondary">
+            {formatAddress(data.addresses[0])}
+          </Typography>
           <hr />
           <Typography paragraph color="textSecondary">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+            {data.description}
           </Typography>
-          <div style={{ textAlign: 'right', marginTop: '45px' }}>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => history.push('/comerciante-info/tio-zico')}
-            >
-              Ver mais
-            </Button>
+          <div className={classes.bottomContainer}>
+            <div className={classes.bottomContent}>
+              <div>
+                <b>Site:</b>{' '}
+                <a href={data.webSite || '#'} target="_blank">
+                  {data.webSite}
+                </a>
+              </div>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => history.push(`/comerciante/${data.id}`)}
+              >
+                Ver mais
+              </Button>
+            </div>
           </div>
         </CardContent>
         {/* <div className={classes.controls}>

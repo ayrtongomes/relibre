@@ -135,12 +135,12 @@ function BooksProvider(props) {
       charToAdd = `&`;
     }
 
-    const { data } = await api.get(endpoint, {
+    const { data, errors } = await api.get(endpoint, {
       auth: false
     });
 
-    if (data && data.result) {
-      return data.result;
+    if (errors) {
+      return { errors };
     }
 
     if (data && data.result) {
@@ -149,6 +149,25 @@ function BooksProvider(props) {
 
     return [];
   }
+
+  async function fetchBookStoreById(id) {
+    let endpoint = `Store?id=${id}`;
+
+    const { data, errors } = await api.get(endpoint, {
+      auth: false
+    });
+
+    if (errors) {
+      return { errors };
+    }
+
+    if (data && data.result) {
+      return { data: data.result };
+    }
+
+    return {};
+  }
+
   return (
     <BooksContext.Provider
       value={{
@@ -158,7 +177,8 @@ function BooksProvider(props) {
         deleteBook,
         updateBook,
         fetchBook,
-        fetchBookStore
+        fetchBookStore,
+        fetchBookStoreById
       }}
       {...props}
     />

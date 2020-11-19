@@ -115,8 +115,8 @@ const App = () => {
           <Route path="/emprestimo" component={Emprestimo} />
           <Route path="/doacao" component={Doacao} />
           <Route path="/venda" component={Venda} />
+          <Route path="/comerciante/:id" component={CompanyProfile} />
           <Route path="/comerciante" component={Comerciante} />
-          <Route path="/comerciante-info/tio-zico" component={CompanyProfile} />
           <PrivateRoute redirect={false}>
             <AdminLayout>{getRoutes(dashRoutes)}</AdminLayout>
           </PrivateRoute>

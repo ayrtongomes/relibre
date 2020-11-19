@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Header from '../Components/Header.js';
 import Card from 'components/Card/BookCard';
 import BookMatchCard from 'components/Card/BookMatchCard.js';
@@ -81,7 +82,9 @@ export default function NavTabs({ index, ...props }) {
       <div className={classes.container}>
         <div>
           {isLoading ? (
-            'Carregando...'
+            <div style={{ textAlign: 'center', marginTop: '60px' }}>
+              <CircularProgress />
+            </div>
           ) : (
             <div className={classes.gridList}>
               {matches && matches.length > 0

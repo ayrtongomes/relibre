@@ -214,7 +214,13 @@ export default props => {
             </GridContainer>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={12}>
-                {isLoading ? 'Carregando...' : <Table data={books} isWish />}
+                {isLoading ? (
+                  <div style={{ textAlign: 'center', marginTop: '60px' }}>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <Table data={books} isWish />
+                )}
               </GridItem>
             </GridContainer>
           </div>

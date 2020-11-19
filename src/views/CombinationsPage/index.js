@@ -11,6 +11,8 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import BookMatchCard from 'components/Card/BookMatchCard.js';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { useBooks } from 'services/contexts/book.js';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
@@ -88,7 +90,9 @@ export default props => {
             </GridContainer>
             <div className={classes.container}>
               {isLoading ? (
-                'Carregando...'
+                <div style={{ textAlign: 'center', marginTop: '60px' }}>
+                  <CircularProgress />
+                </div>
               ) : (
                 <div>
                   {matches && matches.length > 0 ? (

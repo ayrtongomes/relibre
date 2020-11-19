@@ -8,4 +8,17 @@ const formatDistance = value => {
   }
   return `${Math.round(value, -1)} km`;
 };
-export { formatDistance };
+
+const formatAddress = address => {
+  if (
+    address.street &&
+    address.number &&
+    address.neighborhood &&
+    address.city &&
+    address.state &&
+    address.state
+  )
+    return `${address.street}, ${address.number} - ${address.neighborhood}, ${address.city} - ${address.state}, ${address.state} `;
+};
+
+export { formatDistance, formatAddress };
