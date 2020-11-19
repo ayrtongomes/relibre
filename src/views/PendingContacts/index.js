@@ -49,8 +49,8 @@ export default props => {
 
   useEffect(() => {
     async function loadData() {
-      const { data: toApData } = await fetchContacts('Received', false);
-      const { data: mineData } = await fetchContacts('Send', false);
+      const { data: toApData } = await fetchContacts('Received', 'false');
+      const { data: mineData } = await fetchContacts('Send', 'false');
       if (toApData && toApData.length > 0) {
         const formatted = toApData.map(b => {
           return {
@@ -63,9 +63,11 @@ export default props => {
             contactInfo: {
               name: b.fullName,
               email: b.email,
-              phone: b.phone
+              phone: b.phone,
+              rating: b.rating,
+              distance: b.distance
             },
-            date: format(new Date(b.created_at), 'dd/MM/yyyy')
+            date: format(new Date(b.created_At), 'dd/MM/yyyy')
           };
         });
         setToApprove(formatted);
@@ -82,9 +84,11 @@ export default props => {
             contactInfo: {
               name: b.fullName,
               email: b.email,
-              phone: b.phone
+              phone: b.phone,
+              rating: b.rating,
+              distance: b.distance
             },
-            date: format(new Date(b.created_at), 'dd/MM/yyyy')
+            date: format(new Date(b.created_At), 'dd/MM/yyyy')
           };
         });
         setMine(formatted);

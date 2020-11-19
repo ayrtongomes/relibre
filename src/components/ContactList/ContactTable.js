@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from 'components/CustomButtons/Button.js';
 import { Check, Clear, Search } from '@material-ui/icons';
+import { formatDistance } from 'utils';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -51,6 +52,7 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="center">
               Avaliação do {toApprove ? 'Usuário' : 'Dono'}
             </StyledTableCell>
+            <StyledTableCell align="right">Distância</StyledTableCell>
             <StyledTableCell align="right">Data de criação</StyledTableCell>
             <StyledTableCell align="right">Ações</StyledTableCell>
           </TableRow>
@@ -59,10 +61,19 @@ export default function CustomizedTables(props) {
           {data.map(row => (
             <StyledTableRow key={row.idContact}>
               <StyledTableCell component="th" scope="row">
-                {row.title}
+                {row.book.title}
               </StyledTableCell>
-              <StyledTableCell align="left">{row.author}</StyledTableCell>
-              <StyledTableCell align="center">{row.type}</StyledTableCell>
+              <StyledTableCell align="left">
+                {row.contactInfo.name}
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                {row.contactInfo.rating < 1
+                  ? 'Não avaliado'
+                  : row.contactInfo.rating < 1}
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                {formatDistance(row.contactInfo.distance)}
+              </StyledTableCell>
               <StyledTableCell align="right">{row.date}</StyledTableCell>
               <StyledTableCell align="right">
                 <div>
