@@ -153,6 +153,7 @@ export default props => {
     } finally {
       setSaving(false);
       setShowModal(false);
+      reloadData();
     }
   };
 
