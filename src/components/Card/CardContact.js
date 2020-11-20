@@ -93,9 +93,8 @@ export default function CardContact({ data, reloadData }) {
       const data = await rateUser(payload);
       if (data) {
         console.log(data);
-        // await fetchBooks();
         alert.success('Avaliação feita com sucesso');
-        // reloadData();
+        reloadData();
       }
     } catch (err) {
       alert.error('Não foi possível efetuar a avaliação');

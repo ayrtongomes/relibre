@@ -142,7 +142,10 @@ export default props => {
                     {requested.map((contact, idx) => {
                       return (
                         <GridItem xs={12} sm={12} md={6} key={idx}>
-                          <CardContact data={contact} />
+                          <CardContact
+                            data={contact}
+                            reloadData={() => reloadData()}
+                          />
                         </GridItem>
                       );
                     })}
@@ -172,7 +175,10 @@ export default props => {
                     {received.map((contact, idx) => {
                       return (
                         <GridItem xs={12} sm={12} md={6} key={idx}>
-                          <CardContact data={contact} />
+                          <CardContact
+                            data={contact}
+                            reloadData={() => reloadData()}
+                          />
                         </GridItem>
                       );
                     })}
