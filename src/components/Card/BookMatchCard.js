@@ -25,9 +25,9 @@ import { formatDistance } from 'utils';
 const useStyles = makeStyles(theme => ({
   root: {
     fontFamily: "'Inter', 'Roboto', sans-serif",
-    maxWidth: 325,
-    width: 325,
-    minWidth: 325,
+    maxWidth: 290,
+    width: 290,
+    minWidth: 290,
     alignSelf: 'baseline',
     justifySelf: 'center',
     backgroundSize: '200%',
@@ -49,8 +49,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   media: {
-    height: '470px',
-    paddingTop: '56.25%' // 16:9
+    height: '358px'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -64,6 +63,12 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     backgroundColor: blue[500]
+  },
+  title: {
+    fontSize: '15px'
+  },
+  subheader: {
+    fontSize: '13px'
   }
 }));
 
@@ -124,11 +129,15 @@ export default ({ data, ...props }) => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {data && data.name ? data.name.charAt(0).toUpperCase() : 'A'}
-          </Avatar>
-        }
+        // avatar={
+        //   <Avatar aria-label="recipe" className={classes.avatar}>
+        //     {data && data.name ? data.name.charAt(0).toUpperCase() : 'A'}
+        //   </Avatar>
+        // }
+        classes={{
+          title: classes.title,
+          subheader: classes.subheader
+        }}
         action={
           <div
             style={{
@@ -165,14 +174,14 @@ export default ({ data, ...props }) => {
         title={'Imagem do livro ' + (data.book.title || 'Livro sem título')}
       />
       <CardContent>
-        <h4 style={{ textAlign: 'left' }}>
+        <h4 style={{ textAlign: 'left', margin: '0', fontSize: '16px' }}>
           {data.book.title || 'Livro sem título'}
         </h4>
         <Typography
           variant="body2"
           color="textSecondary"
           component="p"
-          style={{ minHeight: '60px' }}
+          style={{ minHeight: '47px' }}
         >
           {data.book.description}
         </Typography>
@@ -201,19 +210,21 @@ export default ({ data, ...props }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>
+          <Typography paragraph style={{ textAlign: 'left', fontSize: '14px' }}>
             <b>
               Parabéns, você encontrou uma combinação! O que isso significa?
             </b>
           </Typography>
-          <Typography paragraph>
+          <Typography paragraph style={{ textAlign: 'left', fontSize: '14px' }}>
             Significa que esse usuário tem o livro que você deseja e você possui
             um livro que ele está interesado.
           </Typography>
-          <Typography paragraph>
+          <Typography paragraph style={{ textAlign: 'left', fontSize: '14px' }}>
             <b>Este livro está disponível para:</b>
           </Typography>
-          <Typography paragraph>{getTypes(data.types)}</Typography>
+          <Typography paragraph style={{ textAlign: 'left', fontSize: '14px' }}>
+            {getTypes(data.types)}
+          </Typography>
         </CardContent>
       </Collapse>
       <ContactRequest

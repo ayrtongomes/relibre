@@ -19,9 +19,9 @@ const useStyles = makeStyles(theme => ({
     gap: '1rem'
   },
   container: {
-    maxWidth: '1140px',
+    maxWidth: '1240px',
     padding: '0 1rem',
-    margin: '2rem auto',
+    margin: '1rem auto',
     display: 'grid',
     gridTemplateColumns: '1fr',
     rowGap: '1rem',

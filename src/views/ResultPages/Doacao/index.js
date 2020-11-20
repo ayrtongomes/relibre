@@ -18,12 +18,12 @@ const useStyles = makeStyles(theme => ({
   gridList: {
     display: 'grid',
     margin: '0 auto',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateColumns: 'repeat(4, 1fr)',
     gap: '1rem'
   },
   container: {
-    maxWidth: '1140px',
-    margin: '2rem auto'
+    maxWidth: '1240px',
+    margin: '1rem auto'
   },
   toolbar: {
     height: '111px',

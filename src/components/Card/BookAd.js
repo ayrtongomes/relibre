@@ -20,9 +20,9 @@ import { useAuth } from 'services/auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 325,
-    width: 325,
-    minWidth: 325,
+    maxWidth: 290,
+    width: 290,
+    minWidth: 290,
     alignSelf: 'baseline',
     justifySelf: 'center',
     backgroundSize: '200%',
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   media: {
-    height: '470px',
+    height: '358px',
     paddingTop: '56.25%' // 16:9
   },
   expand: {
@@ -63,6 +63,9 @@ const useStyles = makeStyles(theme => ({
     width: '40px',
     height: '32px',
     borderRadius: '6px'
+  },
+  title: {
+    fontSize: '15px'
   }
 }));
 
@@ -98,16 +101,12 @@ export default ({ data, ...props }) => {
   return (
     <Card className={classes.root}>
       <CardHeader
+        classes={{ title: classes.title }}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
             Ad
           </Avatar>
         }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
         title={data.name}
       />
       <CardMedia
@@ -116,10 +115,14 @@ export default ({ data, ...props }) => {
         title={'Imagem do livro ' + data.book.title}
       />
       <CardContent>
-        <h4 style={{ textAlign: 'left' }}>{data.book.title}</h4>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {data.book.description}
-        </Typography>
+        <div style={{ minHeight: '60px' }}>
+          <h4 style={{ textAlign: 'left', margin: '0', fontSize: '16px' }}>
+            {data.book.title}
+          </h4>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {data.book.description}
+          </Typography>
+        </div>
       </CardContent>
       <CardActions disableSpacing>
         <Button
