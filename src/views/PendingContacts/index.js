@@ -51,7 +51,7 @@ export default props => {
     async function loadData() {
       const { data: toApData } = await fetchContacts('Received', 'false');
       const { data: mineData } = await fetchContacts('Send', 'false');
-      if (toApData && toApData.length > 0) {
+      if (toApData) {
         const formatted = toApData.map(b => {
           return {
             idContact: b.id_contact,
@@ -72,7 +72,7 @@ export default props => {
         });
         setToApprove(formatted);
       }
-      if (mineData && mineData.length > 0) {
+      if (mineData) {
         const formatted = mineData.map(b => {
           return {
             idContact: b.id_contact,
@@ -135,12 +135,17 @@ export default props => {
                     {
                       tabButton: 'Para aprovação',
                       tabContent: (
-                        <ToApprove data={toApprove} reloadData={reloadData} />
+                        <ToApprove
+                          data={toApprove}
+                          reloadData={() => reloadData()}
+                        />
                       )
                     },
                     {
                       tabButton: 'Solicitados',
-                      tabContent: <Mine data={mine} reloadData={reloadData} />
+                      tabContent: (
+                        <Mine data={mine} reloadData={() => reloadData()} />
+                      )
                     }
                   ]}
                 />

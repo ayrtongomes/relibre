@@ -80,7 +80,7 @@ export default function CustomizedTables(props) {
         }
       };
       const data = await approveContact(payload);
-      if (data && !data.errors) {
+      if (data) {
         alert.success(
           `Contato ${showModal.approve ? 'aprovado' : 'reprovado'}`
         );
