@@ -54,20 +54,20 @@ export default props => {
       if (toApData && toApData.length > 0) {
         const formatted = toApData.map(b => {
           return {
-            idContact: b.idContact,
+            idContact: b.id_contact,
             book: {
               id: b.id_book,
               price: b.price,
               ...b.book
             },
             contactInfo: {
-              name: b.fullName,
+              name: b.full_name,
               email: b.email,
               phone: b.phone,
               rating: b.rating,
               distance: b.distance
             },
-            date: format(new Date(b.created_At), 'dd/MM/yyyy')
+            date: format(new Date(b.created_at), 'dd/MM/yyyy')
           };
         });
         setToApprove(formatted);
@@ -82,13 +82,13 @@ export default props => {
               ...b.book
             },
             contactInfo: {
-              name: b.fullName,
+              name: b.full_name,
               email: b.email,
               phone: b.phone,
               rating: b.rating,
               distance: b.distance
             },
-            date: format(new Date(b.created_At), 'dd/MM/yyyy')
+            date: format(new Date(b.created_at), 'dd/MM/yyyy')
           };
         });
         setMine(formatted);
