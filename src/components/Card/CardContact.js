@@ -86,7 +86,7 @@ export default function CardContact({ data, name, address }) {
           <div style={{ width: '100%' }}>
             <div>
               <b>Usuário: </b>
-              <span className={classes.hint}>Ayrton Gomes</span>
+              <span className={classes.hint}>{data.contactInfo.name}</span>
             </div>
             <div>
               <b>Avaliação do usuário: </b>{' '}
