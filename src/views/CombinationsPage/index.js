@@ -57,15 +57,15 @@ export default props => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Parallax small filter image={require('assets/img/banner-home.png')} />
+    <div style={{ marginTop: '9rem' }}>
+      {/* <Parallax small filter image={require('assets/img/banner-home.png')} /> */}
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={12}>
-                <div className={classes.profile}>
-                  <div className={classes.name} style={{ marginTop: '20px' }}>
+                <div className={classes.profile} style={{ margin: '4rem 0 0' }}>
+                  <div className={classes.name}>
                     <h1 className={classes.title}>Combinações</h1>
                     <h4>Encontramos o livro ideal para você!</h4>
                     <div>
@@ -85,7 +85,7 @@ export default props => {
                   </div>
                 </div>
               </GridItem>
-              <Divider style={{ margin: '3rem 0', width: '100%' }} />
+              <Divider style={{ margin: '1.5rem 0 10px', width: '100%' }} />
             </GridContainer>
             <div className={classes.container}>
               {isLoading ? (
