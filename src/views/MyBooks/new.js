@@ -78,7 +78,7 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
           enableCreateSet(true);
         } else {
           alert.info(
-            'Não é possível cadastrar livros sem habilitar sua geolocalização, por favor autorize editano seu perfil'
+            'Não é possível cadastrar livros sem habilitar sua geolocalização, por favor autorize editando seu perfil'
           );
         }
       }

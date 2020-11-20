@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAlert } from 'react-alert';
 import api from '../api.config';
+
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 // Context
@@ -26,7 +27,7 @@ function BooksProvider(props) {
       error => {
         if (error.code === 1) {
           alert.info(
-            'Sem acesso a sua localização não será possível filtrar os livros mais próximos de ti'
+            'Serviço de localização não autorizado, por favor autorize nas configurações do navegador para uma melhor experiência'
           );
         }
       }

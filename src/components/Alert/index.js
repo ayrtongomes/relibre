@@ -7,7 +7,7 @@ import styles from 'assets/jss/material-kit-react/components/snackbarContentStyl
 
 const alertOptions = {
   position: positions.TOP_CENTER,
-  timeout: 5000,
+  timeout: 7000,
   transition: transitions.FADE
 };
 

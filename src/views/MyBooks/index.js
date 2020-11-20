@@ -66,6 +66,7 @@ export default props => {
   const isEdit = view !== undefined && editId !== undefined;
 
   const [showModal, setShowModal] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
   const { fetchBooks } = useBooks();
 
@@ -76,6 +77,18 @@ export default props => {
   const [refreshControl, refreshControlSet] = React.useState(false);
 
   useEffect(() => {
+    const localUser = localStorage.getItem('@relibre:user');
+    const parsedUser = localUser ? JSON.parse(localUser) : null;
+    if (parsedUser && parsedUser.addresses && parsedUser.addresses[0]) {
+      if (
+        parsedUser.addresses[0].latitude &&
+        parsedUser.addresses[0].latitude !== '' &&
+        parsedUser.addresses[0].longitude &&
+        parsedUser.addresses[0].longitude !== ''
+      ) {
+        setEnabled(true);
+      }
+    }
     async function loadData() {
       const data = await fetchBooks();
       if (data && data.length > 0) {
@@ -126,7 +139,7 @@ export default props => {
                         className={classes.name}
                         style={{ marginTop: '0', textAlign: 'left' }}
                       >
-                        <h2 className={classes.title}>Meus livros</h2>
+                        <h2 className={classes.title}>Meus Livros</h2>
                         <div
                           style={{
                             display: 'flex',
@@ -147,6 +160,7 @@ export default props => {
                               setShowModal(true);
                               history.push('/minha-conta/meus-livros/new');
                             }}
+                            disabled={!enabled}
                           >
                             Novo
                           </Button>

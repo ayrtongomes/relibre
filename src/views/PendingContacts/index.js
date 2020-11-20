@@ -45,7 +45,7 @@ export default props => {
   const [mine, setMine] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [contacts, setContacts] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     async function loadData() {
@@ -54,7 +54,7 @@ export default props => {
       if (toApData && toApData.length > 0) {
         const formatted = toApData.map(b => {
           return {
-            idContact: b.id_contact,
+            idContact: b.idContact,
             book: {
               id: b.id_book,
               price: b.price,
@@ -97,8 +97,11 @@ export default props => {
     }
 
     loadData();
-  }, []);
+  }, [count]);
 
+  const reloadData = () => {
+    setCount(count + 1);
+  };
   const classes = useStyles();
 
   return (
@@ -131,11 +134,13 @@ export default props => {
                   tabs={[
                     {
                       tabButton: 'Para aprovação',
-                      tabContent: <ToApprove data={toApprove} />
+                      tabContent: (
+                        <ToApprove data={toApprove} reloadData={reloadData} />
+                      )
                     },
                     {
                       tabButton: 'Solicitados',
-                      tabContent: <Mine data={mine} />
+                      tabContent: <Mine data={mine} reloadData={reloadData} />
                     }
                   ]}
                 />

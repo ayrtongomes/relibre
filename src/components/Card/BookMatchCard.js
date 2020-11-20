@@ -114,7 +114,6 @@ const getTypes = types => {
 };
 
 export default ({ data, ...props }) => {
-  console.log(data);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);

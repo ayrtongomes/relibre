@@ -55,11 +55,6 @@ export default function NavTabs({ index, ...props }) {
           setBooks(data.books);
           setMatches(data.matches);
         }
-        // const dataMatches = await fetchBooks('Combinacao');
-        // if (dataMatches && dataMatches.length > 0) {
-        //   setMatches(dataMatches);
-        // }
-        console.log(data);
       } else {
         const data = await fetchPublicBooks('Trocar', searchTerm);
         if (data && data.length > 0) {

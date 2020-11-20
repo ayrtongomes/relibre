@@ -31,11 +31,16 @@ function ContactProvider(props) {
   };
 
   const approveContact = async payload => {
-    const { data } = await api.post(baseEndpoint + `/Approve`, {
+    const { data, errors } = await api.post(baseEndpoint + `/Approve`, {
       auth: true,
       body: payload
     });
-    return getResults(data);
+    if (errors) {
+      return { errors };
+    }
+    if (data) {
+      return { data };
+    }
   };
 
   const buildUrl = (type, approved, denied, offset, limit) => {

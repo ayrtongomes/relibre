@@ -17,7 +17,7 @@ export const dashRoutes = [
   },
   {
     path: '/meus-livros',
-    name: 'Meus livros',
+    name: 'Meus Livros',
     icon: 'library_books',
     component: MyBooks,
     layout: '/minha-conta',

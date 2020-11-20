@@ -47,7 +47,6 @@ export default props => {
       if (dataMatches && dataMatches.length > 0) {
         setMatches(dataMatches);
       }
-      console.log(dataMatches);
 
       setIsLoading(false);
     }

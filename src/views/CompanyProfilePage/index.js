@@ -56,7 +56,6 @@ export default props => {
     async function loadData() {
       const { data } = await fetchBookStoreById(id);
       if (data && data.id) {
-        console.log(data);
         setStore(data);
       }
 

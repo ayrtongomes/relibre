@@ -55,7 +55,6 @@ export default function NavTabs({ index, ...props }) {
           setBooks(data.books);
           setMatches(data.matches);
         }
-        console.log(data);
       } else {
         const data = await fetchPublicBooks('Doar', searchTerm);
         if (data && data.length > 0) {

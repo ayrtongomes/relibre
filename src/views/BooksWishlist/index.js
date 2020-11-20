@@ -80,8 +80,21 @@ export default props => {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    const localUser = localStorage.getItem('@relibre:user');
+    const parsedUser = localUser ? JSON.parse(localUser) : null;
+    if (parsedUser && parsedUser.addresses && parsedUser.addresses[0]) {
+      if (
+        parsedUser.addresses[0].latitude &&
+        parsedUser.addresses[0].latitude !== '' &&
+        parsedUser.addresses[0].longitude &&
+        parsedUser.addresses[0].longitude !== ''
+      ) {
+        setEnabled(true);
+      }
+    }
     async function loadData() {
       const data = await fetchBooks('Interesse');
       if (data && data.length > 0) {
@@ -97,7 +110,6 @@ export default props => {
             date: format(new Date(b.created_at), 'dd/MM/yyyy')
           };
         });
-        console.log(formatted);
         setBooks(formatted);
       }
       setIsLoading(false);
@@ -191,8 +203,7 @@ export default props => {
                         color="primary"
                         size="md"
                         onClick={() => setShowModal(true)}
-                        //type="submit"
-                        //disabled={loggedIn || loggingIn}
+                        disabled={!enabled}
                       >
                         Novo
                       </Button>

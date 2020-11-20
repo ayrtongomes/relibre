@@ -311,6 +311,19 @@ export default props => {
                         )}
                       </div>
                     </GridItem>
+                    <small
+                      style={{
+                        fontStyle: 'italic',
+                        padding: '4px  16px',
+                        fontFamily: "'Inter', 'Roboto', sans-serif"
+                      }}
+                    >
+                      *Endereço aproximado. O serviço de localização do
+                      navegador web não é 100% preciso e pode variar de acordo
+                      com a rede de internet e o navegador utilizado, portanto o
+                      endereço encontrado pode não ser exatamente na localização
+                      onde você está.
+                    </small>
                   </GridContainer>
                   {loading ? (
                     <CircularProgress size={30} />
