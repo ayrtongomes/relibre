@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CardContact({ name, address }) {
+export default function CardContact({ data, name, address }) {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
@@ -80,7 +80,7 @@ export default function CardContact({ name, address }) {
     <Card plain>
       <CardBody>
         <div className={classes.flex}>
-          <h4>As crônicas de Salamandra</h4>
+          <h4>{data.book.title}</h4>
         </div>
         <div className={classes.flex}>
           <div style={{ width: '100%' }}>
@@ -90,14 +90,18 @@ export default function CardContact({ name, address }) {
             </div>
             <div>
               <b>Avaliação do usuário: </b>{' '}
-              <span className={classes.hint}>5</span>
+              <span className={classes.hint}>
+                {data.contactInfo.rating < 1
+                  ? 'Não avaliado'
+                  : data.contactInfo.rating < 1}
+              </span>
             </div>
-            <div>
+            {/* <div>
               <b>Quem solicitou: </b> <span className={classes.hint}>Eu</span>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <b>Interesse em: </b> <span className={classes.hint}>Troca</span>
-            </div>
+            </div> */}
           </div>
           <div className={classes.buttons}>
             <Button color="outlined" onClick={() => setOpen(true)}>

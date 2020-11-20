@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
@@ -11,6 +11,9 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import CardContact from 'components/Card/CardContact.js';
+
+import { useContacts } from 'services/contexts/contact.js';
+import { format } from 'date-fns';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 
@@ -34,6 +37,70 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default props => {
+  const { fetchContacts } = useContacts();
+  const [received, setReceived] = useState([]);
+  const [requested, setResquested] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    async function loadData() {
+      const { data: receivedData } = await fetchContacts('Received', 'true');
+      const { data: sentData } = await fetchContacts('Send', 'true');
+      if (receivedData) {
+        const formatted = receivedData.map(b => {
+          return {
+            idContact: b.id_contact,
+            book: {
+              id: b.id_book,
+              price: b.price,
+              ...b.book
+            },
+            contactInfo: {
+              name: b.full_name,
+              email: b.email,
+              phone: b.phone,
+              rating: b.rating,
+              distance: b.distance
+            },
+            date: format(new Date(b.created_at), 'dd/MM/yyyy')
+          };
+        });
+        setReceived(formatted);
+      }
+
+      if (sentData) {
+        const formatted = sentData.map(b => {
+          return {
+            idContact: b.id_contact,
+            book: {
+              id: b.id_book,
+              price: b.price,
+              ...b.book
+            },
+            contactInfo: {
+              name: b.full_name,
+              email: b.email,
+              phone: b.phone,
+              rating: b.rating,
+              distance: b.distance
+            },
+            date: format(new Date(b.created_at), 'dd/MM/yyyy')
+          };
+        });
+        setResquested(formatted);
+      }
+      setIsLoading(false);
+    }
+
+    loadData();
+  }, [count]);
+
+  const reloadData = () => {
+    setCount(count + 1);
+  };
+
   const classes = useStyles();
 
   return (
@@ -59,17 +126,48 @@ export default props => {
               </GridItem>
               <Divider style={{ margin: '2rem 0', width: '100%' }} />
             </GridContainer>
-            <GridContainer justify="start">
-              <GridItem xs={12} sm={12} md={6}>
-                <CardContact />
-              </GridItem>
-              <GridItem xs={12} sm={12} md={6}>
-                <CardContact />
-              </GridItem>
-              <GridItem xs={12} sm={12} md={6}>
-                <CardContact />
-              </GridItem>
-            </GridContainer>
+            <h4 className={classes.title} style={{ margin: 0 }}>
+              Solicitados
+            </h4>
+            {requested && requested.length > 0 ? (
+              <GridContainer justify="start">
+                {requested.map((contact, idx) => {
+                  return (
+                    <GridItem xs={12} sm={12} md={6} key={idx}>
+                      <CardContact data={contact} />
+                    </GridItem>
+                  );
+                })}
+              </GridContainer>
+            ) : (
+              <div>
+                <span style={{ fontSize: '13px', color: '#ccc' }}>
+                  Nenhum solicitado aprovado
+                </span>
+              </div>
+            )}
+
+            <h4 className={classes.title} style={{ margin: 0 }}>
+              Recebidos
+            </h4>
+
+            {received && received.length > 0 ? (
+              <GridContainer justify="start">
+                {received.map((contact, idx) => {
+                  return (
+                    <GridItem xs={12} sm={12} md={6} key={idx}>
+                      <CardContact data={contact} />
+                    </GridItem>
+                  );
+                })}
+              </GridContainer>
+            ) : (
+              <div>
+                <span style={{ fontSize: '13px', color: '#ccc' }}>
+                  Nenhum recebido aprovado
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
