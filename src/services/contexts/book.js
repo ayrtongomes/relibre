@@ -151,6 +151,24 @@ function BooksProvider(props) {
     return [];
   }
 
+  async function fetchBooksByStoreId(id) {
+    let endpoint = `Book/Public?id_library=${id}`;
+
+    const { data, errors } = await api.get(endpoint, {
+      auth: false
+    });
+
+    if (errors) {
+      return { errors };
+    }
+
+    if (data && data.result) {
+      return { data: data.result };
+    }
+
+    return [];
+  }
+
   async function fetchBookStoreById(id) {
     let endpoint = `Store?id=${id}`;
 
@@ -179,7 +197,8 @@ function BooksProvider(props) {
         updateBook,
         fetchBook,
         fetchBookStore,
-        fetchBookStoreById
+        fetchBookStoreById,
+        fetchBooksByStoreId
       }}
       {...props}
     />

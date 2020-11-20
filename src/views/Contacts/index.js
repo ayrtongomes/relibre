@@ -4,7 +4,7 @@ import classNames from 'classnames';
 // @material-ui/core components
 import makeStyles from '@material-ui/core/styles/makeStyles';
 // @material-ui/icons
-import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 // core components
 import GridContainer from 'components/Grid/GridContainer.js';
@@ -52,6 +52,7 @@ export default props => {
         const formatted = receivedData.map(b => {
           return {
             idContact: b.id_contact,
+            param: 'Received',
             book: {
               id: b.id_book,
               price: b.price,
@@ -74,6 +75,7 @@ export default props => {
         const formatted = sentData.map(b => {
           return {
             idContact: b.id_contact,
+            type: 'Send',
             book: {
               id: b.id_book,
               price: b.price,
@@ -126,47 +128,69 @@ export default props => {
               </GridItem>
               <Divider style={{ margin: '2rem 0', width: '100%' }} />
             </GridContainer>
-            <h4 className={classes.title} style={{ margin: 0 }}>
-              Solicitados
-            </h4>
-            {requested && requested.length > 0 ? (
-              <GridContainer justify="start">
-                {requested.map((contact, idx) => {
-                  return (
-                    <GridItem xs={12} sm={12} md={6} key={idx}>
-                      <CardContact data={contact} />
-                    </GridItem>
-                  );
-                })}
-              </GridContainer>
-            ) : (
-              <div>
-                <span style={{ fontSize: '13px', color: '#ccc' }}>
-                  Nenhum solicitado aprovado
-                </span>
+            {isLoading ? (
+              <div style={{ textAlign: 'center', marginTop: '60px' }}>
+                <CircularProgress />
               </div>
-            )}
-
-            <h4 className={classes.title} style={{ margin: 0 }}>
-              Recebidos
-            </h4>
-
-            {received && received.length > 0 ? (
-              <GridContainer justify="start">
-                {received.map((contact, idx) => {
-                  return (
-                    <GridItem xs={12} sm={12} md={6} key={idx}>
-                      <CardContact data={contact} />
-                    </GridItem>
-                  );
-                })}
-              </GridContainer>
             ) : (
-              <div>
-                <span style={{ fontSize: '13px', color: '#ccc' }}>
-                  Nenhum recebido aprovado
-                </span>
-              </div>
+              <>
+                <h4 className={classes.title} style={{ margin: 0 }}>
+                  Solicitados
+                </h4>
+                {requested && requested.length > 0 ? (
+                  <GridContainer justify="start">
+                    {requested.map((contact, idx) => {
+                      return (
+                        <GridItem xs={12} sm={12} md={6} key={idx}>
+                          <CardContact data={contact} />
+                        </GridItem>
+                      );
+                    })}
+                  </GridContainer>
+                ) : (
+                  <div>
+                    <span
+                      style={{
+                        fontSize: '12px',
+                        color: '#ccc',
+                        fontWeight: 300
+                      }}
+                    >
+                      Nenhum contato solicitado aprovado
+                    </span>
+                  </div>
+                )}
+
+                <Divider style={{ margin: '0 0 1rem', width: '100%' }} />
+
+                <h4 className={classes.title} style={{ margin: 0 }}>
+                  Recebidos
+                </h4>
+
+                {received && received.length > 0 ? (
+                  <GridContainer justify="start">
+                    {received.map((contact, idx) => {
+                      return (
+                        <GridItem xs={12} sm={12} md={6} key={idx}>
+                          <CardContact data={contact} />
+                        </GridItem>
+                      );
+                    })}
+                  </GridContainer>
+                ) : (
+                  <div>
+                    <span
+                      style={{
+                        fontSize: '12px',
+                        color: '#ccc',
+                        fontWeight: 300
+                      }}
+                    >
+                      Nenhum contato recebido aprovado
+                    </span>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

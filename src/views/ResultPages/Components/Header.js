@@ -45,6 +45,8 @@ const useStyles = makeStyles(theme => ({
 export default function NavTabs({ index, searchParam = '', ...props }) {
   const classes = useStyles();
 
+  const width = window.innerWidth;
+
   return (
     <div className={classes.root}>
       <Header
@@ -57,48 +59,52 @@ export default function NavTabs({ index, searchParam = '', ...props }) {
           color: 'white'
         }}
       />
-      <div className={classes.toolbar}></div>
-      <AppBar position="static" classes={{ root: classes.appBar }}>
-        <Tabs
-          variant="fullWidth"
-          value={index}
-          //onChange={handleChange}
-          aria-label="nav tabs example"
-          className={classes.container}
-          centered
-        >
-          <Tab
-            classes={{ root: classes.labelRoot }}
-            label="Trocas"
-            component={Link}
-            to={`/troca${searchParam}`}
-          />
-          <Tab
-            classes={{ root: classes.labelRoot }}
-            label="Empréstimos"
-            component={Link}
-            to={`/emprestimo${searchParam}`}
-          />
-          <Tab
-            classes={{ root: classes.labelRoot }}
-            label="Doações"
-            component={Link}
-            to={`/doacao${searchParam}`}
-          />
-          <Tab
-            classes={{ root: classes.labelRoot }}
-            label="Vendas"
-            component={Link}
-            to={`/venda${searchParam}`}
-          />
-          <Tab
-            classes={{ root: classes.labelRoot }}
-            label="Comerciantes"
-            component={Link}
-            to="/comerciante"
-          />
-        </Tabs>
-      </AppBar>
+      {width < 768 ? null : (
+        <>
+          <div className={classes.toolbar}></div>
+          <AppBar position="static" classes={{ root: classes.appBar }}>
+            <Tabs
+              variant="fullWidth"
+              value={index}
+              //onChange={handleChange}
+              aria-label="nav tabs example"
+              className={classes.container}
+              centered
+            >
+              <Tab
+                classes={{ root: classes.labelRoot }}
+                label="Trocas"
+                component={Link}
+                to={`/troca${searchParam}`}
+              />
+              <Tab
+                classes={{ root: classes.labelRoot }}
+                label="Empréstimos"
+                component={Link}
+                to={`/emprestimo${searchParam}`}
+              />
+              <Tab
+                classes={{ root: classes.labelRoot }}
+                label="Doações"
+                component={Link}
+                to={`/doacao${searchParam}`}
+              />
+              <Tab
+                classes={{ root: classes.labelRoot }}
+                label="Vendas"
+                component={Link}
+                to={`/venda${searchParam}`}
+              />
+              <Tab
+                classes={{ root: classes.labelRoot }}
+                label="Comerciantes"
+                component={Link}
+                to="/comerciante"
+              />
+            </Tabs>
+          </AppBar>
+        </>
+      )}
     </div>
   );
 }

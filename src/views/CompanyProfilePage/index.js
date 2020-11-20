@@ -21,6 +21,7 @@ import BookAd from 'components/Card/BookAd.js';
 import { useBooks } from 'services/contexts/book.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { formatAddress } from 'utils';
+import { format } from 'date-fns';
 
 import profilePageStyle from 'assets/jss/material-kit-react/views/profilePage.js';
 
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   gridList: {
     display: 'grid',
     margin: '0 auto',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateColumns: 'repeat(4, 1fr)',
     gap: '1rem'
   },
   container: {
@@ -47,9 +48,10 @@ export default props => {
   const classes = useStyles();
   const { id } = useParams();
 
-  const { fetchBookStoreById } = useBooks();
+  const { fetchBookStoreById, fetchBooksByStoreId } = useBooks();
 
   const [store, setStore] = useState(null);
+  const [books, setBooks] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -57,6 +59,12 @@ export default props => {
       const { data } = await fetchBookStoreById(id);
       if (data && data.id) {
         setStore(data);
+      }
+
+      const { data: storeBooks } = await fetchBooksByStoreId(id);
+
+      if (storeBooks && storeBooks.length > 0) {
+        setBooks(storeBooks);
       }
 
       setIsLoading(false);
@@ -145,12 +153,13 @@ export default props => {
             <div className={classes.container}>
               <div>
                 <div className={classes.gridList}>
-                  {/* <BookAd name="Sebo Tio Chico" />
-                  <BookAd name="Sebo Tio Chico" />
-                  <BookAd name="Sebo Tio Chico" />
-                  <BookAd name="Sebo Tio Chico" />
-                  <BookAd name="Sebo Tio Chico" />
-                  <BookAd name="Sebo Tio Chico" /> */}
+                  {books && books.length > 0
+                    ? books.map((book, index) => {
+                        if (book && book.book && book.book.title) {
+                          return <BookAd key={`book-${index}`} data={book} />;
+                        }
+                      })
+                    : null}
                 </div>
               </div>
             </div>

@@ -201,6 +201,7 @@ export default props => {
           {...props}
           view={view}
           id={editId}
+          reloadData={() => reloadData()}
           closeModal={() => {
             setShowModal(false);
             refreshControlSet(!refreshControl);

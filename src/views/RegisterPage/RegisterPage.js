@@ -349,7 +349,7 @@ export default function RegisterPage(props) {
                       <CircularProgress size={30} />
                     ) : (
                       <Button color="primary" type="submit">
-                        CADASTRAR
+                        REGISTRAR
                       </Button>
                     )}
                   </CardFooter>

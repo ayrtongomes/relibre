@@ -44,50 +44,98 @@ export default function HeaderLinks(props) {
   const classes = useStyles();
   const { user, logout } = useAuth();
 
+  const width = window.innerWidth;
+
   return (
     <List className={classes.list}>
       {user && user.token ? (
         <>
-          <ListItem className={classes.listItem}>
-            <CustomDropdown
-              noLiPadding
-              buttonText={getFirstName(user.name)}
-              buttonProps={{
-                className: classes.navLink,
-                color: 'transparent'
-              }}
-              buttonIcon={Person}
-              dropdownList={[
+          {width < 768 ? (
+            <>
+              <ListItem className={classes.listItem}>
                 <NavLink
                   to="/minha-conta/combinacoes"
                   className={classes.dropdownLink}
                 >
                   Combinações
-                </NavLink>,
+                </NavLink>
+              </ListItem>
+              <ListItem className={classes.listItem}>
                 <NavLink to="/troca" className={classes.dropdownLink}>
                   Trocas
-                </NavLink>,
+                </NavLink>{' '}
+              </ListItem>
+              <ListItem className={classes.listItem}>
                 <NavLink to="/emprestimo" className={classes.dropdownLink}>
                   Empréstimos
-                </NavLink>,
+                </NavLink>{' '}
+              </ListItem>
+              <ListItem className={classes.listItem}>
                 <NavLink to="/doacao" className={classes.dropdownLink}>
                   Doações
-                </NavLink>,
+                </NavLink>{' '}
+              </ListItem>
+              <ListItem className={classes.listItem}>
                 <NavLink to="/venda" className={classes.dropdownLink}>
                   Vendas
-                </NavLink>,
+                </NavLink>{' '}
+              </ListItem>
+              <ListItem className={classes.listItem}>
                 <NavLink
                   to="/minha-conta/meu-perfil"
                   className={classes.dropdownLink}
                 >
                   Meu perfil
-                </NavLink>,
+                </NavLink>{' '}
+              </ListItem>
+              <ListItem className={classes.listItem}>
                 <a onClick={() => logout()} className={classes.dropdownLink}>
                   Sair
                 </a>
-              ]}
-            />
-          </ListItem>
+              </ListItem>
+            </>
+          ) : (
+            <ListItem className={classes.listItem}>
+              <CustomDropdown
+                noLiPadding
+                buttonText={getFirstName(user.name)}
+                buttonProps={{
+                  className: classes.navLink,
+                  color: 'transparent'
+                }}
+                buttonIcon={Person}
+                dropdownList={[
+                  <NavLink
+                    to="/minha-conta/combinacoes"
+                    className={classes.dropdownLink}
+                  >
+                    Combinações
+                  </NavLink>,
+                  <NavLink to="/troca" className={classes.dropdownLink}>
+                    Trocas
+                  </NavLink>,
+                  <NavLink to="/emprestimo" className={classes.dropdownLink}>
+                    Empréstimos
+                  </NavLink>,
+                  <NavLink to="/doacao" className={classes.dropdownLink}>
+                    Doações
+                  </NavLink>,
+                  <NavLink to="/venda" className={classes.dropdownLink}>
+                    Vendas
+                  </NavLink>,
+                  <NavLink
+                    to="/minha-conta/meu-perfil"
+                    className={classes.dropdownLink}
+                  >
+                    Meu perfil
+                  </NavLink>,
+                  <a onClick={() => logout()} className={classes.dropdownLink}>
+                    Sair
+                  </a>
+                ]}
+              />
+            </ListItem>
+          )}
         </>
       ) : (
         <>
@@ -99,7 +147,7 @@ export default function HeaderLinks(props) {
                 target="_blank"
                 className={classes.navLink}
               >
-                Cadastrar
+                Registre-se
               </Button>
             </NavLink>
           </ListItem>

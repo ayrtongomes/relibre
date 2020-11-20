@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MyBooks = ({ view, id = '', closeModal, ...props }) => {
+const MyBooks = ({ view, id = '', closeModal, reloadData, ...props }) => {
   const classes = useStyles();
   const { createBook, fetchBook, updateBook } = useBooks();
   const alert = useAlert();
@@ -154,6 +154,7 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
     } finally {
       setSaving(false);
       closeModal();
+      reloadData();
     }
   };
 
@@ -183,6 +184,7 @@ const MyBooks = ({ view, id = '', closeModal, ...props }) => {
         // await fetchBooks();
         alert.success('Livro atualizado com sucesso');
         closeModal();
+        reloadData();
       }
     } catch (err) {
       alert.error('Ocorreu um erro ao editar o livro');

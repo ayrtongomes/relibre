@@ -43,6 +43,19 @@ function ContactProvider(props) {
     }
   };
 
+  const rateUser = async payload => {
+    const { data, errors } = await api.post(`Account/Rate`, {
+      auth: true,
+      body: payload
+    });
+    if (errors) {
+      return { errors };
+    }
+    if (data) {
+      return { data };
+    }
+  };
+
   const buildUrl = (type, approved, denied, offset, limit) => {
     let url = baseEndpoint;
     let charToAdd = `?`;
@@ -83,7 +96,8 @@ function ContactProvider(props) {
         createContact,
         approveContact,
         fetchContacts,
-        createPublicContact
+        createPublicContact,
+        rateUser
       }}
       {...props}
     />

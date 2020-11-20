@@ -148,7 +148,10 @@ export default ({ data, ...props }) => {
             color: 'rgb(89, 85, 85)'
           }}
         >
-          R$ {data.price}
+          {data.price.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          })}
         </h4>
       </CardActions>
       {getModal()}
