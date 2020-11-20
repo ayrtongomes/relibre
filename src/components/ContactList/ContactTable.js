@@ -13,7 +13,7 @@ import { formatDistance } from 'utils';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: 'rgb(0,18,144, 0.6)',
+    backgroundColor: '#5271ff',
     color: theme.palette.common.white
   },
   body: {

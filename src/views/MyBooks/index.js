@@ -69,6 +69,7 @@ export default props => {
 
   const { fetchBooks } = useBooks();
 
+  const [count, setCount] = useState(0);
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -96,11 +97,15 @@ export default props => {
     }
 
     loadData();
-  }, [fetchBooks, refreshControl]);
+  }, [fetchBooks, refreshControl, count]);
 
   useEffect(() => {
     setShowModal(isEdit);
   }, [isEdit, editId]);
+
+  const reloadData = () => {
+    setCount(count + 1);
+  };
 
   return (
     <div>
@@ -158,7 +163,7 @@ export default props => {
                         <CircularProgress />
                       </div>
                     ) : (
-                      <Table data={books} />
+                      <Table data={books} reloadData={reloadData} />
                     )}
                   </GridItem>
                 </GridContainer>

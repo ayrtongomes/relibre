@@ -22,9 +22,10 @@ import { useBooks } from 'services/contexts/book.js';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: 'rgb(0,18,144, 0.6)',
+    backgroundColor: '#5271ff',
     color: theme.palette.common.white
   },
   body: {
@@ -50,7 +51,7 @@ export default function CustomizedTables(props) {
   const classes = useStyles();
   const history = useHistory();
   const alert = useAlert();
-  const { data, isWish = false } = props;
+  const { data, isWish = false, reloadData } = props;
 
   const [showModal, setShowModal] = React.useState({
     id: null,
@@ -62,7 +63,7 @@ export default function CustomizedTables(props) {
   const handleDelete = async () => {
     try {
       const data = await deleteBook(showModal.id);
-      if (data && data.status === 'Sucesso') {
+      if (data && !data.errors) {
         alert.success('Livro apagado com sucesso');
       }
     } catch (err) {
@@ -70,101 +71,105 @@ export default function CustomizedTables(props) {
       //Handler error
     } finally {
       setShowModal(value => ({ ...value, visible: false }));
-      history.push('/minha-conta/meus-livros');
+      reloadData();
     }
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Título</StyledTableCell>
-            <StyledTableCell align="right">Autor</StyledTableCell>
-            {!isWish && (
-              <StyledTableCell align="center">Disponível para</StyledTableCell>
-            )}
-            <StyledTableCell align="center">Data de criação</StyledTableCell>
-            <StyledTableCell align="right">Ações</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map(row => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.title}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.author}</StyledTableCell>
+    <>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Título</StyledTableCell>
+              <StyledTableCell align="right">Autor</StyledTableCell>
               {!isWish && (
-                <StyledTableCell align="center">{row.type}</StyledTableCell>
+                <StyledTableCell align="center">
+                  Disponível para
+                </StyledTableCell>
               )}
-              <StyledTableCell align="center">{row.date}</StyledTableCell>
-              <StyledTableCell align="right">
-                <div>
-                  {!isWish && (
-                    <>
-                      <Button
-                        justIcon
-                        //round
-                        type="button"
-                        className={classes.notificationNavLink}
-                        onClick={() => {
-                          history.push(
-                            `/minha-conta/meus-livros/edit/${row.id}`
-                          );
-                        }}
-                        color="success"
-                      >
-                        <Edit className={classes.icons} />
-                      </Button>
-                    </>
-                  )}
-                  <Button
-                    justIcon
-                    className={classes.notificationNavLink}
-                    onClick={() => setShowModal({ id: row.id, visible: true })}
-                    color="danger"
-                  >
-                    <Clear className={classes.icons} />
-                  </Button>
-                </div>
-              </StyledTableCell>
-              <Dialog
-                open={showModal.visible}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={() =>
-                  setShowModal(value => ({ ...value, visible: false }))
-                }
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-              >
-                <DialogTitle id="alert-dialog-slide-title">
-                  {'Apagar livro'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    Você deseja mesmo excluir esse livro?
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button
-                    onClick={() =>
-                      setShowModal(value => ({ ...value, visible: false }))
-                    }
-                    color="transparent"
-                  >
-                    Cancelar
-                  </Button>
-                  <Button onClick={() => handleDelete()} color="danger">
-                    Confirmar
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              <StyledTableCell align="center">Data de criação</StyledTableCell>
+              <StyledTableCell align="right">Ações</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map(row => (
+              <StyledTableRow key={row.name}>
+                <StyledTableCell component="th" scope="row">
+                  {row.title}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.author}</StyledTableCell>
+                {!isWish && (
+                  <StyledTableCell align="center">{row.type}</StyledTableCell>
+                )}
+                <StyledTableCell align="center">{row.date}</StyledTableCell>
+                <StyledTableCell align="right">
+                  <div>
+                    {!isWish && (
+                      <>
+                        <Button
+                          justIcon
+                          //round
+                          type="button"
+                          className={classes.notificationNavLink}
+                          onClick={() => {
+                            history.push(
+                              `/minha-conta/meus-livros/edit/${row.id}`
+                            );
+                          }}
+                          color="success"
+                        >
+                          <Edit className={classes.icons} />
+                        </Button>
+                      </>
+                    )}
+                    <Button
+                      justIcon
+                      className={classes.notificationNavLink}
+                      onClick={() =>
+                        setShowModal({ id: row.id, visible: true })
+                      }
+                      color="danger"
+                    >
+                      <Clear className={classes.icons} />
+                    </Button>
+                  </div>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Dialog
+        open={showModal.visible}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setShowModal(value => ({ ...value, visible: false }))}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">
+          {'Apagar livro'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Você deseja mesmo excluir esse livro?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() =>
+              setShowModal(value => ({ ...value, visible: false }))
+            }
+            color="transparent"
+          >
+            Cancelar
+          </Button>
+          <Button onClick={() => handleDelete()} color="danger">
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }

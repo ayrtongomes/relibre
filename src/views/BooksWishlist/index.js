@@ -72,7 +72,7 @@ const rows = [
 
 export default props => {
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState('');
+  const [count, setCount] = useState(0);
   const [selectedBook, setSelectedBook] = useState(null);
 
   const { createBook, fetchBooks } = useBooks();
@@ -87,6 +87,7 @@ export default props => {
       if (data && data.length > 0) {
         const formatted = data.map(b => {
           return {
+            id: b.id,
             title: b.book.title,
             author:
               b.book.authors && b.book.authors.length > 0
@@ -103,7 +104,7 @@ export default props => {
     }
 
     loadData();
-  }, [fetchBooks]);
+  }, [fetchBooks, count]);
 
   const getPayload = () => {
     return {
@@ -155,6 +156,9 @@ export default props => {
     }
   };
 
+  const reloadData = () => {
+    setCount(count + 1);
+  };
   const classes = useStyles();
 
   return (
@@ -204,7 +208,7 @@ export default props => {
                     <CircularProgress />
                   </div>
                 ) : (
-                  <Table data={books} isWish />
+                  <Table data={books} isWish reloadData={reloadData} />
                 )}
               </GridItem>
             </GridContainer>
