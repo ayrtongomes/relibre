@@ -91,19 +91,22 @@ export default props => {
     }
     async function loadData() {
       const data = await fetchBooks();
-      if (data && data.length > 0) {
-        const formatted = data.map(b => {
-          return {
-            id: b.id,
-            title: b.book.title,
-            author:
-              b.book.authors && b.book.authors.length > 0
-                ? b.book.authors[0].name
-                : '',
-            type: b.types.map(type => type.description).join(', '),
-            date: format(new Date(b.created_at), 'dd/MM/yyyy')
-          };
-        });
+      if (data) {
+        const formatted =
+          data.length > 0
+            ? data.map(b => {
+                return {
+                  id: b.id,
+                  title: b.book.title,
+                  author:
+                    b.book.authors && b.book.authors.length > 0
+                      ? b.book.authors[0].name
+                      : '',
+                  type: b.types.map(type => type.description).join(', '),
+                  date: format(new Date(b.created_at), 'dd/MM/yyyy')
+                };
+              })
+            : [];
         setBooks(formatted);
       }
       setIsLoading(false);
@@ -160,7 +163,6 @@ export default props => {
                               setShowModal(true);
                               history.push('/minha-conta/meus-livros/new');
                             }}
-                            disabled={!enabled}
                           >
                             Novo
                           </Button>
